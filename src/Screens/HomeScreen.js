@@ -237,7 +237,7 @@ class HomeScreen extends Component {
               style={{marginRight: hp('2%')}}
               name={'ios-search'}
               color={'#121212'}
-              size={Platform.OS === 'ios' ? hp('3.5%') : hp('5%')}
+              size={Platform.OS === 'ios' ? hp('3.5%') : hp('3.5%')}
             />
           </View>
           {this.state.clientDatalist.length == 0 ? (
@@ -542,7 +542,7 @@ class HomeScreen extends Component {
                         style={{
                           position: 'absolute',
                           right: Platform.OS === 'ios' ? hp('2%') : hp('2%'),
-                          top: Platform.OS === 'ios' ? hp('5%') : hp('2%'),
+                          top: Platform.OS === 'ios' ? hp('5%') : hp('7%'),
                         }}>
                         <Icon name="share-social" size={26} color="#3498DB" />
                       </TouchableOpacity>
@@ -553,6 +553,7 @@ class HomeScreen extends Component {
             </ScrollView>
           )}
           <TouchableOpacity
+            style={{zIndex: 1000}}
             onPress={() => {
               this.props.navigation.navigate('FormScreen');
             }}>
@@ -561,16 +562,18 @@ class HomeScreen extends Component {
                 <Icons
                   name={'plus'}
                   color={'white'}
-                  size={Platform.OS === 'ios' ? hp('3%') : hp('5%')}
+                  size={Platform.OS === 'ios' ? hp('3%') : hp('3%')}
                 />
               </View>
             </View>
           </TouchableOpacity>
+
           <View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              bottom: hp('2%'),
+              backgroundColor: 'transparent',
+              bottom: Platform.OS === 'ios' ? hp('2%') : hp('0.2%'),
             }}>
             <Text
               style={{
@@ -580,7 +583,7 @@ class HomeScreen extends Component {
                 fontWeight: 'bold',
               }}>
               BlaceNova Inc.
-              <Text style={{fontSize: 10, lineHeight: 50}}>TM</Text>
+              <Text style={{fontSize: 10, lineHeight: 10}}>TM</Text>
             </Text>
           </View>
         </View>
@@ -593,7 +596,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? hp('3%') : hp('10%'),
+    marginTop: Platform.OS === 'ios' ? hp('3%') : hp('2%'),
   },
   cardContainer: {
     flexGrow: 1,
@@ -636,7 +639,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: '#8B78E6',
     position: 'absolute',
-    bottom: hp('2%'),
+    bottom: Platform.OS === 'ios' ? hp('2%') : hp('2%'),
     right: hp('1.5%'),
     elevation: 10,
     shadowOpacity: 0.3,
@@ -644,5 +647,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 500,
   },
 });

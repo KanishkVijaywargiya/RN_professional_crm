@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
+  Platform,
 } from 'react-native';
 
 import {
@@ -69,7 +70,7 @@ class NotificationScreen extends Component {
           onPress={() => this.props.navigation.goBack()}
           style={{
             position: 'absolute',
-            top: 40,
+            top: Platform.OS === 'ios' ? 40 : 10,
             left: '50%',
             marginLeft: -22,
             zIndex: 100,
@@ -83,7 +84,7 @@ class NotificationScreen extends Component {
           style={{
             position: 'absolute',
             zIndex: 100,
-            width: hp('44%'),
+            width: Platform.OS === 'ios' ? hp('44%') : hp('54%'),
             flexDirection: 'row',
             backgroundColor: 'white',
             elevation: 10,
@@ -94,7 +95,7 @@ class NotificationScreen extends Component {
             alignItems: 'center',
             height: 50,
             borderRadius: 25,
-            marginTop: hp('13%'),
+            marginTop: hp('12%'),
             marginLeft: hp('1%'),
             marginRight: hp('1%'),
           }}>
@@ -116,13 +117,13 @@ class NotificationScreen extends Component {
             style={{marginRight: hp('2%')}}
             name={'ios-search'}
             color={'#121212'}
-            size={Platform.OS === 'ios' ? hp('3.5%') : hp('5%')}
+            size={Platform.OS === 'ios' ? hp('3.5%') : hp('3.5%')}
           />
         </View>
 
         <SafeAreaView>
           <ScrollView
-            style={{marginTop: hp('10%')}}
+            style={{marginTop: Platform.OS === 'ios' ? hp('10%') : hp('15%')}}
             showsVerticalScrollIndicator={false}>
             <Wrapper>
               <Subtitle>Types of services we provide:</Subtitle>
