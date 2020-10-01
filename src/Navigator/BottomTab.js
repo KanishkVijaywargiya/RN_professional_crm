@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../Screens/HomeScreen.js';
 import AnalyticsScreen from '../Screens/AnalyticsScreen.js';
-import ProfileScreen from '../Screens/ProfileScreen.js';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,15 +30,5 @@ export default BottomTabs = () => (
             }}
         />
 
-        <Tab.Screen name='ProfileScreen'
-            component={ProfileScreen}
-            options={{
-                tabBarLabel: 'Profile',
-                tabBarColor: '#E83350',
-                tabBarIcon: ({ color }) => (
-                    <Icon name="md-person" color={color} size={26} />
-                ),
-            }}
-        />
     </Tab.Navigator>
 )

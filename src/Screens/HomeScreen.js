@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   StyleSheet,
@@ -29,22 +29,22 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {Transition, Transitioning, color} from 'react-native-reanimated';
-import {ActivityIndicator} from 'react-native-paper';
+import { Transition, Transitioning, color } from 'react-native-reanimated';
+import { ActivityIndicator } from 'react-native-paper';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 function mapStateToProps(state) {
-  return {action: state.action, name: state.name};
+  return { action: state.action, name: state.name };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUid: (uid) => dispatch({type: 'UPDATE_UID', uid}),
-    updateName: (name) => dispatch({type: 'UPDATE_NAME', name}),
-    updateEmail: (email) => dispatch({type: 'UPDATE_EMAIL', email}),
+    updateUid: (uid) => dispatch({ type: 'UPDATE_UID', uid }),
+    updateName: (name) => dispatch({ type: 'UPDATE_NAME', name }),
+    updateEmail: (email) => dispatch({ type: 'UPDATE_EMAIL', email }),
 
     openMenu: () =>
       dispatch({
@@ -121,11 +121,9 @@ class HomeScreen extends Component {
 
   searchFilterFunction = (searchText) => {
     const newData = this.arrayholder.filter((item) => {
-      const itemData = `${
-        item.Phone
-      } ${item.Email.toUpperCase()} ${item.Name.toUpperCase()} ${
-        item.date
-      } ${item.VehicleNo.toUpperCase()} ${item.Service.toUpperCase()}`;
+      const itemData = `${item.Phone
+        } ${item.Email.toUpperCase()} ${item.Name.toUpperCase()} ${item.date
+        } ${item.VehicleNo.toUpperCase()} ${item.Service.toUpperCase()}`;
       const textData = searchText.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -137,13 +135,13 @@ class HomeScreen extends Component {
   listEmptyView = () => {
     if (this.state.rippleEffect) {
       return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <RippleEffect />
         </View>
       );
     }
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Image
           style={{
             width: Platform.OS === 'ios' ? hp('45%') : hp('35%'),
@@ -183,7 +181,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <TouchableWithoutFeedback onPress={() => this.closeKeyboard()}>
-        <View style={{backgroundColor: '#fff', flex: 1}}>
+        <View style={{ backgroundColor: '#fff', flex: 1 }}>
           <Notifications />
           <Header title="Clients" color="#3498DB" />
           <View
@@ -211,7 +209,7 @@ class HomeScreen extends Component {
               shadowColor: 'rgba(191, 223, 237, 1)',
               shadowOpacity: 1,
               shadowRadius: 2,
-              shadowOffset: {width: 2, height: 5},
+              shadowOffset: { width: 2, height: 5 },
               alignItems: 'center',
               height: 50,
               borderRadius: 25,
@@ -234,7 +232,7 @@ class HomeScreen extends Component {
               }}
             />
             <Icon
-              style={{marginRight: hp('2%')}}
+              style={{ marginRight: hp('2%') }}
               name={'ios-search'}
               color={'#121212'}
               size={Platform.OS === 'ios' ? hp('3.5%') : hp('3.5%')}
@@ -243,329 +241,322 @@ class HomeScreen extends Component {
           {this.state.clientDatalist.length == 0 ? (
             this.listEmptyView()
           ) : (
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <Transitioning.View
-                ref={ref}
-                style={styles.container}
-                transition={transition}>
-                {this.state.clientDatalist.map((item, index) => {
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      style={styles.cardContainer}
-                      activeOpacity={0.9}
-                      onPress={() => {
-                        ref.current.animateNextTransition();
-                        this.setState({
-                          currentIndex:
-                            index === this.state.currentIndex ? null : index,
-                        });
-                      }}>
-                      <View style={[styles.card]}>
-                        <View>
-                          <View style={{flexDirection: 'row'}}>
-                            <View
-                              style={{
-                                ...styles.vrLine,
-                                backgroundColor: item.Color,
-                              }}
-                            />
-                            <View
-                              style={{
-                                flex: 1,
-                                flexDirection: 'column',
-                                paddingLeft: 5,
-                              }}>
-                              <View style={{flexDirection: 'row', flex: 1}}>
-                                <View style={{flex: 1}}>
-                                  <Text style={[styles.heading]}>
-                                    Date:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content], {color: item.Color})
-                                      }>
-                                      {item.date}
-                                    </Text>
-                                  </Text>
-                                </View>
-                                <View>
-                                  <Text style={[styles.heading]}>
-                                    Price: ₹
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.totalPrice} /-
-                                    </Text>
-                                  </Text>
-                                </View>
-                              </View>
-                              <View>
-                                <Text style={[styles.heading]}>
-                                  Name:{' '}
-                                  <Text
-                                    style={
-                                      ([styles.content], {fontWeight: 'normal'})
-                                    }>
-                                    {item.Name}
-                                  </Text>
-                                </Text>
-                              </View>
-                              <View>
-                                <Text style={[styles.heading]}>
-                                  Phone:{' '}
-                                  <Text
-                                    style={
-                                      ([styles.content], {fontWeight: 'normal'})
-                                    }>
-                                    {item.Phone}
-                                  </Text>
-                                </Text>
-                              </View>
-                              <View>
-                                <Text style={[styles.heading]}>
-                                  Category:{' '}
-                                  <Text
-                                    style={
-                                      ([styles.content], {fontWeight: 'normal'})
-                                    }>
-                                    {item.Category}
-                                  </Text>
-                                </Text>
-                              </View>
-                            </View>
-                          </View>
-                          {index === this.state.currentIndex ? null : (
-                            <View style={{...styles.hrLine}} />
-                          )}
-                        </View>
-                        {index === this.state.currentIndex && (
-                          <View style={styles.subCategoriesList}>
-                            <View style={{marginTop: 10, marginBottom: 10}}>
-                              <View>
-                                <Text key={index} style={[styles.body]}>
-                                  Email:{' '}
-                                  <Text
-                                    style={
-                                      ([styles.content], {fontWeight: 'normal'})
-                                    }>
-                                    {item.Email}
-                                  </Text>
-                                </Text>
-                              </View>
-                              <View>
-                                <Text key={index} style={[styles.body]}>
-                                  Vehicle Type:{' '}
-                                  <Text
-                                    style={
-                                      ([styles.content], {fontWeight: 'normal'})
-                                    }>
-                                    {item.VehicleType}
-                                  </Text>
-                                </Text>
-                              </View>
-                              <View>
-                                <Text style={[styles.heading]}>
-                                  Vehicle:{' '}
-                                  <Text
-                                    style={
-                                      ([styles.content], {fontWeight: 'normal'})
-                                    }>
-                                    {item.Vehicle}
-                                  </Text>
-                                </Text>
-                              </View>
-                              <View>
-                                <Text key={index} style={[styles.body]}>
-                                  VehicleNo:{' '}
-                                  <Text
-                                    style={
-                                      ([styles.content], {fontWeight: 'normal'})
-                                    }>
-                                    {item.VehicleNo}
-                                  </Text>
-                                </Text>
-                              </View>
-                              <View>
-                                <Text key={index} style={[styles.body]}>
-                                  Service:{' '}
-                                  <Text
-                                    style={
-                                      ([styles.content], {fontWeight: 'normal'})
-                                    }>
-                                    {item.Service}
-                                  </Text>
-                                </Text>
-                              </View>
-                              {item.Service2 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service2:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service2}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                              {item.Service3 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service3:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service3}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                              {item.Service4 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service4:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service4}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                              {item.Service5 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service5:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service5}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                              {item.Service6 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service6:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service6}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                              {item.Service7 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service7:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service7}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                              {item.Service8 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service8:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service8}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                              {item.Service9 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service9:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service9}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                              {item.Service10 !== '' ? (
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Service10:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content],
-                                        {fontWeight: 'normal'})
-                                      }>
-                                      {item.Service10}
-                                    </Text>
-                                  </Text>
-                                </View>
-                              ) : null}
-                            </View>
-                            {index === this.state.currentIndex ? (
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <Transitioning.View
+                  ref={ref}
+                  style={styles.container}
+                  transition={transition}>
+                  {this.state.clientDatalist.map((item, index) => {
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        style={styles.cardContainer}
+                        activeOpacity={0.9}
+                        onPress={() => {
+                          ref.current.animateNextTransition();
+                          this.setState({
+                            currentIndex:
+                              index === this.state.currentIndex ? null : index,
+                          });
+                        }}>
+                        <View style={[styles.card]}>
+                          <View>
+                            <View style={{ flexDirection: 'row' }}>
                               <View
                                 style={{
-                                  ...styles.hrLine,
-                                  marginTop: 0,
-                                  marginBottom: hp('1%'),
+                                  ...styles.vrLine,
+                                  backgroundColor: item.Color,
                                 }}
                               />
-                            ) : null}
+                              <View
+                                style={{
+                                  flex: 1,
+                                  flexDirection: 'column',
+                                  paddingLeft: 5,
+                                }}>
+                                <View style={{ flexDirection: 'row', flex: 1 }}>
+                                  <View style={{ flex: 1 }}>
+                                    <Text style={[styles.heading]}>
+                                      Date:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content], { color: item.Color })
+                                        }>
+                                        {item.date}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                  <View>
+                                    <Text style={[styles.heading]}>
+                                      Price: ₹
+                                    <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.totalPrice} /-
+                                    </Text>
+                                    </Text>
+                                  </View>
+                                </View>
+                                <View>
+                                  <Text style={[styles.heading]}>
+                                    Name:{' '}
+                                    <Text
+                                      style={
+                                        ([styles.content], { fontWeight: 'normal' })
+                                      }>
+                                      {item.Name}
+                                    </Text>
+                                  </Text>
+                                </View>
+                                <View>
+                                  <Text style={[styles.heading]}>
+                                    Phone:{' '}
+                                    <Text
+                                      style={
+                                        ([styles.content], { fontWeight: 'normal' })
+                                      }>
+                                      {item.Phone}
+                                    </Text>
+                                  </Text>
+                                </View>
+                                <View>
+                                  <Text style={[styles.heading]}>
+                                    Category:{' '}
+                                    <Text
+                                      style={
+                                        ([styles.content], { fontWeight: 'normal' })
+                                      }>
+                                      {item.Category}
+                                    </Text>
+                                  </Text>
+                                </View>
+                              </View>
+                            </View>
+                            {index === this.state.currentIndex ? null : (
+                              <View style={{ ...styles.hrLine }} />
+                            )}
                           </View>
-                        )}
-                      </View>
-                      <TouchableOpacity
-                        onPress={() => alert(item.totalPrice)}
-                        style={{
-                          position: 'absolute',
-                          right: Platform.OS === 'ios' ? hp('2%') : hp('2%'),
-                          top: Platform.OS === 'ios' ? hp('5%') : hp('7%'),
-                        }}>
-                        <Icon name="share-social" size={26} color="#3498DB" />
+                          {index === this.state.currentIndex && (
+                            <View style={styles.subCategoriesList}>
+                              <View style={{ marginTop: 10, marginBottom: 10 }}>
+                                <View>
+                                  <Text key={index} style={[styles.body]}>
+                                    Email:{' '}
+                                    <Text
+                                      style={
+                                        ([styles.content], { fontWeight: 'normal' })
+                                      }>
+                                      {item.Email}
+                                    </Text>
+                                  </Text>
+                                </View>
+                                <View>
+                                  <Text key={index} style={[styles.body]}>
+                                    Vehicle Type:{' '}
+                                    <Text
+                                      style={
+                                        ([styles.content], { fontWeight: 'normal' })
+                                      }>
+                                      {item.VehicleType}
+                                    </Text>
+                                  </Text>
+                                </View>
+                                <View>
+                                  <Text style={[styles.heading]}>
+                                    Vehicle:{' '}
+                                    <Text
+                                      style={
+                                        ([styles.content], { fontWeight: 'normal' })
+                                      }>
+                                      {item.Vehicle}
+                                    </Text>
+                                  </Text>
+                                </View>
+                                <View>
+                                  <Text key={index} style={[styles.body]}>
+                                    VehicleNo:{' '}
+                                    <Text
+                                      style={
+                                        ([styles.content], { fontWeight: 'normal' })
+                                      }>
+                                      {item.VehicleNo}
+                                    </Text>
+                                  </Text>
+                                </View>
+                                <View>
+                                  <Text key={index} style={[styles.body]}>
+                                    Service:{' '}
+                                    <Text
+                                      style={
+                                        ([styles.content], { fontWeight: 'normal' })
+                                      }>
+                                      {item.Service}
+                                    </Text>
+                                  </Text>
+                                </View>
+                                {item.Service2 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service2:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service2}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.Service3 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service3:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service3}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.Service4 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service4:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service4}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.Service5 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service5:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service5}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.Service6 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service6:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service6}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.Service7 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service7:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service7}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.Service8 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service8:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service8}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.Service9 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service9:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service9}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.Service10 !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Service10:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.Service10}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                              </View>
+                              {index === this.state.currentIndex ? (
+                                <View
+                                  style={{
+                                    ...styles.hrLine,
+                                    marginTop: 0,
+                                    marginBottom: hp('1%'),
+                                  }}
+                                />
+                              ) : null}
+                            </View>
+                          )}
+                        </View>
+                        <TouchableOpacity
+                          onPress={() => alert(item.totalPrice)}
+                          style={{
+                            position: 'absolute',
+                            right: Platform.OS === 'ios' ? hp('2%') : hp('2%'),
+                            top: Platform.OS === 'ios' ? hp('5%') : hp('7%'),
+                          }}>
+                          <Icon name="share-social" size={26} color="#3498DB" />
+                        </TouchableOpacity>
                       </TouchableOpacity>
-                    </TouchableOpacity>
-                  );
-                })}
-              </Transitioning.View>
-            </ScrollView>
-          )}
+                    );
+                  })}
+                </Transitioning.View>
+              </ScrollView>
+            )}
+
           <TouchableOpacity
-            style={{zIndex: 1000}}
+            style={styles.fab}
             onPress={() => {
               this.props.navigation.navigate('FormScreen');
             }}>
-            <View style={[styles.fab]}>
-              <View>
-                <Icons
-                  name={'plus'}
-                  color={'white'}
-                  size={Platform.OS === 'ios' ? hp('3%') : hp('3%')}
-                />
-              </View>
-            </View>
+            <Text style={styles.fabText}> + </Text>
           </TouchableOpacity>
 
           <View
@@ -583,7 +574,7 @@ class HomeScreen extends Component {
                 fontWeight: 'bold',
               }}>
               BlaceNova Inc.
-              <Text style={{fontSize: 10, lineHeight: 10}}>TM</Text>
+              <Text style={{ fontSize: 10, lineHeight: 10 }}>TM</Text>
             </Text>
           </View>
         </View>
@@ -634,19 +625,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   fab: {
-    width: 55,
-    height: 55,
-    borderRadius: 30,
-    backgroundColor: '#8B78E6',
-    position: 'absolute',
-    bottom: Platform.OS === 'ios' ? hp('2%') : hp('2%'),
-    right: hp('1.5%'),
-    elevation: 10,
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    shadowOffset: {width: 0, height: 2},
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 500,
+    width: 55,
+    position: 'absolute',
+    bottom: hp('2%'),
+    right: hp('1.5%'),
+    height: 55,
+    backgroundColor: '#8B78E6',
+    borderRadius: hp('4.5%'),
+    shadowColor: '#8B78E6',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.6
   },
+
+  fabText: {
+    fontSize: hp('4%'),
+    color: '#fff',
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginBottom: hp('0.5%')
+  },
+
 });

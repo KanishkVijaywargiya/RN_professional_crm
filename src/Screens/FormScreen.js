@@ -296,7 +296,7 @@ class FormScreen extends Component {
                 </View>
 
                 <KeyboardAwareScrollView>
-                    <ScrollView showsVerticalScrollIndicator='false'>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={{ zIndex: 1000 }}>
                             <Form>
                                 {/* Date Picker */}
@@ -331,15 +331,15 @@ class FormScreen extends Component {
 
                                 <Item>
                                     <Icon name='person' size={26} color={color} />
-                                    <Input placeholder="Clients Name" style={{ ...styles.formfields }} autoCompleteType={false} autoCorrect={false} onChangeText={clientsName => this.setState({ clientsName: clientsName })} />
+                                    <Input placeholder="Clients Name" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientsName => this.setState({ clientsName: clientsName })} />
                                 </Item>
                                 <Item>
                                     <AddressIcon name='address' size={26} color={color} />
-                                    <Input placeholder="Clients Address" style={{ ...styles.formfields }} autoCompleteType={false} autoCorrect={false} onChangeText={clientsAddress => this.setState({ clientsAddress: clientsAddress })} />
+                                    <Input placeholder="Clients Address" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientsAddress => this.setState({ clientsAddress: clientsAddress })} />
                                 </Item>
                                 <Item>
                                     <Icon name='mail' size={26} color={color} />
-                                    <Input placeholder="Clients Email" style={{ ...styles.formfields }} autoCompleteType={false} autoCorrect={false} autoCapitalize={false} keyboardType='email-address' onChangeText={clientsEmail => this.setState({ clientsEmail: clientsEmail })} />
+                                    <Input placeholder="Clients Email" style={{ ...styles.formfields }} autoCorrect={false} autoCapitalize={false} keyboardType='email-address' onChangeText={clientsEmail => this.setState({ clientsEmail: clientsEmail })} />
                                 </Item>
                                 <Item>
                                     <Icon name='ios-phone-portrait' size={26} color={color} />
@@ -347,7 +347,7 @@ class FormScreen extends Component {
                                 </Item>
                                 <Item>
                                     <Icon name='list' size={26} color={color} />
-                                    <Input placeholder="Clients Gst No." style={{ ...styles.formfields }} autoCompleteType={false} autoCorrect={false} onChangeText={clientGst => this.setState({ clientGst: clientGst })} />
+                                    <Input placeholder="Clients Gst No." style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientGst => this.setState({ clientGst: clientGst })} />
                                 </Item>
 
                                 {/* Vehicle type: Car or Bike */}
@@ -1155,9 +1155,9 @@ class FormScreen extends Component {
 
                 <View style={{ marginBottom: hp('2%') }}></View>
                 {/* Upload Button ~ Uploads & takes back to dash board */}
-                < TouchableOpacity style={[styles.uploadButton]} onPress={() => this.uploadData()}>
-                    <Text style={{ color: '#fff', fontSize: 22, fontWeight: '600' }}>Upload Data</Text>
-                    <Text style={{ color: '#DAE0E2', fontSize: 10, fontStyle: 'italic' }}>BlaceNova Inc.<Text style={{ color: '#DAE0E2', fontSize: 10, lineHeight: 50, fontStyle: 'italic' }}>TM</Text></Text>
+                <TouchableOpacity style={[styles.uploadButton]} onPress={() => this.uploadData()}>
+                    <Text style={{ color: '#fff', fontSize: Platform.OS === 'ios' ? 22 : 18, fontWeight: '600' }}>Upload Data</Text>
+                    <Text style={{ color: '#DAE0E2', fontSize: 10, fontStyle: 'italic' }}>BlaceNova Inc.<Text style={{ color: '#DAE0E2', fontSize: 10, lineHeight: Platform.OS === 'ios' ? 50 : 10, fontStyle: 'italic' }}>TM</Text></Text>
                 </TouchableOpacity >
             </View >
         )
@@ -1192,8 +1192,8 @@ const styles = StyleSheet.create({
     },
     uploadButton: {
         backgroundColor: '#121212',
-        width: hp('50%'),
-        height: hp('10%'),
+        width: hp('100%'),
+        height: Platform.OS === 'ios' ? hp('10%') : hp('7%'),
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
