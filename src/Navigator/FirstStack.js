@@ -6,6 +6,7 @@ import HomeScreen from '../Screens/HomeScreen.js';
 import AnalyticsScreen from '../Screens/AnalyticsScreen.js';
 import FormScreen from '../Screens/FormScreen.js';
 import NotificationScreen from '../Screens/NotificationScreen.js';
+import AndroidForm from '../Screens/AndroidForm.js';
 
 import BottomTabs from '../Navigator/BottomTab.js';
 
@@ -43,6 +44,15 @@ export default FirstStack = ({ navigation }) => (
     <Stack.Screen
       name="FormScreen"
       component={FormScreen}
+      options={{
+        title: 'Form',
+        headerShown: false,
+      }}
+    />
+
+    <Stack.Screen
+      name="AndroidForm"
+      component={AndroidForm}
       options={{
         title: 'Form',
         headerShown: false,

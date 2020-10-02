@@ -551,13 +551,29 @@ class HomeScreen extends Component {
               </ScrollView>
             )}
 
-          <TouchableOpacity
-            style={styles.fab}
-            onPress={() => {
-              this.props.navigation.navigate('FormScreen');
-            }}>
-            <Text style={styles.fabText}> + </Text>
-          </TouchableOpacity>
+          {this.state.rippleEffect ?
+            null
+            :
+            <View>
+              {Platform.OS == 'ios' ?
+                <TouchableOpacity
+                  style={styles.fab}
+                  onPress={() => {
+                    this.props.navigation.navigate('FormScreen');
+                  }}>
+                  <Text style={styles.fabText}> + </Text>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity
+                  style={styles.fab}
+                  onPress={() => {
+                    this.props.navigation.navigate('AndroidForm');
+                  }}>
+                  <Text style={styles.fabText}> + </Text>
+                </TouchableOpacity>
+              }
+            </View>
+          }
 
           <View
             style={{

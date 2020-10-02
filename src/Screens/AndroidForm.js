@@ -12,6 +12,7 @@ import AddressIcon from 'react-native-vector-icons/Entypo';
 import { Item, Form, Label, Input, Content, Card, CardItem } from 'native-base';
 import { RadioButton, RadioGroup } from 'react-native-flexi-radio-button';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { Picker } from '@react-native-community/picker';
 
 import {
     widthPercentageToDP as wp,
@@ -64,7 +65,8 @@ class FormScreen extends Component {
             showDropDown: [false, false, false, false, false, false, false, false, false, false],
             showButton: [true, false, false, false, false, false, false, false, false, false],
             showBikeDropDown: [false, false, false, false, false, false, false, false, false, false],
-            showBikeButton: [true, false, false, false, false, false, false, false, false, false]
+            showBikeButton: [true, false, false, false, false, false, false, false, false, false],
+            language: '',
         }
     }
     handleConfirm = (date) => {
@@ -390,22 +392,18 @@ class FormScreen extends Component {
                                                 {this.state.categoryType ?
                                                     <View>
                                                         <View style={{ zIndex: 300, elevation: 300 }}>
-                                                            <DropDownPicker
-                                                                items={carServices}
-                                                                placeholder='Select the service for car'
-                                                                containerStyle={[styles.dropdown, { zIndex: 300, elevation: 300, }]}
-                                                                itemStyle={{
-                                                                    justifyContent: 'flex-start',
-                                                                    zIndex: 300,
-                                                                    elevation: 1000,
-                                                                    backgroundColor: '#fff'
-                                                                }}
-                                                                onChangeItem={item => this.setState({
-                                                                    serviceType: item.value
+                                                            <Picker
+                                                                selectedValue={this.state.serviceType ? this.state.serviceType : 'Select Service Type'}
+                                                                style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                                onValueChange={item => this.setState({
+                                                                    serviceType: item
                                                                 }, () => {
                                                                     this.priceCategoryList1()
-                                                                })}
-                                                            />
+                                                                })}>
+                                                                {carServices.map((item, key) => (
+                                                                    <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                                )}
+                                                            </Picker>
                                                         </View>
                                                         <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
                                                             <View style={{ justifyContent: 'center', alignItems: 'center', paddingLeft: hp('5%'), paddingTop: price1 ? hp('1%') : 0 }}>
@@ -437,19 +435,18 @@ class FormScreen extends Component {
 
                                             {this.state.showDropDown[0] ?
                                                 <View style={{ zIndex: 240 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType2: item.value
+                                                    <Picker
+                                                        selectedValue={this.state.serviceType2 ? this.state.serviceType2 : 'Select Service Type'}
+                                                        style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                        onValueChange={item => this.setState({
+                                                            serviceType2: item
                                                         }, () => {
                                                             this.priceCategoryList2()
-                                                        })}
-                                                    />
+                                                        })}>
+                                                        {carServices.map((item, key) => (
+                                                            <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                        )}
+                                                    </Picker>
                                                 </View>
                                                 :
                                                 null
@@ -479,19 +476,18 @@ class FormScreen extends Component {
 
                                             {this.state.showDropDown[1] ?
                                                 <View style={{ zIndex: 210 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType3: item.value
+                                                    <Picker
+                                                        selectedValue={this.state.serviceType3 ? this.state.serviceType3 : 'Select Service Type'}
+                                                        style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                        onValueChange={item => this.setState({
+                                                            serviceType3: item
                                                         }, () => {
                                                             this.priceCategoryList3()
-                                                        })}
-                                                    />
+                                                        })}>
+                                                        {carServices.map((item, key) => (
+                                                            <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                        )}
+                                                    </Picker>
                                                 </View>
                                                 :
                                                 null
@@ -521,19 +517,18 @@ class FormScreen extends Component {
 
                                             {this.state.showDropDown[2] ?
                                                 <View style={{ zIndex: 180 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType4: item.value
+                                                    <Picker
+                                                        selectedValue={this.state.serviceType4 ? this.state.serviceType4 : 'Select Service Type'}
+                                                        style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                        onValueChange={item => this.setState({
+                                                            serviceType4: item
                                                         }, () => {
                                                             this.priceCategoryList4()
-                                                        })}
-                                                    />
+                                                        })}>
+                                                        {carServices.map((item, key) => (
+                                                            <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                        )}
+                                                    </Picker>
                                                 </View>
                                                 :
                                                 null
@@ -563,19 +558,18 @@ class FormScreen extends Component {
 
                                             {this.state.showDropDown[3] ?
                                                 <View style={{ zIndex: 150 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType5: item.value
+                                                    <Picker
+                                                        selectedValue={this.state.serviceType5 ? this.state.serviceType5 : 'Select Service Type'}
+                                                        style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                        onValueChange={item => this.setState({
+                                                            serviceType5: item
                                                         }, () => {
                                                             this.priceCategoryList5()
-                                                        })}
-                                                    />
+                                                        })}>
+                                                        {carServices.map((item, key) => (
+                                                            <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                        )}
+                                                    </Picker>
                                                 </View>
                                                 :
                                                 null
@@ -585,174 +579,13 @@ class FormScreen extends Component {
                                                     <Text style={{ color: '#4BCFFA', fontWeight: 'bold', fontSize: hp('2%') }}>{this.state.price5 ? `₹${this.state.price5} /-` : ''}</Text>
                                                 </View>
                                             </View>
-                                            {/*{this.state.showButton[4] ?
-                                        <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                        {this.state.price5 ?
-                                            <TouchableOpacity onPress={() => { this.showHide(4) }}>
-                                                <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                    <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                            :
-                                            null
-                                        }
                                         </View>
-                                        :
-                                        null
-                                    }*/}
-
-                                            {this.state.showDropDown[4] ?
-                                                <View style={{ zIndex: 120 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType6: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showButton[5] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHide(5) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showDropDown[5] ?
-                                                <View style={{ zIndex: 90 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType7: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showButton[6] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHide(6) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showDropDown[6] ?
-                                                <View style={{ zIndex: 60 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType8: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showButton[7] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHide(7) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showDropDown[7] ?
-                                                <View style={{ zIndex: 30 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType9: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showButton[8] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHide(8) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showDropDown[8] ?
-                                                <View style={{ zIndex: 10 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType10: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                        </View>
-
                                         :
                                         null
                                     }
                                 </View>
                                 <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
                                     {this.state.vehicleType == 'Bike' ?
-
                                         <View>
                                             <Text style={{ ...styles.heading, marginHorizontal: hp('2.7%'), color: '#2ecc72' }}>Select Category of Bike</Text>
                                             <RadioGroup
@@ -963,155 +796,6 @@ class FormScreen extends Component {
                                                     <Text style={{ color: '#4BCFFA', fontWeight: 'bold', fontSize: hp('2%') }}>{this.state.price5 ? `₹${this.state.price5} /-` : ''}</Text>
                                                 </View>
                                             </View>
-                                            {/*{this.state.showBikeButton[4] ?
-                                        <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                        {this.state.price5 ?
-                                            <TouchableOpacity onPress={() => { this.showHideBike(4) }}>
-                                                <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                    <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                            :
-                                            null
-                                        }
-                                        </View>
-                                        :
-                                        null
-                                    }*/}
-
-                                            {this.state.showBikeDropDown[4] ?
-                                                <View style={{ zIndex: 120 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType6: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showBikeButton[5] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHideBike(5) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showBikeDropDown[5] ?
-                                                <View style={{ zIndex: 90 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType7: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showBikeButton[6] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHideBike(6) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showBikeDropDown[6] ?
-                                                <View style={{ zIndex: 60 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType8: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showBikeButton[7] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHideBike(7) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showBikeDropDown[7] ?
-                                                <View style={{ zIndex: 30 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType9: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showBikeButton[8] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHideBike(8) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showBikeDropDown[8] ?
-                                                <View style={{ zIndex: 10 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType10: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
                                         </View>
                                         :
                                         null
@@ -1212,6 +896,11 @@ const styles = StyleSheet.create({
 
 
 const carServices = [
+    {
+        id: 0,
+        label: 'Select Service',
+        value: 'Select Service'
+    },
     {
         id: 1,
         label: 'Basic Wash Package',
