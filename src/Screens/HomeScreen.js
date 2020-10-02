@@ -144,7 +144,7 @@ class HomeScreen extends Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Image
           style={{
-            width: Platform.OS === 'ios' ? hp('45%') : hp('35%'),
+            width: Platform.OS === 'ios' ? hp('45%') : hp('45%'),
             height: hp('35%'),
           }}
           source={require('../Assets/netImg/netImg.png')}
