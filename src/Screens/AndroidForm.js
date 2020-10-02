@@ -604,19 +604,18 @@ class FormScreen extends Component {
                                                 {this.state.categoryType ?
                                                     <View>
                                                         <View style={{ zIndex: 270 }}>
-                                                            <DropDownPicker
-                                                                items={bikeServices}
-                                                                placeholder='Select the service for bike'
-                                                                itemStyle={{
-                                                                    justifyContent: 'flex-start'
-                                                                }}
-                                                                containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                                onChangeItem={item => this.setState({
-                                                                    serviceType: item.value
+                                                            <Picker
+                                                                selectedValue={this.state.serviceType ? this.state.serviceType : 'Select Service Type'}
+                                                                style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                                onValueChange={item => this.setState({
+                                                                    serviceType: item
                                                                 }, () => {
                                                                     this.priceCategoryList1()
-                                                                })}
-                                                            />
+                                                                })}>
+                                                                {bikeServices.map((item, key) => (
+                                                                    <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                                )}
+                                                            </Picker>
                                                         </View>
                                                         <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', }}>
                                                             <View style={{ justifyContent: 'center', alignItems: 'center', paddingLeft: hp('5%'), paddingTop: price1 ? hp('1%') : 0 }}>
@@ -648,19 +647,18 @@ class FormScreen extends Component {
 
                                             {this.state.showBikeDropDown[0] ?
                                                 <View style={{ zIndex: 240 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType2: item.value
+                                                    <Picker
+                                                        selectedValue={this.state.serviceType2 ? this.state.serviceType2 : 'Select Service Type'}
+                                                        style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                        onValueChange={item => this.setState({
+                                                            serviceType2: item
                                                         }, () => {
                                                             this.priceCategoryList2()
-                                                        })}
-                                                    />
+                                                        })}>
+                                                        {bikeServices.map((item, key) => (
+                                                            <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                        )}
+                                                    </Picker>
                                                 </View>
                                                 :
                                                 null
@@ -690,19 +688,18 @@ class FormScreen extends Component {
 
                                             {this.state.showBikeDropDown[1] ?
                                                 <View style={{ zIndex: 210 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType3: item.value
+                                                    <Picker
+                                                        selectedValue={this.state.serviceType3 ? this.state.serviceType3 : 'Select Service Type'}
+                                                        style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                        onValueChange={item => this.setState({
+                                                            serviceType3: item
                                                         }, () => {
                                                             this.priceCategoryList3()
-                                                        })}
-                                                    />
+                                                        })}>
+                                                        {bikeServices.map((item, key) => (
+                                                            <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                        )}
+                                                    </Picker>
                                                 </View>
                                                 :
                                                 null
@@ -732,19 +729,18 @@ class FormScreen extends Component {
 
                                             {this.state.showBikeDropDown[2] ?
                                                 <View style={{ zIndex: 180 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType4: item.value
+                                                    <Picker
+                                                        selectedValue={this.state.serviceType4 ? this.state.serviceType4 : 'Select Service Type'}
+                                                        style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                        onValueChange={item => this.setState({
+                                                            serviceType4: item
                                                         }, () => {
                                                             this.priceCategoryList4()
-                                                        })}
-                                                    />
+                                                        })}>
+                                                        {bikeServices.map((item, key) => (
+                                                            <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                        )}
+                                                    </Picker>
                                                 </View>
                                                 :
                                                 null
@@ -774,19 +770,18 @@ class FormScreen extends Component {
 
                                             {this.state.showBikeDropDown[3] ?
                                                 <View style={{ zIndex: 150 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType5: item.value
+                                                    <Picker
+                                                        selectedValue={this.state.serviceType5 ? this.state.serviceType5 : 'Select Service Type'}
+                                                        style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                        onValueChange={item => this.setState({
+                                                            serviceType5: item
                                                         }, () => {
                                                             this.priceCategoryList5()
-                                                        })}
-                                                    />
+                                                        })}>
+                                                        {bikeServices.map((item, key) => (
+                                                            <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                        )}
+                                                    </Picker>
                                                 </View>
                                                 :
                                                 null
@@ -1030,6 +1025,11 @@ const carServices = [
 ]
 
 const bikeServices = [
+    {
+        id: 0,
+        label: 'Select Service',
+        value: 'Select Service'
+    },
     {
         id: 1,
         label: 'Foam Wash',
