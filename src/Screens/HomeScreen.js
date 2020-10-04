@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   FlatList,
+  PermissionsAndroid,
   ScrollView,
   TextInput,
   Dimensions,
@@ -33,6 +34,10 @@ import { connect } from 'react-redux';
 
 import { Transition, Transitioning, color } from 'react-native-reanimated';
 import { ActivityIndicator } from 'react-native-paper';
+
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNPrint from 'react-native-print';
+import Share from 'react-native-share';
 
 const { width } = Dimensions.get('window');
 
@@ -77,6 +82,7 @@ class HomeScreen extends Component {
       currentIndex: null,
       loaderForData: true,
       rippleEffect: true,
+      isPermitted: false,
     };
     this.arrayholder = [];
     ref = React.createRef();
@@ -84,6 +90,267 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     this.clientlist();
+    if (Platform.OS === 'android') {
+      this.getAndroidPermissions()
+    } else {
+      this.setState({
+        isPermitted: true
+      })
+    }
+  }
+
+  getAndroidPermissions() {
+    let that = this;
+
+    async function requestExternalWritePermission() {
+      try {
+        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          //If WRITE_EXTERNAL_STORAGE Permission is granted
+          //changing the state to show Create PDF option
+          that.setState({ isPermitted: true });
+        } else {
+          alert('WRITE_EXTERNAL_STORAGE permission denied');
+        }
+      } catch (err) {
+        alert('Write permission err', err);
+        console.warn(err);
+      }
+    }
+    //Calling the External Write permission function
+    requestExternalWritePermission();
+  }
+
+  createPDF = async (item) => {
+    let Service = item.Service ? item.Service : ''
+    let Service2 = item.Service2 ? item.Service2 : ''
+    let Service3 = item.Service3 ? item.Service3 : ''
+    let Service4 = item.Service4 ? item.Service4 : ''
+    let Service5 = item.Service5 ? item.Service5 : ''
+
+    let price1 = item.price1 ? item.price1 : ''
+    let price2 = item.price2 ? item.price2 : ''
+    let price3 = item.price3 ? item.price3 : ''
+    let price4 = item.price4 ? item.price4 : ''
+    let price5 = item.price5 ? item.price5 : ''
+
+    let InvoiceNo = item.InvoiceNo ? item.InvoiceNo : ''
+    let MemberId = item.MemberId ? item.MemberId : ''
+
+
+    let docFolder = Platform.OS === 'android' ? 'documents' : 'docs';
+    let htmlContent =
+      '<div style="background-color: #fff; padding-left: 30px;padding-right: 30px;padding-top:5px; padding-bottom: 5px;">' +
+      '<div style="display: flex; flex-direction: row;">' +
+      '<div style=" width: 380px;">' +
+      '<img src="https://p73.f4.n0.cdn.getcloudapp.com/items/JrugXoWj/invoice.png?v=cafdfd3480726a4edc168a8e37c593c1" alt="invoice" srcset="">' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Name: <span style="font-weight: 400;">' + item.Name + '</span></h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Address: <span style="font-weight: 400;">' + item.Address + '</span> </h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Mobile: <span style="font-weight: 400;">' + item.Phone + '</span></h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Email: <span style="font-weight: 400;">' + item.Email + '</span></h1>' +
+      ' <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Cust. GST No.: <span style="font-weight: 400;">' + item.ClientGst + '</span></h1>' +
+      '</div>' +
+      ' <div style="width: 380px;">' +
+      ' <p style="color: #E76732; font-size: 40px; font-weight: 100;">SERVICE BILL</p>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Date: <span style="font-weight: 400;">' + item.date + '</span></h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">G.S.T. No.: <span style="font-weight: 400;">' + item.GstNo + '</span></h1>' +
+      ' <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Invoice No.: <span style="font-weight: 400;">' + InvoiceNo + '</span></h1>' +
+      '  <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Member ID: <span style="font-weight: 400;">' + MemberId + '</span></h1>' +
+      '  <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Segment: <span style="font-weight: 400;">' + item.Category + '</span></h1>' +
+      '  <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Vehicle reg. No.: <span style="font-weight: 400;">' + item.VehicleNo + '</span></h1>' +
+      ' </div>' +
+      ' </div>' +
+      '<table style="width: 100%; border-collapse: collapse;">' +
+      ' <tr>' +
+      ' <td style="border-bottom: 2px solid #121212;  width: 10%; padding: 10px;">Sl No.</td>' +
+      ' <td style="border-bottom: 2px solid #121212;  width: 70%; padding: 10px; ">Service Package</td>' +
+      ' <td style="border-bottom: 2px solid #121212; width: 20%; padding: 10px;">Amt. (Rs.)</td>' +
+      ' </tr>' +
+      ' <tr>' +
+      '   <td style="width: 10%; padding: 10px;">1</td>' +
+      '   <td style=" width: 70%; padding: 10px; ">' + Service + '</td>' +
+      '   <td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price1 + '</td>' +
+      ' </tr>' +
+      ' <tr>' +
+      '<td style="width: 10%; padding: 10px;">2</td>' +
+      '<td style=" width: 70%; padding: 10px; ">' + Service2 + '</td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price2 + '</td>' +
+      ' </tr>' +
+      '<tr>' +
+      ' <td style="width: 10%; padding: 10px;">3</td>' +
+      '<td style=" width: 70%; padding: 10px; ">' + Service3 + '</td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price3 + '</td>' +
+      ' </tr>' +
+      '<tr>' +
+      '<td style="width: 10%; padding: 10px;">4</td>' +
+      '<td style=" width: 70%; padding: 10px; ">' + Service4 + '</td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price4 + '</td>' +
+      ' </tr>' +
+      '<tr>' +
+      '<td style="width: 10%; padding: 10px;">5</td>' +
+      '<td style=" width: 70%; padding: 10px; ">' + Service5 + '</td>' +
+      ' <td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price5 + '</td>' +
+      ' </tr>' +
+      ' <tr>' +
+      '<td style="width: 10%; padding: 10px;">6</td>' +
+      '<td style=" width: 70%; padding: 10px; "></td>' +
+      ' <td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
+      '</tr>' +
+      '<tr>' +
+      '<td style="width: 10%; padding: 10px;">7</td>' +
+      '<td style=" width: 70%; padding: 10px; "></td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
+      ' </tr>' +
+      '<tr>' +
+      ' <td style="width: 10%; padding: 10px;">8</td>' +
+      '<td style=" width: 70%; padding: 10px; "></td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
+      ' </tr>' +
+      '</table>' +
+      '<div style="width:100%; justify-content: center; align-items: center;">' +
+      '<h1 style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 15px; color: #121212; letter-spacing: 1px; font-weight: 100;">Thank you for your business!</h1>' +
+      '</div>' +
+      '<div style="width:100%; justify-content: center; align-items: center;">' +
+      '<h1 style="line-height:5px; font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 10px; color: #959697;">120A, Maniktalla Main Road, Loha patti,Near Kakurgachi P.O, Kolkata - 700 054 </h1>' +
+      '<h1 style="line-height:5px; font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 10px; color: #959697;">Tel : 033-6565 0505/0606 | E-Mail :cleannshine.kol@gmail.com </h1>' +
+      ' </div>' +
+      '</div>';
+
+
+    let options = {
+      html: htmlContent,
+      fileName: 'Report',
+      directory: docFolder,
+    };
+    let file = await RNHTMLtoPDF.convert(options);
+    if (Platform.OS === 'android' && this.state.isPermitted) {
+      const folder = RNFetchBlob.fs.dirs.DownloadDir + "/BlaceNova";
+      await RNFS.mkdir(folder);
+      const fileName = "Report" + ".pdf"; //We can change the name of the report here
+
+      await RNFS.copyFile(file.filePath, RNFetchBlob.fs.dirs.DownloadDir + "/BlaceNova/" + fileName);
+
+      let shareOptions = {
+        type: 'application/pdf',
+        url: "file:///" + RNFetchBlob.fs.dirs.DownloadDir + "/BlaceNova/" + fileName
+      };
+
+      await Share.open(shareOptions).then((res) => {
+        console.log("Share options", res)
+      })
+        .done((res) => {
+          console.log("Share done", res)
+        });
+      await RNFS.unlink(file.filePath);
+
+    } else {
+
+      let shareOptions = {
+        type: 'application/pdf',
+        url: file.filePath
+      };
+      await Share.open(shareOptions).then((res) => {
+        console.log("SHARE FILE ", res)
+      })
+        .catch(err => console.log("SHARE ERROR::", err));
+    }
+  }
+
+  printHTML = async (item) => {
+
+    let Service = item.Service ? item.Service : ''
+    let Service2 = item.Service2 ? item.Service2 : ''
+    let Service3 = item.Service3 ? item.Service3 : ''
+    let Service4 = item.Service4 ? item.Service4 : ''
+    let Service5 = item.Service5 ? item.Service5 : ''
+
+    let price1 = item.price1 ? item.price1 : ''
+    let price2 = item.price2 ? item.price2 : ''
+    let price3 = item.price3 ? item.price3 : ''
+    let price4 = item.price4 ? item.price4 : ''
+    let price5 = item.price5 ? item.price5 : ''
+
+    let InvoiceNo = item.InvoiceNo ? item.InvoiceNo : ''
+    let MemberId = item.MemberId ? item.MemberId : ''
+
+    let htmlContent =
+      '<div style="background-color: #fff; padding-left: 30px;padding-right: 30px;padding-top:5px; padding-bottom: 5px;">' +
+      '<div style="display: flex; flex-direction: row;">' +
+      '<div style=" width: 380px;">' +
+      '<img src="https://p73.f4.n0.cdn.getcloudapp.com/items/JrugXoWj/invoice.png?v=cafdfd3480726a4edc168a8e37c593c1" alt="invoice" srcset="">' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Name: <span style="font-weight: 400;">' + item.Name + '</span></h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Address: <span style="font-weight: 400;">' + item.Address + '</span> </h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Mobile: <span style="font-weight: 400;">' + item.Phone + '</span></h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Email: <span style="font-weight: 400;">' + item.Email + '</span></h1>' +
+      ' <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Cust. GST No.: <span style="font-weight: 400;">' + item.ClientGst + '</span></h1>' +
+      '</div>' +
+      ' <div style="width: 380px;">' +
+      ' <p style="color: #E76732; font-size: 40px; font-weight: 100;">SERVICE BILL</p>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Date: <span style="font-weight: 400;">' + item.date + '</span></h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">G.S.T. No.: <span style="font-weight: 400;">' + item.GstNo + '</span></h1>' +
+      ' <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Invoice No.: <span style="font-weight: 400;">' + InvoiceNo + '</span></h1>' +
+      '  <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Member ID: <span style="font-weight: 400;">' + MemberId + '</span></h1>' +
+      '  <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Segment: <span style="font-weight: 400;">' + item.Category + '</span></h1>' +
+      '  <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Vehicle reg. No.: <span style="font-weight: 400;">' + item.VehicleNo + '</span></h1>' +
+      ' </div>' +
+      ' </div>' +
+      '<table style="width: 100%; border-collapse: collapse;">' +
+      ' <tr>' +
+      ' <td style="border-bottom: 2px solid #121212;  width: 10%; padding: 10px;">Sl No.</td>' +
+      ' <td style="border-bottom: 2px solid #121212;  width: 70%; padding: 10px; ">Service Package</td>' +
+      ' <td style="border-bottom: 2px solid #121212; width: 20%; padding: 10px;">Amt. (Rs.)</td>' +
+      ' </tr>' +
+      ' <tr>' +
+      '   <td style="width: 10%; padding: 10px;">1</td>' +
+      '   <td style=" width: 70%; padding: 10px; ">' + Service + '</td>' +
+      '   <td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price1 + '</td>' +
+      ' </tr>' +
+      ' <tr>' +
+      '<td style="width: 10%; padding: 10px;">2</td>' +
+      '<td style=" width: 70%; padding: 10px; ">' + Service2 + '</td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price2 + '</td>' +
+      ' </tr>' +
+      '<tr>' +
+      ' <td style="width: 10%; padding: 10px;">3</td>' +
+      '<td style=" width: 70%; padding: 10px; ">' + Service3 + '</td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price3 + '</td>' +
+      ' </tr>' +
+      '<tr>' +
+      '<td style="width: 10%; padding: 10px;">4</td>' +
+      '<td style=" width: 70%; padding: 10px; ">' + Service4 + '</td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price4 + '</td>' +
+      ' </tr>' +
+      '<tr>' +
+      '<td style="width: 10%; padding: 10px;">5</td>' +
+      '<td style=" width: 70%; padding: 10px; ">' + Service5 + '</td>' +
+      ' <td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price5 + '</td>' +
+      ' </tr>' +
+      ' <tr>' +
+      '<td style="width: 10%; padding: 10px;">6</td>' +
+      '<td style=" width: 70%; padding: 10px; "></td>' +
+      ' <td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
+      '</tr>' +
+      '<tr>' +
+      '<td style="width: 10%; padding: 10px;">7</td>' +
+      '<td style=" width: 70%; padding: 10px; "></td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
+      ' </tr>' +
+      '<tr>' +
+      ' <td style="width: 10%; padding: 10px;">8</td>' +
+      '<td style=" width: 70%; padding: 10px; "></td>' +
+      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
+      ' </tr>' +
+      '</table>' +
+      '<div style="width:100%; justify-content: center; align-items: center;">' +
+      '<h1 style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 15px; color: #121212; letter-spacing: 1px; font-weight: 100;">Thank you for your business!</h1>' +
+      '</div>' +
+      '<div style="width:100%; justify-content: center; align-items: center;">' +
+      '<h1 style="line-height:5px; font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 10px; color: #959697;">120A, Maniktalla Main Road, Loha patti,Near Kakurgachi P.O, Kolkata - 700 054 </h1>' +
+      '<h1 style="line-height:5px; font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 10px; color: #959697;">Tel : 033-6565 0505/0606 | E-Mail :cleannshine.kol@gmail.com </h1>' +
+      ' </div>' +
+      '</div>';
+
+    await RNPrint.print({ html: htmlContent })
   }
 
   clientlist = async () => {
@@ -536,7 +803,7 @@ class HomeScreen extends Component {
                           )}
                         </View>
                         <TouchableOpacity
-                          onPress={() => alert(item.totalPrice)}
+                          onPress={() => Platform.OS === 'ios' ? this.createPDF(item) : this.printHTML(item)}
                           style={{
                             position: 'absolute',
                             right: Platform.OS === 'ios' ? hp('2%') : hp('2%'),

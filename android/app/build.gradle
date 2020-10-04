@@ -129,6 +129,7 @@ android {
     }
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.crm"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -181,6 +182,12 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation project(':react-native-print')
+
+    implementation project(':react-native-html-to-pdf')
 
     implementation project(':react-native-vector-icons')
     implementation project(':lottie-react-native')

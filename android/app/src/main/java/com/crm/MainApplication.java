@@ -12,7 +12,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
-
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
+import com.christopherdro.RNPrint.RNPrintPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -31,6 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           new VectorIconsPackage();
           new LottiePackage();
+          new RNHTMLtoPDFPackage();
+          new RNPrintPackage();
           return packages;
         }
 
