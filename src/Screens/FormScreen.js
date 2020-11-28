@@ -40,7 +40,9 @@ class FormScreen extends Component {
             clientsEmail: '',
             clientsPhone: '',
             clientGst: '',
+            paymentMode: '',
             vehicleType: '',
+            misc: '',
             categoryType: '',
             serviceType: '',
             serviceType2: '',
@@ -80,7 +82,9 @@ class FormScreen extends Component {
     onSelect = (index, value) => {
         this.setState({
             vehicleType: value,
-            categoryType: '', serviceType: '', serviceType2: '',
+            categoryType: '',
+            serviceType: '',
+            serviceType2: '',
             serviceType3: '',
             serviceType4: '',
             serviceType5: '',
@@ -108,8 +112,8 @@ class FormScreen extends Component {
 
         if (this.state.clientsName !== '' &&
             this.state.clientsAddress !== '' &&
-            this.state.clientsEmail !== '' &&
             this.state.clientsPhone !== '' &&
+            this.state.paymentMode !== '' &&
             this.state.vehicleType !== '' &&
             this.state.categoryType !== '' &&
             this.state.serviceType !== '' &&
@@ -123,11 +127,12 @@ class FormScreen extends Component {
                 .child(`${this.state.clientsPhone}`)
                 .set({
                     GstNo: this.state.gstNo,
-                    Email: this.state.clientsEmail,
+                    Email: this.state.clientsEmail ? this.state.clientsEmail : '',
                     Name: this.state.clientsName,
                     Address: this.state.clientsAddress,
                     Phone: this.state.clientsPhone,
-                    ClientGst: this.state.clientGst,
+                    ClientGst: this.state.clientGst ? this.state.clientGst : '',
+                    PaymentMode: this.state.paymentMode,
                     Service: this.state.serviceType,
                     Service2: this.state.serviceType2 ? this.state.serviceType2 : '',
                     Service3: this.state.serviceType3 ? this.state.serviceType3 : '',
@@ -350,7 +355,31 @@ class FormScreen extends Component {
                                     <Input placeholder="Clients Gst No." style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientGst => this.setState({ clientGst: clientGst })} />
                                 </Item>
 
-                                {/* Vehicle type: Car or Bike */}
+                                <View style={{ marginTop: 10, zIndex: 1000, elevation: 1000 }}>
+                                    {/* {this.state.categoryType ? */}
+                                    <View>
+                                        <View style={{ zIndex: 300, elevation: 300 }}>
+                                            <DropDownPicker
+                                                items={modeOfPayment}
+                                                placeholder='Select the mode of payment'
+                                                containerStyle={[styles.dropdown, { zIndex: 300, elevation: 300, }]}
+                                                itemStyle={{
+                                                    justifyContent: 'flex-start',
+                                                    zIndex: 300,
+                                                    elevation: 1000,
+                                                    backgroundColor: '#fff'
+                                                }}
+                                                onChangeItem={item => this.setState({
+                                                    paymentMode: item.value
+                                                }, () => {
+                                                    this.priceCategoryList1()
+                                                })}
+                                            />
+                                        </View>
+                                    </View>
+                                </View>
+
+                                {/* Vehicle type: Car or Bike or Misc (Cards) */}
                                 <View style={{ marginLeft: hp('2.7%'), marginRight: hp('0.2%'), marginTop: hp('1%') }}>
                                     <Text style={{ ...styles.heading, color: '#2ecc72' }}>Select Vehicle Type</Text>
                                     <View style={[styles.radioButtonView]}>
@@ -361,8 +390,9 @@ class FormScreen extends Component {
                                             onSelect={(index, value) => this.onSelect(index, value)}
                                             selectedIndex={-1}
                                         >
-                                            <RadioButton value={"Car"}><Text style={{ paddingRight: hp('10%') }}>Car</Text></RadioButton>
-                                            <RadioButton value={"Bike"}><Text>Bike</Text></RadioButton>
+                                            <RadioButton value={"Car"}><Text style={{ paddingRight: hp('5%') }}>Car</Text></RadioButton>
+                                            <RadioButton value={"Bike"}><Text style={{ paddingRight: hp('5%') }}>Bike</Text></RadioButton>
+                                            <RadioButton value={"Cards"}><Text>Misc</Text></RadioButton>
                                         </RadioGroup>
                                     </View>
                                 </View>
@@ -416,7 +446,7 @@ class FormScreen extends Component {
                                                                     <View>
                                                                         {this.state.price1 ?
                                                                             <TouchableOpacity onPress={() => { this.showHide(0) }}>
-                                                                                <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                                <View style={{ backgroundColor: 'red', padding: Platform.OS == 'ios' ? hp('1.5%') : hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                                     <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                                 </View>
                                                                             </TouchableOpacity>
@@ -463,7 +493,7 @@ class FormScreen extends Component {
                                                         <View>
                                                             {this.state.price2 ?
                                                                 <TouchableOpacity onPress={() => { this.showHide(1) }}>
-                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                    <View style={{ backgroundColor: 'red', padding: Platform.OS == 'ios' ? hp('1.5%') : hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                     </View>
                                                                 </TouchableOpacity>
@@ -505,7 +535,7 @@ class FormScreen extends Component {
                                                         <View>
                                                             {this.state.price3 ?
                                                                 <TouchableOpacity onPress={() => { this.showHide(2) }}>
-                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                    <View style={{ backgroundColor: 'red', padding: Platform.OS == 'ios' ? hp('1.5%') : hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                     </View>
                                                                 </TouchableOpacity>
@@ -547,7 +577,7 @@ class FormScreen extends Component {
                                                         <View>
                                                             {this.state.price4 ?
                                                                 <TouchableOpacity onPress={() => { this.showHide(3) }}>
-                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                    <View style={{ backgroundColor: 'red', padding: Platform.OS == 'ios' ? hp('1.5%') : hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                     </View>
                                                                 </TouchableOpacity>
@@ -585,167 +615,7 @@ class FormScreen extends Component {
                                                     <Text style={{ color: '#4BCFFA', fontWeight: 'bold', fontSize: hp('2%') }}>{this.state.price5 ? `₹${this.state.price5} /-` : ''}</Text>
                                                 </View>
                                             </View>
-                                            {/*{this.state.showButton[4] ?
-                                        <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                        {this.state.price5 ?
-                                            <TouchableOpacity onPress={() => { this.showHide(4) }}>
-                                                <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                    <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                            :
-                                            null
-                                        }
                                         </View>
-                                        :
-                                        null
-                                    }*/}
-
-                                            {this.state.showDropDown[4] ?
-                                                <View style={{ zIndex: 120 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType6: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showButton[5] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHide(5) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showDropDown[5] ?
-                                                <View style={{ zIndex: 90 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType7: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showButton[6] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHide(6) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showDropDown[6] ?
-                                                <View style={{ zIndex: 60 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType8: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showButton[7] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHide(7) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showDropDown[7] ?
-                                                <View style={{ zIndex: 30 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType9: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showButton[8] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHide(8) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showDropDown[8] ?
-                                                <View style={{ zIndex: 10 }}>
-                                                    <DropDownPicker
-                                                        items={carServices}
-                                                        placeholder='Select the service for car'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType10: item.value
-                                                        }, () => {
-                                                            this.priceCategoryList()
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                        </View>
-
                                         :
                                         null
                                     }
@@ -794,7 +664,7 @@ class FormScreen extends Component {
                                                                     <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
                                                                         {this.state.price1 ?
                                                                             <TouchableOpacity onPress={() => { this.showHideBike(0) }}>
-                                                                                <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                                <View style={{ backgroundColor: 'red', padding: Platform.OS == 'ios' ? hp('1.5%') : hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                                     <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                                 </View>
                                                                             </TouchableOpacity>
@@ -841,7 +711,7 @@ class FormScreen extends Component {
                                                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
                                                             {this.state.price2 ?
                                                                 <TouchableOpacity onPress={() => { this.showHideBike(1) }}>
-                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                    <View style={{ backgroundColor: 'red', padding: Platform.OS == 'ios' ? hp('1.5%') : hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                     </View>
                                                                 </TouchableOpacity>
@@ -925,7 +795,7 @@ class FormScreen extends Component {
                                                         <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
                                                             {this.state.price4 ?
                                                                 <TouchableOpacity onPress={() => { this.showHideBike(3) }}>
-                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                    <View style={{ backgroundColor: 'red', padding: Platform.OS == 'ios' ? hp('1.5%') : hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                     </View>
                                                                 </TouchableOpacity>
@@ -963,160 +833,35 @@ class FormScreen extends Component {
                                                     <Text style={{ color: '#4BCFFA', fontWeight: 'bold', fontSize: hp('2%') }}>{this.state.price5 ? `₹${this.state.price5} /-` : ''}</Text>
                                                 </View>
                                             </View>
-                                            {/*{this.state.showBikeButton[4] ?
-                                        <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                        {this.state.price5 ?
-                                            <TouchableOpacity onPress={() => { this.showHideBike(4) }}>
-                                                <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                    <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                            :
-                                            null
-                                        }
-                                        </View>
-                                        :
-                                        null
-                                    }*/}
-
-                                            {this.state.showBikeDropDown[4] ?
-                                                <View style={{ zIndex: 120 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType6: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showBikeButton[5] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHideBike(5) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showBikeDropDown[5] ?
-                                                <View style={{ zIndex: 90 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType7: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showBikeButton[6] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHideBike(6) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showBikeDropDown[6] ?
-                                                <View style={{ zIndex: 60 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType8: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showBikeButton[7] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHideBike(7) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showBikeDropDown[7] ?
-                                                <View style={{ zIndex: 30 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType9: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
-                                            {this.state.showBikeButton[8] ?
-                                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: hp('2.7%') }}>
-                                                    <TouchableOpacity onPress={() => { this.showHideBike(8) }}>
-                                                        <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
-                                                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                                :
-                                                null
-                                            }
-
-                                            {this.state.showBikeDropDown[8] ?
-                                                <View style={{ zIndex: 10 }}>
-                                                    <DropDownPicker
-                                                        items={bikeServices}
-                                                        placeholder='Select the service for bike'
-                                                        containerStyle={[styles.dropdown, { marginTop: hp('2%') }]}
-                                                        itemStyle={{
-                                                            justifyContent: 'flex-start'
-                                                        }}
-                                                        onChangeItem={item => this.setState({
-                                                            serviceType10: item.value
-                                                        })}
-                                                    />
-                                                </View>
-                                                :
-                                                null
-                                            }
                                         </View>
                                         :
                                         null
                                     }
                                 </View>
+
+                                <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
+                                    {this.state.vehicleType == 'Cards' ?
+
+                                        <View>
+                                            <Text style={{ ...styles.heading, marginHorizontal: hp('2.7%'), color: '#2ecc72' }}>Select Category of Bike</Text>
+                                            <RadioGroup
+                                                color='#2ecc72'
+                                                thickness={2}
+                                                onSelect={(index, value) => this.onCategorySelect(index, value)}
+                                                style={{ marginHorizontal: hp('3%') }}
+                                            >
+                                                <RadioButton value={"Value Card ₹2000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹2000</Text></RadioButton>
+                                                <RadioButton value={"Value Card ₹5000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹5000</Text></RadioButton>
+                                                <RadioButton value={"Value Card ₹10000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹10000</Text></RadioButton>
+                                                <RadioButton value={"Previledge Card ₹650"}><Text style={{ fontWeight: 'bold' }}>Previledge Card ₹650</Text></RadioButton>
+                                            </RadioGroup>
+                                        </View>
+                                        :
+                                        null
+                                    }
+                                </View>
+
+
 
                                 <View>
                                     {this.state.vehicleType == 'Car' ?
@@ -1127,6 +872,7 @@ class FormScreen extends Component {
                                         :
                                         null
                                     }
+
                                     {this.state.vehicleType == 'Bike' ?
                                         <Item>
                                             <BikeIcon name='motorbike' size={26} color={color} />
@@ -1210,6 +956,43 @@ const styles = StyleSheet.create({
     }
 })
 
+const modeOfPayment = [
+    {
+        id: 1,
+        label: 'Cash',
+        value: 'Cash'
+    },
+    {
+        id: 2,
+        label: 'Card',
+        value: 'Card'
+    },
+    {
+        id: 3,
+        label: 'Google Pay',
+        value: 'Google Pay'
+    },
+    {
+        id: 4,
+        label: 'Paytm',
+        value: 'Paytm'
+    },
+    {
+        id: 5,
+        label: 'Phone Pay',
+        value: 'Phone Pay'
+    },
+    {
+        id: 6,
+        label: 'Bhim App',
+        value: 'Bhim App'
+    },
+    {
+        id: 7,
+        label: 'Bank',
+        value: 'Bank'
+    },
+]
 
 const carServices = [
     {

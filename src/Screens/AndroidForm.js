@@ -41,6 +41,7 @@ class FormScreen extends Component {
             clientsEmail: '',
             clientsPhone: '',
             clientGst: '',
+            paymentMode: '',
             vehicleType: '',
             categoryType: '',
             serviceType: '',
@@ -110,8 +111,8 @@ class FormScreen extends Component {
 
         if (this.state.clientsName !== '' &&
             this.state.clientsAddress !== '' &&
-            this.state.clientsEmail !== '' &&
             this.state.clientsPhone !== '' &&
+            this.state.paymentMode !== '' &&
             this.state.vehicleType !== '' &&
             this.state.categoryType !== '' &&
             this.state.serviceType !== '' &&
@@ -125,11 +126,12 @@ class FormScreen extends Component {
                 .child(`${this.state.clientsPhone}`)
                 .set({
                     GstNo: this.state.gstNo,
-                    Email: this.state.clientsEmail,
+                    Email: this.state.clientsEmail ? this.state.clientsEmail : '',
                     Name: this.state.clientsName,
                     Address: this.state.clientsAddress,
                     Phone: this.state.clientsPhone,
                     ClientGst: this.state.clientGst,
+                    PaymentMode: this.state.paymentMode,
                     Service: this.state.serviceType,
                     Service2: this.state.serviceType2 ? this.state.serviceType2 : '',
                     Service3: this.state.serviceType3 ? this.state.serviceType3 : '',
@@ -351,6 +353,30 @@ class FormScreen extends Component {
                                     <Icon name='list' size={26} color={color} />
                                     <Input placeholder="Clients Gst No." style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientGst => this.setState({ clientGst: clientGst })} />
                                 </Item>
+
+                                <View style={{ marginTop: 10, zIndex: 1000, elevation: 1000 }}>
+                                    {/* {this.state.categoryType ? */}
+                                    <View>
+                                        <View style={{ zIndex: 300, elevation: 300 }}>
+                                            <DropDownPicker
+                                                items={modeOfPayment}
+                                                placeholder='Select the mode of payment'
+                                                containerStyle={[styles.dropdown, { zIndex: 300, elevation: 300, }]}
+                                                itemStyle={{
+                                                    justifyContent: 'flex-start',
+                                                    zIndex: 300,
+                                                    elevation: 1000,
+                                                    backgroundColor: '#fff'
+                                                }}
+                                                onChangeItem={item => this.setState({
+                                                    paymentMode: item.value
+                                                }, () => {
+                                                    this.priceCategoryList1()
+                                                })}
+                                            />
+                                        </View>
+                                    </View>
+                                </View>
 
                                 {/* Vehicle type: Car or Bike */}
                                 <View style={{ marginLeft: hp('2.7%'), marginRight: hp('0.2%'), marginTop: hp('1%') }}>

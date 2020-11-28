@@ -134,6 +134,8 @@ class HomeScreen extends Component {
     let price4 = item.price4 ? item.price4 : ''
     let price5 = item.price5 ? item.price5 : ''
 
+    let totalPrice = item.totalPrice ? item.totalPrice : ''
+
     let InvoiceNo = item.InvoiceNo ? item.InvoiceNo : ''
     let MemberId = item.MemberId ? item.MemberId : ''
 
@@ -192,21 +194,71 @@ class HomeScreen extends Component {
       ' <td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price5 + '</td>' +
       ' </tr>' +
       ' <tr>' +
-      '<td style="width: 10%; padding: 10px;">6</td>' +
-      '<td style=" width: 70%; padding: 10px; "></td>' +
-      ' <td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
-      '</tr>' +
-      '<tr>' +
-      '<td style="width: 10%; padding: 10px;">7</td>' +
-      '<td style=" width: 70%; padding: 10px; "></td>' +
-      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
-      ' </tr>' +
-      '<tr>' +
-      ' <td style="width: 10%; padding: 10px;">8</td>' +
-      '<td style=" width: 70%; padding: 10px; "></td>' +
-      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
-      ' </tr>' +
       '</table>' +
+
+      '<div style="display: flex; justify-content: center;align-items: center; flex-direction: row; height: 31px;">' +
+      '<div style="flex: 0.726; "></div>' +
+      '<div style="display: flex; flex: 0.274; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; flex: 0.370; justify-content: flex-start;">' +
+      '<h1 style=" font-size: 14px; font-weight: bolder; color: #121212;">Subtotal </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:1; border-top: 3px solid #121212; background-color: azure; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 10000.00 </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="flex: 0.50; "></div>' +
+      '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; justify-content: flex-start; flex:1;">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Less: Discount @10.00% </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:0.67; background-color: #F2F4FF; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 0.00 </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="flex: 0.726; "></div>' +
+      '<div style="display: flex; flex: 0.274; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; flex: 0.370; justify-content: flex-start;">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Gross </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:1; border-top: 3px solid #121212; background-color: azure; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 0.00 </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="flex: 0.50; "></div>' +
+      '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; justify-content: flex-start; flex: 1.5;">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Add: Service Tax @0.00% </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:1; background-color: #F2F4FF; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 0.00 </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="flex: 0.50; "></div>' +
+      '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; flex: 1.5; justify-content: flex-start;">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Net Amt. Payable </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:1; background-color: #F2F4FF; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ ' + totalPrice + ' </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<br>' +
+      '<br>' +
+
       '<div style="width:100%; justify-content: center; align-items: center;">' +
       '<h1 style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 15px; color: #121212; letter-spacing: 1px; font-weight: 100;">Thank you for your business!</h1>' +
       '</div>' +
@@ -326,21 +378,71 @@ class HomeScreen extends Component {
       ' <td style="width: 20%; padding: 10px; background-color: #F2F4FF;">' + price5 + '</td>' +
       ' </tr>' +
       ' <tr>' +
-      '<td style="width: 10%; padding: 10px;">6</td>' +
-      '<td style=" width: 70%; padding: 10px; "></td>' +
-      ' <td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
-      '</tr>' +
-      '<tr>' +
-      '<td style="width: 10%; padding: 10px;">7</td>' +
-      '<td style=" width: 70%; padding: 10px; "></td>' +
-      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
-      ' </tr>' +
-      '<tr>' +
-      ' <td style="width: 10%; padding: 10px;">8</td>' +
-      '<td style=" width: 70%; padding: 10px; "></td>' +
-      '<td style="width: 20%; padding: 10px; background-color: #F2F4FF;"></td>' +
-      ' </tr>' +
       '</table>' +
+
+      '<div style="display: flex; justify-content: center;align-items: center; flex-direction: row; height: 31px;">' +
+      '<div style="flex: 0.726; "></div>' +
+      '<div style="display: flex; flex: 0.274; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; flex: 0.370; justify-content: flex-start;">' +
+      '<h1 style=" font-size: 14px; font-weight: bolder; color: #121212;">Subtotal </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:1; border-top: 3px solid #121212; background-color: azure; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 10000.00 </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="flex: 0.50; "></div>' +
+      '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; justify-content: flex-start; flex:1;">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Less: Discount @10.00% </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:0.67; background-color: #F2F4FF; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 0.00 </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="flex: 0.726; "></div>' +
+      '<div style="display: flex; flex: 0.274; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; flex: 0.370; justify-content: flex-start;">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Gross </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:1; border-top: 3px solid #121212; background-color: azure; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 0.00 </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="flex: 0.50; "></div>' +
+      '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; justify-content: flex-start; flex: 1.5;">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Add: Service Tax @0.00% </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:1; background-color: #F2F4FF; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 0.00 </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="flex: 0.50; "></div>' +
+      '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
+      '<div style="display: flex; flex: 1.5; justify-content: flex-start;">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Net Amt. Payable </h1>' +
+      '</div>' +
+      '<div style="display:flex; flex:1; background-color: #F2F4FF; justify-content: flex-end; ">' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ ' + totalPrice + ' </h1>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+
+      '<br>' +
+      '<br>' +
+
       '<div style="width:100%; justify-content: center; align-items: center;">' +
       '<h1 style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 15px; color: #121212; letter-spacing: 1px; font-weight: 100;">Thank you for your business!</h1>' +
       '</div>' +
@@ -449,8 +551,11 @@ class HomeScreen extends Component {
     return (
       <TouchableWithoutFeedback onPress={() => this.closeKeyboard()}>
         <View style={{ backgroundColor: '#fff', flex: 1 }}>
+
           <Notifications />
+
           <Header title="Clients" color="#3498DB" />
+
           <View
             style={{
               position: 'absolute',
@@ -468,6 +573,7 @@ class HomeScreen extends Component {
               />
             </TouchableOpacity>
           </View>
+
           <View
             style={{
               flexDirection: 'row',
@@ -505,6 +611,7 @@ class HomeScreen extends Component {
               size={Platform.OS === 'ios' ? hp('3.5%') : hp('3.5%')}
             />
           </View>
+
           {this.state.clientDatalist.length == 0 ? (
             this.listEmptyView()
           ) : (
@@ -785,6 +892,20 @@ class HomeScreen extends Component {
                                             { fontWeight: 'normal' })
                                         }>
                                         {item.Service10}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
+                                {item.paymentMode !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      PaymentMode:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.PaymentMode}
                                       </Text>
                                     </Text>
                                   </View>
