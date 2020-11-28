@@ -42,7 +42,8 @@ class FormScreen extends Component {
             clientGst: '',
             paymentMode: '',
             vehicleType: '',
-            misc: '',
+            miscType: false,
+            cardType: '',
             categoryType: '',
             serviceType: '',
             serviceType2: '',
@@ -79,6 +80,18 @@ class FormScreen extends Component {
         this.setState({ visibility: true })
     }
 
+    onCustomerSegmentSelect = (index, value) => {
+        this.setState({
+            miscType: true,
+            cardType: ''
+        })
+    }
+    onCardSelect = (index, value) => {
+        this.setState({
+            cardType: value
+        })
+    }
+
     onSelect = (index, value) => {
         this.setState({
             vehicleType: value,
@@ -101,6 +114,7 @@ class FormScreen extends Component {
             showBikeButton: [true, false, false, false, false, false, false, false, false, false]
         })
     }
+
     onCategorySelect = (index, value) => {
         this.setState({
             categoryType: value
@@ -133,6 +147,7 @@ class FormScreen extends Component {
                     Phone: this.state.clientsPhone,
                     ClientGst: this.state.clientGst ? this.state.clientGst : '',
                     PaymentMode: this.state.paymentMode,
+                    CardType: this.state.cardType,
                     Service: this.state.serviceType,
                     Service2: this.state.serviceType2 ? this.state.serviceType2 : '',
                     Service3: this.state.serviceType3 ? this.state.serviceType3 : '',
@@ -146,6 +161,7 @@ class FormScreen extends Component {
                     Vehicle: this.state.clientsVehicleName,
                     VehicleNo: this.state.clientsVehicleNumber,
                     VehicleType: this.state.vehicleType,
+                    MiscType: this.state.miscType ? this.state.miscType : false,
                     date: this.state.dateDisplay,
                     Color: this.state.categoryColor,
                     Category: this.state.categoryType,
@@ -355,6 +371,7 @@ class FormScreen extends Component {
                                     <Input placeholder="Clients Gst No." style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientGst => this.setState({ clientGst: clientGst })} />
                                 </Item>
 
+                                {/* payment dropdown */}
                                 <View style={{ marginTop: 10, zIndex: 1000, elevation: 1000 }}>
                                     {/* {this.state.categoryType ? */}
                                     <View>
@@ -379,6 +396,43 @@ class FormScreen extends Component {
                                     </View>
                                 </View>
 
+                                {/* select customer segment */}
+                                <View style={{ marginLeft: hp('2.7%'), marginRight: hp('0.2%'), marginTop: hp('1%') }}>
+                                    <Text style={{ ...styles.heading, color: '#2ecc72' }}>Select Customer Segment</Text>
+                                    <View style={[styles.radioButtonView]}>
+                                        <RadioGroup
+                                            color='#2ecc72'
+                                            thickness={2}
+                                            style={{ flexDirection: "row" }}
+                                            onSelect={(index, value) => this.onCustomerSegmentSelect(index, value)}
+                                            selectedIndex={-1}
+                                        >
+                                            <RadioButton value={"Cards"}><Text>Misc</Text></RadioButton>
+                                        </RadioGroup>
+                                    </View>
+                                </View>
+                                <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
+                                    {this.state.miscType ?
+
+                                        <View>
+                                            <Text style={{ ...styles.heading, marginHorizontal: hp('2.7%'), color: '#2ecc72' }}>Select Category of Card</Text>
+                                            <RadioGroup
+                                                color='#2ecc72'
+                                                thickness={2}
+                                                onSelect={(index, value) => this.onCardSelect(index, value)}
+                                                style={{ marginHorizontal: hp('3%') }}
+                                            >
+                                                <RadioButton value={"Value Card ₹2000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹2000</Text></RadioButton>
+                                                <RadioButton value={"Value Card ₹5000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹5000</Text></RadioButton>
+                                                <RadioButton value={"Value Card ₹10000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹10000</Text></RadioButton>
+                                                <RadioButton value={"Previledge Card ₹650"}><Text style={{ fontWeight: 'bold' }}>Previledge Card ₹650</Text></RadioButton>
+                                            </RadioGroup>
+                                        </View>
+                                        :
+                                        null
+                                    }
+                                </View>
+
                                 {/* Vehicle type: Car or Bike or Misc (Cards) */}
                                 <View style={{ marginLeft: hp('2.7%'), marginRight: hp('0.2%'), marginTop: hp('1%') }}>
                                     <Text style={{ ...styles.heading, color: '#2ecc72' }}>Select Vehicle Type</Text>
@@ -391,8 +445,7 @@ class FormScreen extends Component {
                                             selectedIndex={-1}
                                         >
                                             <RadioButton value={"Car"}><Text style={{ paddingRight: hp('5%') }}>Car</Text></RadioButton>
-                                            <RadioButton value={"Bike"}><Text style={{ paddingRight: hp('5%') }}>Bike</Text></RadioButton>
-                                            <RadioButton value={"Cards"}><Text>Misc</Text></RadioButton>
+                                            <RadioButton value={"Bike"}><Text>Bike</Text></RadioButton>
                                         </RadioGroup>
                                     </View>
                                 </View>
@@ -838,30 +891,6 @@ class FormScreen extends Component {
                                         null
                                     }
                                 </View>
-
-                                <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
-                                    {this.state.vehicleType == 'Cards' ?
-
-                                        <View>
-                                            <Text style={{ ...styles.heading, marginHorizontal: hp('2.7%'), color: '#2ecc72' }}>Select Category of Bike</Text>
-                                            <RadioGroup
-                                                color='#2ecc72'
-                                                thickness={2}
-                                                onSelect={(index, value) => this.onCategorySelect(index, value)}
-                                                style={{ marginHorizontal: hp('3%') }}
-                                            >
-                                                <RadioButton value={"Value Card ₹2000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹2000</Text></RadioButton>
-                                                <RadioButton value={"Value Card ₹5000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹5000</Text></RadioButton>
-                                                <RadioButton value={"Value Card ₹10000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹10000</Text></RadioButton>
-                                                <RadioButton value={"Previledge Card ₹650"}><Text style={{ fontWeight: 'bold' }}>Previledge Card ₹650</Text></RadioButton>
-                                            </RadioGroup>
-                                        </View>
-                                        :
-                                        null
-                                    }
-                                </View>
-
-
 
                                 <View>
                                     {this.state.vehicleType == 'Car' ?

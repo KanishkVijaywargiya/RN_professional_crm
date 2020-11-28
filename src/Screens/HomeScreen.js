@@ -26,6 +26,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+import ActionButton from 'react-native-action-button';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 
@@ -547,6 +549,30 @@ class HomeScreen extends Component {
     Keyboard.dismiss();
   };
 
+  customerSegmentType = (customerSegmentType) => {
+    switch (customerSegmentType) {
+      case 'Value Card ₹2000':
+        return (
+          <View style={{ backgroundColor: 'yellow', width: 20, height: 30 }} />
+        )
+      case 'Value Card ₹5000':
+        return (
+          <View style={{ backgroundColor: 'blue', width: 20, height: 30 }} />
+        )
+      case 'Value Card ₹10000':
+        return (
+          <View style={{ backgroundColor: 'green', width: 20, height: 30 }} />
+        )
+      case 'Previledge Card ₹650':
+        return (
+          <View style={{ backgroundColor: 'red', width: 20, height: 30 }} />
+        )
+
+      default:
+        break;
+    }
+  }
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={() => this.closeKeyboard()}>
@@ -910,6 +936,27 @@ class HomeScreen extends Component {
                                     </Text>
                                   </View>
                                 ) : null}
+
+                                {item.miscType !== '' ? (
+                                  <View>
+                                    {this.customerSegmentType(item.CardType)}
+                                  </View>
+                                ) : null}
+
+                                {item.miscType !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      CardSegment:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.CardType}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : null}
                               </View>
                               {index === this.state.currentIndex ? (
                                 <View
@@ -942,25 +989,41 @@ class HomeScreen extends Component {
           {this.state.rippleEffect ?
             null
             :
-            <View>
-              {Platform.OS == 'ios' ?
-                <TouchableOpacity
-                  style={styles.fab}
-                  onPress={() => {
-                    this.props.navigation.navigate('FormScreen');
-                  }}>
-                  <Text style={styles.fabText}> + </Text>
-                </TouchableOpacity>
-                :
-                <TouchableOpacity
-                  style={styles.fab}
-                  onPress={() => {
-                    this.props.navigation.navigate('AndroidForm');
-                  }}>
-                  <Text style={styles.fabText}> + </Text>
-                </TouchableOpacity>
-              }
+
+            <View style={{ flex: 1 }}>
+              {/* Rest of the app comes ABOVE the action button component !*/}
+              <ActionButton buttonColor="#8B78E6">
+                <ActionButton.Item buttonColor='#F3B431' title="Normal Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
+                  <Icon name="md-create" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#3498db' title="Register Customer" onPress={() => this.props.navigation.navigate('RegisterCustomer')}>
+                  <Icon name="md-create" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>
+                  <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+              </ActionButton>
             </View>
+
+            // <View>
+            //   {Platform.OS == 'ios' ?
+            //     <TouchableOpacity
+            //       style={styles.fab}
+            //       onPress={() => {
+            //         this.props.navigation.navigate('FormScreen');
+            //       }}>
+            //       <Text style={styles.fabText}> + </Text>
+            //     </TouchableOpacity>
+            //     :
+            //     <TouchableOpacity
+            //       style={styles.fab}
+            //       onPress={() => {
+            //         this.props.navigation.navigate('AndroidForm');
+            //       }}>
+            //       <Text style={styles.fabText}> + </Text>
+            //     </TouchableOpacity>
+            //   }
+            // </View>
           }
 
           <View
