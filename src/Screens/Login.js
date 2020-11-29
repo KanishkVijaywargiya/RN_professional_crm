@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
@@ -12,7 +12,7 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components';
 
@@ -26,13 +26,13 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUid: (uid) => dispatch({type: 'UPDATE_UID', uid}),
-    updateName: (fullName) => dispatch({type: 'UPDATE_NAME', fullName}),
-    updateEmail: (email) => dispatch({type: 'UPDATE_EMAIL', email}),
+    updateUid: (uid) => dispatch({ type: 'UPDATE_UID', uid }),
+    updateName: (fullName) => dispatch({ type: 'UPDATE_NAME', fullName }),
+    updateEmail: (email) => dispatch({ type: 'UPDATE_EMAIL', email }),
   };
 }
 
@@ -57,14 +57,14 @@ class Login extends Component {
     const email = this.state.email;
     const password = this.state.password;
     if (email && password) {
-      this.setState({isSuccessful: true});
+      this.setState({ isSuccessful: true });
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .catch((error) => {
           Alert.alert('Error', error.message);
           Keyboard.dismiss();
-          this.setState({isSuccessful: false});
+          this.setState({ isSuccessful: false });
         })
         .then((response) => {
           Keyboard.dismiss();
@@ -73,9 +73,9 @@ class Login extends Component {
             this.storeData('uid', response.user.uid);
             this.props.updateUid(response.user.uid);
 
-            this.setState({isSuccessful: false, email: '', password: ''});
+            this.setState({ isSuccessful: false, email: '', password: '' });
             setTimeout(() => {
-              this.setState({isSuccessful: false});
+              this.setState({ isSuccessful: false });
               // Alert.alert('Congrats', "You've logged in Successfully!");
             }, 2000);
           }
@@ -100,7 +100,7 @@ class Login extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <KeyboardAwareScrollView>
           <SafeAreaView>
             <View
@@ -115,8 +115,8 @@ class Login extends Component {
                 alignItems: 'center',
                 marginTop: Platform.OS === 'ios' ? hp('5%') : hp('0.5%'),
               }}>
-              <Text style={{fontSize: 30, fontWeight: 'bold'}}>Welcome</Text>
-              <Text style={{fontSize: 12, fontWeight: '500', color: '#121212'}}>
+              <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Welcome</Text>
+              <Text style={{ fontSize: 12, fontWeight: '500', color: '#121212' }}>
                 Log in to your existed account of Clean & Shine CRM
               </Text>
             </View>
@@ -132,17 +132,17 @@ class Login extends Component {
                 alignSelf: 'center',
                 width: Dimensions.get('window').width - 30,
               }}>
-              <View style={{flex: 0.2, alignItems: 'center'}}>
+              <View style={{ flex: 0.2, alignItems: 'center' }}>
                 <IconEmail source={this.state.IconEmail} />
               </View>
               <TextInput
-                style={{flex: 0.8, fontSize: 22, color: '#3498DB'}}
+                style={{ flex: 0.8, fontSize: 22, color: '#3498DB' }}
                 autoCapitalize="none"
                 autoCorrect={false}
                 placeholder="Email"
                 placeholderTextColor="#3C4560"
                 keyboardType="email-address"
-                onChangeText={(email) => this.setState({email})}
+                onChangeText={(email) => this.setState({ email })}
                 onFocus={this.focusEmail}
                 value={this.state.email}
                 opacity={0.5}
@@ -160,16 +160,16 @@ class Login extends Component {
                 alignSelf: 'center',
                 width: Dimensions.get('window').width - 30,
               }}>
-              <View style={{flex: 0.2, alignItems: 'center'}}>
+              <View style={{ flex: 0.2, alignItems: 'center' }}>
                 <IconPassword source={this.state.IconPassword} />
               </View>
               <TextInput
-                style={{flex: 0.8, fontSize: 22, color: '#3498DB'}}
+                style={{ flex: 0.8, fontSize: 22, color: '#3498DB' }}
                 autoCapitalize="none"
                 autoCorrect={false}
                 placeholder="Password"
                 placeholderTextColor="#3C4560"
-                onChangeText={(password) => this.setState({password})}
+                onChangeText={(password) => this.setState({ password })}
                 onFocus={this.focusPassword}
                 value={this.state.password}
                 secureTextEntry
@@ -208,13 +208,13 @@ class Login extends Component {
                     borderColor: '#3498DB',
                     width: Dimensions.get('window').width - 250,
                     shadowColor: '#3498DB',
-                    shadowOffset: {width: 0, height: 2},
+                    shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: 0.8,
                     shadowRadius: 2,
                     elevation: 1,
                   }}>
                   <Text
-                    style={{color: '#fff', fontSize: 22, fontWeight: 'bold'}}>
+                    style={{ color: '#fff', fontSize: 22, fontWeight: 'bold' }}>
                     LOG IN
                   </Text>
                 </View>
@@ -230,13 +230,13 @@ class Login extends Component {
                   bottom: 2,
                   marginTop: hp('1%'),
                 }}>
-                <Text style={{color: '#121212', fontSize: 16}}>
+                <Text style={{ color: '#121212', fontSize: 16 }}>
                   Don't have an account?{' '}
                 </Text>
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate('SignUp')}>
                   <Text
-                    style={{color: '#3498DB', fontSize: 16, fontWeight: '700'}}>
+                    style={{ color: '#3498DB', fontSize: 16, fontWeight: '700' }}>
                     Sign Up
                   </Text>
                 </TouchableOpacity>

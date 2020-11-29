@@ -29,6 +29,9 @@ import {
 import ActionButton from 'react-native-action-button';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+
 import Icons from 'react-native-vector-icons/FontAwesome5';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -994,36 +997,16 @@ class HomeScreen extends Component {
               {/* Rest of the app comes ABOVE the action button component !*/}
               <ActionButton buttonColor="#8B78E6">
                 <ActionButton.Item buttonColor='#F3B431' title="Normal Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
-                  <Icon name="md-create" style={styles.actionButtonIcon} />
+                  <Icon name="md-create" size={32} style={styles.actionButtonIcon} />
                 </ActionButton.Item>
                 <ActionButton.Item buttonColor='#3498db' title="Register Customer" onPress={() => this.props.navigation.navigate('RegisterCustomer')}>
-                  <Icon name="md-create" style={styles.actionButtonIcon} />
+                  <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
                 </ActionButton.Item>
                 <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>
-                  <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                  <EvilIcons name="credit-card" size={42} style={styles.actionButtonIcon} />
                 </ActionButton.Item>
               </ActionButton>
             </View>
-
-            // <View>
-            //   {Platform.OS == 'ios' ?
-            //     <TouchableOpacity
-            //       style={styles.fab}
-            //       onPress={() => {
-            //         this.props.navigation.navigate('FormScreen');
-            //       }}>
-            //       <Text style={styles.fabText}> + </Text>
-            //     </TouchableOpacity>
-            //     :
-            //     <TouchableOpacity
-            //       style={styles.fab}
-            //       onPress={() => {
-            //         this.props.navigation.navigate('AndroidForm');
-            //       }}>
-            //       <Text style={styles.fabText}> + </Text>
-            //     </TouchableOpacity>
-            //   }
-            // </View>
           }
 
           <View
