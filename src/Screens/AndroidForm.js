@@ -354,26 +354,22 @@ class FormScreen extends Component {
                                     <Input placeholder="Clients Gst No." style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientGst => this.setState({ clientGst: clientGst })} />
                                 </Item>
 
+                                {/* payment mode */}
                                 <View style={{ marginTop: 10, zIndex: 1000, elevation: 1000 }}>
-                                    {/* {this.state.categoryType ? */}
                                     <View>
                                         <View style={{ zIndex: 300, elevation: 300 }}>
-                                            <DropDownPicker
-                                                items={modeOfPayment}
-                                                placeholder='Select the mode of payment'
-                                                containerStyle={[styles.dropdown, { zIndex: 300, elevation: 300, }]}
-                                                itemStyle={{
-                                                    justifyContent: 'flex-start',
-                                                    zIndex: 300,
-                                                    elevation: 1000,
-                                                    backgroundColor: '#fff'
-                                                }}
-                                                onChangeItem={item => this.setState({
-                                                    paymentMode: item.value
+                                            <Picker
+                                                selectedValue={this.state.paymentMode ? this.state.paymentMode : 'Select the mode of payment'}
+                                                style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                onValueChange={item => this.setState({
+                                                    paymentMode: item
                                                 }, () => {
                                                     this.priceCategoryList1()
-                                                })}
-                                            />
+                                                })}>
+                                                {modeOfPayment.map((item, key) => (
+                                                    <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                )}
+                                            </Picker>
                                         </View>
                                     </View>
                                 </View>
@@ -440,7 +436,7 @@ class FormScreen extends Component {
                                                                     <View>
                                                                         {this.state.price1 ?
                                                                             <TouchableOpacity onPress={() => { this.showHide(0) }}>
-                                                                                <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                                <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('25%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                                     <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                                 </View>
                                                                             </TouchableOpacity>
@@ -486,7 +482,7 @@ class FormScreen extends Component {
                                                         <View>
                                                             {this.state.price2 ?
                                                                 <TouchableOpacity onPress={() => { this.showHide(1) }}>
-                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('25%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                     </View>
                                                                 </TouchableOpacity>
@@ -527,7 +523,7 @@ class FormScreen extends Component {
                                                         <View>
                                                             {this.state.price3 ?
                                                                 <TouchableOpacity onPress={() => { this.showHide(2) }}>
-                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('25%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                     </View>
                                                                 </TouchableOpacity>
@@ -568,7 +564,7 @@ class FormScreen extends Component {
                                                         <View>
                                                             {this.state.price4 ?
                                                                 <TouchableOpacity onPress={() => { this.showHide(3) }}>
-                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('20%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
+                                                                    <View style={{ backgroundColor: 'red', padding: hp('2%'), width: hp('25%'), justifyContent: 'center', alignItems: 'center', marginTop: hp('1%'), borderRadius: hp('1%') }}>
                                                                         <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Add More Service</Text>
                                                                     </View>
                                                                 </TouchableOpacity>
@@ -1120,5 +1116,43 @@ const bikeServices = [
         id: 13,
         label: 'Aromatree Air Freshner',
         value: 'Aromatree Air Freshner'
+    },
+]
+
+const modeOfPayment = [
+    {
+        id: 1,
+        label: 'Cash',
+        value: 'Cash'
+    },
+    {
+        id: 2,
+        label: 'Card',
+        value: 'Card'
+    },
+    {
+        id: 3,
+        label: 'Google Pay',
+        value: 'Google Pay'
+    },
+    {
+        id: 4,
+        label: 'Paytm',
+        value: 'Paytm'
+    },
+    {
+        id: 5,
+        label: 'Phone Pay',
+        value: 'Phone Pay'
+    },
+    {
+        id: 6,
+        label: 'Bhim App',
+        value: 'Bhim App'
+    },
+    {
+        id: 7,
+        label: 'Bank',
+        value: 'Bank'
     },
 ]

@@ -32,13 +32,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import Icons from 'react-native-vector-icons/FontAwesome5';
-
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
 
 import { Transition, Transitioning, color } from 'react-native-reanimated';
-import { ActivityIndicator } from 'react-native-paper';
 
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import RNPrint from 'react-native-print';
@@ -127,6 +124,8 @@ class HomeScreen extends Component {
   }
 
   createPDF = async (item) => {
+    console.log("PDF", item);
+
     let Service = item.Service ? item.Service : ''
     let Service2 = item.Service2 ? item.Service2 : ''
     let Service3 = item.Service3 ? item.Service3 : ''
@@ -949,20 +948,19 @@ class HomeScreen extends Component {
             null
             :
 
-            <View style={{ flex: 1 }}>
-              {/* Rest of the app comes ABOVE the action button component !*/}
-              <ActionButton buttonColor="#8B78E6">
-                <ActionButton.Item buttonColor='#F3B431' title="Normal Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
-                  <Icon name="md-create" size={32} style={styles.actionButtonIcon} />
-                </ActionButton.Item>
-                <ActionButton.Item buttonColor='#3498db' title="Register Customer" onPress={() => this.props.navigation.navigate('RegisterCustomer')}>
-                  <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
-                </ActionButton.Item>
-                <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>
-                  <EvilIcons name="credit-card" size={42} style={styles.actionButtonIcon} />
-                </ActionButton.Item>
-              </ActionButton>
-            </View>
+            // <View style={{ flex: 1, zIndex: 1000, bottom: Platform.OS == 'ios' ? hp('2%') : hp('10%') }}>
+            <ActionButton buttonColor="#8B78E6">
+              <ActionButton.Item buttonColor='#F3B431' title="Normal Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
+                <Icon name="md-create" size={32} style={styles.actionButtonIcon} />
+              </ActionButton.Item>
+              <ActionButton.Item buttonColor='#3498db' title="Register Customer" onPress={() => this.props.navigation.navigate('RegisterCustomer')}>
+                <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
+              </ActionButton.Item>
+              <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>
+                <EvilIcons name="credit-card" size={42} style={styles.actionButtonIcon} />
+              </ActionButton.Item>
+            </ActionButton>
+            // </View>
           }
 
           <View
@@ -984,7 +982,7 @@ class HomeScreen extends Component {
             </Text>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback >
     );
   }
 }
@@ -1031,22 +1029,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   fab: {
-    alignItems: 'center',
-    justifyContent: 'center',
     width: 55,
-    position: 'absolute',
-    bottom: hp('2%'),
-    right: hp('1.5%'),
     height: 55,
-    backgroundColor: '#8B78E6',
-    borderRadius: hp('4.5%'),
-    shadowColor: '#8B78E6',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
-    shadowRadius: 3,
-    shadowOpacity: 0.6
+    position: 'absolute',
+    bottom: Platform.OS == 'ios' ? hp('10%') : hp('10%'),
+    right: Platform.OS == 'ios' ? hp('5%') : hp('1.5%'),
+    elevation: 10,
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 2 },
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   fabText: {

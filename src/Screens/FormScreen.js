@@ -357,7 +357,6 @@ class FormScreen extends Component {
 
                                 {/* payment dropdown */}
                                 <View style={{ marginTop: 10, zIndex: 1000, elevation: 1000 }}>
-                                    {/* {this.state.categoryType ? */}
                                     <View>
                                         <View style={{ zIndex: 300, elevation: 300 }}>
                                             <DropDownPicker
@@ -378,28 +377,6 @@ class FormScreen extends Component {
                                             />
                                         </View>
                                     </View>
-                                </View>
-
-                                <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
-                                    {this.state.miscType ?
-
-                                        <View>
-                                            <Text style={{ ...styles.heading, marginHorizontal: hp('2.7%'), color: '#2ecc72' }}>Select Category of Card</Text>
-                                            <RadioGroup
-                                                color='#2ecc72'
-                                                thickness={2}
-                                                onSelect={(index, value) => this.onCardSelect(index, value)}
-                                                style={{ marginHorizontal: hp('3%') }}
-                                            >
-                                                <RadioButton value={"Value Card ₹2000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹2000</Text></RadioButton>
-                                                <RadioButton value={"Value Card ₹5000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹5000</Text></RadioButton>
-                                                <RadioButton value={"Value Card ₹10000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹10000</Text></RadioButton>
-                                                <RadioButton value={"Previledge Card ₹650"}><Text style={{ fontWeight: 'bold' }}>Previledge Card ₹650</Text></RadioButton>
-                                            </RadioGroup>
-                                        </View>
-                                        :
-                                        null
-                                    }
                                 </View>
 
                                 {/* Vehicle type: Car or Bike or Misc (Cards) */}

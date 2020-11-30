@@ -24,7 +24,7 @@ export default BottomTabs = () => (
         <Tab.Screen name='CardSegment'
             component={CardSegment}
             options={{
-                tabBarLabel: 'Card Segment',
+                tabBarLabel: 'CardSegment',
                 tabBarColor: '#EA425C',
                 tabBarIcon: ({ color }) => (
                     <MaterialCommunityIcons name='card-account-details' color={color} size={26} />
