@@ -85,6 +85,15 @@ export default class RegisterCustomer extends Component {
         return (
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
                 <Header title='Register Client' color='#7CEC9F' />
+                <View style={{ position: 'absolute', top: Platform.OS === 'ios' ? hp('5%') : hp('2%'), left: Platform.OS === 'ios' ? hp('2%') : hp('2%') }}>
+                    <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} onPress={() => this.props.navigation.goBack()}>
+                        <Icon
+                            name={'ios-arrow-back'}
+                            color={'white'}
+                            size={Platform.OS === 'ios' ? hp('3.5%') : hp('5%')}
+                        />
+                    </TouchableOpacity>
+                </View>
 
                 <KeyboardAwareScrollView>
                     <View style={{ zIndex: 1000 }}>
