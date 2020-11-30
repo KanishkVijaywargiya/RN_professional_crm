@@ -865,7 +865,7 @@ class FormScreen extends Component {
                                     {this.state.vehicleType == 'Car' ?
                                         <Item>
                                             <Icon name='car-sport' size={26} color={color} />
-                                            <Input placeholder="Clients Vehicle Name" style={{ ...styles.formfields }} onChangeText={clientsVehicleName => this.setState({ clientsVehicleName: clientsVehicleName })} />
+                                            <Input placeholder="Vehicle Make & Model" style={{ ...styles.formfields }} onChangeText={clientsVehicleName => this.setState({ clientsVehicleName: clientsVehicleName })} />
                                         </Item>
                                         :
                                         null
@@ -882,7 +882,7 @@ class FormScreen extends Component {
                                 </View>
                                 <Item>
                                     <Icon name='ios-logo-closed-captioning' size={26} color={color} />
-                                    <Input placeholder="Clients Vehicle Number" style={{ ...styles.formfields }} onChangeText={clientsVehicleNumber => this.setState({ clientsVehicleNumber: clientsVehicleNumber })} />
+                                    <Input placeholder="Vehicle Regn. No." style={{ ...styles.formfields }} onChangeText={clientsVehicleNumber => this.setState({ clientsVehicleNumber: clientsVehicleNumber })} />
                                 </Item>
                                 <Item>
                                     <Icons name='inr' size={26} color={color} />

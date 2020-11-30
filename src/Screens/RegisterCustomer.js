@@ -84,7 +84,7 @@ export default class RegisterCustomer extends Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                {/* <Header title='Register Client' color='#7CEC9F' /> */}
+                <Header title='Register Client' color='#7CEC9F' />
 
                 <KeyboardAwareScrollView>
                     <View style={{ zIndex: 1000 }}>
