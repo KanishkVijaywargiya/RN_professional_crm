@@ -552,30 +552,6 @@ class HomeScreen extends Component {
     Keyboard.dismiss();
   };
 
-  customerSegmentType = (customerSegmentType) => {
-    switch (customerSegmentType) {
-      case 'Value Card ₹2000':
-        return (
-          <View style={{ backgroundColor: 'yellow', width: 20, height: 30 }} />
-        )
-      case 'Value Card ₹5000':
-        return (
-          <View style={{ backgroundColor: 'blue', width: 20, height: 30 }} />
-        )
-      case 'Value Card ₹10000':
-        return (
-          <View style={{ backgroundColor: 'green', width: 20, height: 30 }} />
-        )
-      case 'Previledge Card ₹650':
-        return (
-          <View style={{ backgroundColor: 'red', width: 20, height: 30 }} />
-        )
-
-      default:
-        break;
-    }
-  }
-
   render() {
     return (
       <TouchableWithoutFeedback onPress={() => this.closeKeyboard()}>
@@ -940,26 +916,6 @@ class HomeScreen extends Component {
                                   </View>
                                 ) : null}
 
-                                {item.miscType !== '' ? (
-                                  <View>
-                                    {this.customerSegmentType(item.CardType)}
-                                  </View>
-                                ) : null}
-
-                                {item.miscType !== '' ? (
-                                  <View>
-                                    <Text key={index} style={[styles.body]}>
-                                      CardSegment:{' '}
-                                      <Text
-                                        style={
-                                          ([styles.content],
-                                            { fontWeight: 'normal' })
-                                        }>
-                                        {item.CardType}
-                                      </Text>
-                                    </Text>
-                                  </View>
-                                ) : null}
                               </View>
                               {index === this.state.currentIndex ? (
                                 <View

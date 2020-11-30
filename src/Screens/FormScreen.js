@@ -42,8 +42,6 @@ class FormScreen extends Component {
             clientGst: '',
             paymentMode: '',
             vehicleType: '',
-            miscType: false,
-            cardType: '',
             categoryType: '',
             serviceType: '',
             serviceType2: '',
@@ -78,18 +76,6 @@ class FormScreen extends Component {
     }
     onPressButton = () => {
         this.setState({ visibility: true })
-    }
-
-    onCustomerSegmentSelect = (index, value) => {
-        this.setState({
-            miscType: true,
-            cardType: ''
-        })
-    }
-    onCardSelect = (index, value) => {
-        this.setState({
-            cardType: value
-        })
     }
 
     onSelect = (index, value) => {
@@ -147,7 +133,6 @@ class FormScreen extends Component {
                     Phone: this.state.clientsPhone,
                     ClientGst: this.state.clientGst ? this.state.clientGst : '',
                     PaymentMode: this.state.paymentMode,
-                    CardType: this.state.cardType,
                     Service: this.state.serviceType,
                     Service2: this.state.serviceType2 ? this.state.serviceType2 : '',
                     Service3: this.state.serviceType3 ? this.state.serviceType3 : '',
@@ -161,7 +146,6 @@ class FormScreen extends Component {
                     Vehicle: this.state.clientsVehicleName,
                     VehicleNo: this.state.clientsVehicleNumber,
                     VehicleType: this.state.vehicleType,
-                    MiscType: this.state.miscType ? this.state.miscType : false,
                     date: this.state.dateDisplay,
                     Color: this.state.categoryColor,
                     Category: this.state.categoryType,
@@ -396,21 +380,6 @@ class FormScreen extends Component {
                                     </View>
                                 </View>
 
-                                {/* select customer segment */}
-                                <View style={{ marginLeft: hp('2.7%'), marginRight: hp('0.2%'), marginTop: hp('1%') }}>
-                                    <Text style={{ ...styles.heading, color: '#2ecc72' }}>Select Customer Segment</Text>
-                                    <View style={[styles.radioButtonView]}>
-                                        <RadioGroup
-                                            color='#2ecc72'
-                                            thickness={2}
-                                            style={{ flexDirection: "row" }}
-                                            onSelect={(index, value) => this.onCustomerSegmentSelect(index, value)}
-                                            selectedIndex={-1}
-                                        >
-                                            <RadioButton value={"Cards"}><Text>Misc</Text></RadioButton>
-                                        </RadioGroup>
-                                    </View>
-                                </View>
                                 <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
                                     {this.state.miscType ?
 

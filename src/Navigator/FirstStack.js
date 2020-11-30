@@ -3,9 +3,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import HomeScreen from '../Screens/HomeScreen.js';
+import CardSegment from '../Screens/CardSegment.js';
 import AnalyticsScreen from '../Screens/AnalyticsScreen.js';
 import FormScreen from '../Screens/FormScreen.js';
 import NotificationScreen from '../Screens/NotificationScreen.js';
+import CardSegmentNotification from '../Screens/CardSegmentNotification.js';
 import AndroidForm from '../Screens/AndroidForm.js';
 import RegisterCustomer from '../Screens/RegisterCustomer.js';
 import Misc from '../Screens/Misc.js';
@@ -26,6 +28,14 @@ export default FirstStack = ({ navigation }) => (
       }}
     />
     <Stack.Screen
+      name="CardSegment"
+      component={CardSegment}
+      options={{
+        title: 'Card Segment',
+        headerShown: false,
+      }}
+    />
+    <Stack.Screen
       name="AnalyticsScreen"
       component={AnalyticsScreen}
       options={{
@@ -39,6 +49,13 @@ export default FirstStack = ({ navigation }) => (
       component={NotificationScreen}
       options={{
         // title: 'Form',
+        headerShown: false,
+      }}
+    />
+    <Stack.Screen
+      name="CardSegmentNotification"
+      component={CardSegmentNotification}
+      options={{
         headerShown: false,
       }}
     />
