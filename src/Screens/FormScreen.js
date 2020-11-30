@@ -851,7 +851,7 @@ class FormScreen extends Component {
                                     {this.state.vehicleType == 'Bike' ?
                                         <Item>
                                             <BikeIcon name='motorbike' size={26} color={color} />
-                                            <Input placeholder="Clients Vehicle Name" style={{ ...styles.formfields }} onChangeText={clientsVehicleName => this.setState({ clientsVehicleName: clientsVehicleName })} />
+                                            <Input placeholder="Vehicle Make & Model" style={{ ...styles.formfields }} onChangeText={clientsVehicleName => this.setState({ clientsVehicleName: clientsVehicleName })} />
                                         </Item>
                                         :
                                         null
