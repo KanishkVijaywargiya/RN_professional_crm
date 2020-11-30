@@ -126,7 +126,7 @@ class NotificationScreen extends Component {
                         style={{ marginTop: Platform.OS === 'ios' ? hp('10%') : hp('15%') }}
                         showsVerticalScrollIndicator={false}>
                         <Wrapper>
-                            <Subtitle>Types of services we provide:</Subtitle>
+                            <Subtitle>Types of card segment we provide:</Subtitle>
                             {this.state.serviceList.map((item, index) => (
                                 <ItemContainer key={index}>
                                     <Header>

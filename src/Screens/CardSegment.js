@@ -350,7 +350,7 @@ class HomeScreen extends Component {
                                             </View>
                                         </View>
                                         <TouchableOpacity
-                                            onPress={() => Platform.OS === 'ios' ? this.createPDF(item) : this.printHTML(item)}
+                                            onPress={() => { alert('Card Segment Client Summary') }}
                                             style={{
                                                 position: 'absolute',
                                                 right: Platform.OS === 'ios' ? hp('2%') : hp('2%'),
@@ -363,26 +363,6 @@ class HomeScreen extends Component {
                             })}
                         </Transitioning.View>
                     </ScrollView>
-
-                    {this.state.rippleEffect ?
-                        null
-                        :
-
-                        <View style={{ flex: 1 }}>
-                            {/* Rest of the app comes ABOVE the action button component !*/}
-                            <ActionButton buttonColor="#8B78E6">
-                                <ActionButton.Item buttonColor='#F3B431' title="Normal Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
-                                    <Icon name="md-create" size={32} style={styles.actionButtonIcon} />
-                                </ActionButton.Item>
-                                <ActionButton.Item buttonColor='#3498db' title="Register Customer" onPress={() => this.props.navigation.navigate('RegisterCustomer')}>
-                                    <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
-                                </ActionButton.Item>
-                                <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>
-                                    <EvilIcons name="credit-card" size={42} style={styles.actionButtonIcon} />
-                                </ActionButton.Item>
-                            </ActionButton>
-                        </View>
-                    }
 
                     <View
                         style={{
