@@ -361,19 +361,19 @@ class HomeScreen extends Component {
         switch (customerSegmentType) {
             case 'Value Card ₹2000':
                 return (
-                    <View style={{ backgroundColor: '#fb6f6f', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('15%'), borderRadius: 10 }} />
+                    <View style={{ backgroundColor: '#fb6f6f', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('18%'), borderRadius: 10 }} />
                 )
             case 'Value Card ₹5000':
                 return (
-                    <View style={{ backgroundColor: 'blue', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('15%'), borderRadius: 10 }} />
+                    <View style={{ backgroundColor: 'blue', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('18%'), borderRadius: 10 }} />
                 )
             case 'Value Card ₹10000':
                 return (
-                    <View style={{ backgroundColor: 'green', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('15%'), borderRadius: 10 }} />
+                    <View style={{ backgroundColor: 'green', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('18%'), borderRadius: 10 }} />
                 )
             case 'Previledge Card ₹650':
                 return (
-                    <View style={{ backgroundColor: 'red', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('15%'), borderRadius: 10 }} />
+                    <View style={{ backgroundColor: 'red', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('18%'), borderRadius: 10 }} />
                 )
 
             default:
