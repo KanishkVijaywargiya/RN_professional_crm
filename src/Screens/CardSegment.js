@@ -311,8 +311,6 @@ class HomeScreen extends Component {
         await RNPrint.print({ html: htmlContent })
     }
 
-
-
     listEmptyView = () => {
         if (this.state.rippleEffect) {
             return (
@@ -363,19 +361,19 @@ class HomeScreen extends Component {
         switch (customerSegmentType) {
             case 'Value Card ₹2000':
                 return (
-                    <View style={{ backgroundColor: 'yellow', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('11%') : hp('15%'), borderRadius: 10 }} />
+                    <View style={{ backgroundColor: '#fb6f6f', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('15%'), borderRadius: 10 }} />
                 )
             case 'Value Card ₹5000':
                 return (
-                    <View style={{ backgroundColor: 'blue', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('11%') : hp('15%'), borderRadius: 10 }} />
+                    <View style={{ backgroundColor: 'blue', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('15%'), borderRadius: 10 }} />
                 )
             case 'Value Card ₹10000':
                 return (
-                    <View style={{ backgroundColor: 'green', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('11%') : hp('15%'), borderRadius: 10 }} />
+                    <View style={{ backgroundColor: 'green', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('15%'), borderRadius: 10 }} />
                 )
             case 'Previledge Card ₹650':
                 return (
-                    <View style={{ backgroundColor: 'red', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('11%') : hp('15%'), borderRadius: 10 }} />
+                    <View style={{ backgroundColor: 'red', width: hp('0.5%'), height: Platform.OS == 'ios' ? hp('13%') : hp('15%'), borderRadius: 10 }} />
                 )
 
             default:
@@ -470,6 +468,19 @@ class HomeScreen extends Component {
                                                             paddingLeft: 5,
                                                         }}>
 
+                                                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                                                            <View style={{ flex: 1 }}>
+                                                                <Text style={[styles.heading]}>
+                                                                    Date:{' '}
+                                                                    <Text
+                                                                        style={[styles.content, { color: 'red' }]}>
+                                                                        {item.date}
+                                                                    </Text>
+                                                                </Text>
+                                                            </View>
+                                                        </View>
+
+                                                        {/* name */}
                                                         <View>
                                                             <Text style={[styles.heading]}>
                                                                 Name:{' '}
@@ -482,6 +493,8 @@ class HomeScreen extends Component {
                                                                 </Text>
                                                             </Text>
                                                         </View>
+
+                                                        {/* email */}
                                                         <View>
                                                             <Text style={[styles.heading]}>
                                                                 Email:{' '}
@@ -494,6 +507,8 @@ class HomeScreen extends Component {
                                                                 </Text>
                                                             </Text>
                                                         </View>
+
+                                                        {/* phone */}
                                                         <View>
                                                             <Text style={[styles.heading]}>
                                                                 Phone:{' '}
@@ -506,6 +521,8 @@ class HomeScreen extends Component {
                                                                 </Text>
                                                             </Text>
                                                         </View>
+
+                                                        {/* card type */}
                                                         <View>
                                                             <Text style={[styles.heading]}>
                                                                 CardType:{' '}
@@ -525,6 +542,7 @@ class HomeScreen extends Component {
                                                 )}
                                             </View>
                                         </View>
+
                                         <TouchableOpacity
                                             onPress={() => alert('Card Segment Client Summary')}
                                             style={{
@@ -534,6 +552,7 @@ class HomeScreen extends Component {
                                             }}>
                                             <Icon name="share-social" size={26} color="#3498DB" />
                                         </TouchableOpacity>
+
                                     </View>
                                 );
                             })}

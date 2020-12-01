@@ -6,6 +6,7 @@ import Colors from '../Components/Color.js';
 
 import { Item, Form, Label, Input, Content, Card, CardItem } from 'native-base';
 import { RadioButton, RadioGroup } from 'react-native-flexi-radio-button';
+import { Picker } from '@react-native-community/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import {
@@ -38,8 +39,19 @@ export default class RegisterCustomer extends Component {
             mobile: '',
             miscType: false,
             cardType: '',
-            paymentMode: ''
+            paymentMode: '',
+            dateDisplay: '',
         }
+    }
+
+    handleConfirm = (date) => {
+        this.setState({ dateDisplay: moment(new Date(date)).format('DD-MM-YYYY').toString(), visibility: false })
+    }
+    onPressCancel = () => {
+        this.setState({ visibility: false })
+    }
+    onPressButton = () => {
+        this.setState({ visibility: true })
     }
 
     onCustomerSegmentSelect = (index, value) => {
@@ -60,7 +72,8 @@ export default class RegisterCustomer extends Component {
             this.state.mobile !== '' &&
             this.state.paymentMode !== '' &&
             this.state.miscType !== '' &&
-            this.state.cardType !== ''
+            this.state.cardType !== '' &&
+            this.state.dateDisplay !== ''
         ) {
             const user = await firebase
                 .database()
@@ -73,6 +86,7 @@ export default class RegisterCustomer extends Component {
                     MiscType: this.state.miscType ? this.state.miscType : false,
                     CardType: this.state.cardType,
                     PaymentMode: this.state.paymentMode,
+                    date: this.state.dateDisplay,
                 })
             this.props.navigation.goBack();
         }
@@ -96,154 +110,128 @@ export default class RegisterCustomer extends Component {
                 </View>
 
                 <KeyboardAwareScrollView>
-                    <View style={{ zIndex: 1000 }}>
-                        {/* <Form> */}
-                        {/* name */}
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginTop: Platform.OS === 'ios' ? hp('3%') : hp('3%'),
-                                height: Platform.OS === 'ios' ? hp('6.5%') : hp('8%'),
-                                borderRadius: 10,
-                                borderWidth: 1,
-                                borderColor: '#3498DB',
-                                alignSelf: 'center',
-                                width: Dimensions.get('window').width - 30,
-                            }}>
-                            <View style={{ flex: 0.2, alignItems: 'center' }}>
-                                <MaterialIcons name="person" size={32} />
-                            </View>
-                            <TextInput
-                                style={{ flex: 0.8, fontSize: 22, color: '#3498DB' }}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                placeholder="Name"
-                                placeholderTextColor="#3C4560"
-                                keyboardType="email-address"
-                                onChangeText={(name) => this.setState({ name })}
-                                value={this.state.name}
-                                opacity={0.5}
-                            />
-                        </View>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <View style={{ zIndex: 1000 }}>
+                            <Form>
+                                {/* Date Picker */}
+                                <Item>
+                                    <TouchableOpacity onPress={this.onPressButton} style={{ flex: 1, flexDirection: 'row' }}>
+                                        <Icon name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} size={26} color='#121212' style={{ paddingTop: hp('1.5%'), paddingBottom: hp('1.5%') }} />
+                                        <View style={{ margin: hp('1.5%'), justifyContent: 'center', flex: 1 }}>
+                                            {this.state.dateDisplay ?
+                                                <Text style={{ ...styles.content }}>{this.state.dateDisplay}</Text>
+                                                :
+                                                <Text style={{ ...styles.heading, color: '#121212' }}>Select Date</Text>
+                                            }
+                                            <DateTimePickerModal
+                                                isVisible={this.state.visibility}
+                                                onConfirm={this.handleConfirm}
+                                                mode='date'
+                                                minimumDate={new Date()}
+                                                onCancel={this.onPressCancel}
+                                            />
+                                        </View>
+                                    </TouchableOpacity>
+                                </Item>
 
-                        {/* email */}
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginTop: Platform.OS === 'ios' ? hp('3%') : hp('3%'),
-                                height: Platform.OS === 'ios' ? hp('6.5%') : hp('8%'),
-                                borderRadius: 10,
-                                borderWidth: 1,
-                                borderColor: '#3498DB',
-                                alignSelf: 'center',
-                                width: Dimensions.get('window').width - 30,
-                            }}>
-                            <View style={{ flex: 0.2, alignItems: 'center' }}>
-                                <MaterialIcons name="email" size={32} />
-                            </View>
-                            <TextInput
-                                style={{ flex: 0.8, fontSize: 22, color: '#3498DB' }}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                placeholder="Email"
-                                placeholderTextColor="#3C4560"
-                                keyboardType="email-address"
-                                onChangeText={(email) => this.setState({ email })}
-                                value={this.state.email}
-                                opacity={0.5}
-                            />
-                        </View>
+                                {/* name */}
+                                <Item>
+                                    <Icon name='person' size={26} color={color} />
+                                    <Input placeholder="Clients Name" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={(name) => this.setState({ name })} />
+                                </Item>
 
-                        {/* mobile no */}
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginTop: Platform.OS === 'ios' ? hp('3%') : hp('3%'),
-                                height: Platform.OS === 'ios' ? hp('6.5%') : hp('8%'),
-                                borderRadius: 10,
-                                borderWidth: 1,
-                                borderColor: '#3498DB',
-                                alignSelf: 'center',
-                                width: Dimensions.get('window').width - 30,
-                            }}>
-                            <View style={{ flex: 0.2, alignItems: 'center' }}>
-                                <Icon name="ios-phone-portrait" size={32} />
-                            </View>
-                            <TextInput
-                                style={{ flex: 0.8, fontSize: 22, color: '#3498DB' }}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                placeholder="Mobile No."
-                                placeholderTextColor="#3C4560"
-                                keyboardType="email-address"
-                                onChangeText={(mobile) => this.setState({ mobile })}
-                                value={this.state.mobile}
-                                opacity={0.5}
-                            />
-                        </View>
+                                {/* email */}
+                                <Item>
+                                    <Icon name='mail' size={26} color={color} />
+                                    <Input placeholder="Clients Email" style={{ ...styles.formfields }} autoCorrect={false} autoCapitalize={false} keyboardType='email-address' onChangeText={(email) => this.setState({ email })} />
+                                </Item>
 
-                        {/* payment dropdown */}
-                        <View style={{ marginTop: 10, zIndex: 1000, elevation: 1000 }}>
-                            <View>
-                                <View style={{ zIndex: 300, elevation: 300 }}>
-                                    <DropDownPicker
-                                        items={modeOfPayment}
-                                        placeholder='Select the mode of payment'
-                                        containerStyle={[styles.dropdown, { zIndex: 300, elevation: 300, }]}
-                                        itemStyle={{
-                                            justifyContent: 'flex-start',
-                                            zIndex: 300,
-                                            elevation: 1000,
-                                            backgroundColor: '#fff'
-                                        }}
-                                        onChangeItem={item => this.setState({
-                                            paymentMode: item.value
-                                        })}
-                                    />
+                                {/* mobile no */}
+                                <Item>
+                                    <Icon name='ios-phone-portrait' size={26} color={color} />
+                                    <Input placeholder="Clients Phone" style={{ ...styles.formfields }} keyboardType='phone-pad' onChangeText={(mobile) => this.setState({ mobile })} />
+                                </Item>
+
+                                {/* payment dropdown */}
+                                {Platform.OS == 'ios' ?
+                                    <View style={{ zIndex: 1000, elevation: 1000, margin: hp('3%'), paddingBottom: hp('10%') }}>
+                                        <View>
+                                            <View style={{ zIndex: 500, elevation: 500 }}>
+                                                <DropDownPicker
+                                                    items={modeOfPayment}
+                                                    placeholder='Select the mode of payment'
+                                                    containerStyle={[styles.dropdown, { zIndex: 300, elevation: 300, }]}
+                                                    itemStyle={{
+                                                        justifyContent: 'flex-start',
+                                                        zIndex: 300,
+                                                        elevation: 1000,
+                                                        backgroundColor: '#fff'
+                                                    }}
+                                                    onChangeItem={item => this.setState({
+                                                        paymentMode: item.value
+                                                    })}
+                                                />
+                                            </View>
+                                        </View>
+                                    </View>
+                                    :
+                                    <View style={{ marginTop: 10, zIndex: 1000, elevation: 1000 }}>
+                                        <View>
+                                            <View style={{ zIndex: 300, elevation: 300 }}>
+                                                <Picker
+                                                    selectedValue={this.state.paymentMode ? this.state.paymentMode : 'Select the mode of payment'}
+                                                    style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
+                                                    onValueChange={item => this.setState({
+                                                        paymentMode: item
+                                                    })}>
+                                                    {modeOfPayment.map((item, key) => (
+                                                        <Picker.Item label={item.label} value={item.value} key={key} />)
+                                                    )}
+                                                </Picker>
+                                            </View>
+                                        </View>
+                                    </View>
+                                }
+
+                                <View style={{ marginLeft: hp('2.7%'), marginRight: hp('0.2%'), marginTop: Platform.OS == 'ios' ? hp('-4%') : hp('-3%') }}>
+                                    <Text style={{ ...styles.heading, color: '#2ecc72' }}>Select Customer Segment</Text>
+                                    <View style={[styles.radioButtonView]}>
+                                        <RadioGroup
+                                            color='#2ecc72'
+                                            thickness={2}
+                                            style={{ flexDirection: "row" }}
+                                            onSelect={(index, value) => this.onCustomerSegmentSelect(index, value)}
+                                            selectedIndex={-1}
+                                        >
+                                            <RadioButton value={"Cards"}><Text>Misc</Text></RadioButton>
+                                        </RadioGroup>
+                                    </View>
                                 </View>
-                            </View>
-                        </View>
 
-                        <View style={{ marginLeft: hp('2.7%'), marginRight: hp('0.2%'), marginTop: hp('1%') }}>
-                            <Text style={{ ...styles.heading, color: '#2ecc72' }}>Select Customer Segment</Text>
-                            <View style={[styles.radioButtonView]}>
-                                <RadioGroup
-                                    color='#2ecc72'
-                                    thickness={2}
-                                    style={{ flexDirection: "row" }}
-                                    onSelect={(index, value) => this.onCustomerSegmentSelect(index, value)}
-                                    selectedIndex={-1}
-                                >
-                                    <RadioButton value={"Cards"}><Text>Misc</Text></RadioButton>
-                                </RadioGroup>
-                            </View>
-                        </View>
+                                <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
+                                    {this.state.miscType ?
 
-                        <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
-                            {this.state.miscType ?
-
-                                <View>
-                                    <Text style={{ ...styles.heading, marginHorizontal: hp('2.7%'), color: '#2ecc72' }}>Select Category of Card</Text>
-                                    <RadioGroup
-                                        color='#2ecc72'
-                                        thickness={2}
-                                        onSelect={(index, value) => this.onCardSelect(index, value)}
-                                        style={{ marginHorizontal: hp('3%') }}
-                                    >
-                                        <RadioButton value={"Value Card ₹2000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹2000</Text></RadioButton>
-                                        <RadioButton value={"Value Card ₹5000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹5000</Text></RadioButton>
-                                        <RadioButton value={"Value Card ₹10000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹10000</Text></RadioButton>
-                                        <RadioButton value={"Previledge Card ₹650"}><Text style={{ fontWeight: 'bold' }}>Previledge Card ₹650</Text></RadioButton>
-                                    </RadioGroup>
+                                        <View>
+                                            <Text style={{ ...styles.heading, marginHorizontal: hp('2.7%'), color: '#2ecc72' }}>Select Category of Card</Text>
+                                            <RadioGroup
+                                                color='#2ecc72'
+                                                thickness={2}
+                                                onSelect={(index, value) => this.onCardSelect(index, value)}
+                                                style={{ marginHorizontal: hp('3%') }}
+                                            >
+                                                <RadioButton value={"Value Card ₹2000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹2000</Text></RadioButton>
+                                                <RadioButton value={"Value Card ₹5000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹5000</Text></RadioButton>
+                                                <RadioButton value={"Value Card ₹10000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹10000</Text></RadioButton>
+                                                <RadioButton value={"Previledge Card ₹650"}><Text style={{ fontWeight: 'bold' }}>Previledge Card ₹650</Text></RadioButton>
+                                            </RadioGroup>
+                                        </View>
+                                        :
+                                        null
+                                    }
                                 </View>
-                                :
-                                null
-                            }
+                            </Form>
                         </View>
-                    </View>
+                    </ScrollView>
                 </KeyboardAwareScrollView>
 
                 <TouchableOpacity style={[styles.uploadButton]} onPress={() => this.uploadData()}>
@@ -260,6 +248,9 @@ const styles = StyleSheet.create({
         fontSize: Platform.OS === 'ios' ? hp('2%') : hp('2.5%'),
         color: '#121212',
         fontWeight: 'bold'
+    },
+    dropdown: {
+        height: hp('6%'),
     },
     uploadButton: {
         backgroundColor: '#121212',
