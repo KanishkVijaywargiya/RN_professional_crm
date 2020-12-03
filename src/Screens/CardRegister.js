@@ -98,7 +98,7 @@ export default class RegisterCustomer extends Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                <Header title='Register Client' color='#7CEC9F' />
+                <Header title='Card Register' color='#7CEC9F' />
                 <View style={{ position: 'absolute', top: Platform.OS === 'ios' ? hp('5%') : hp('2%'), left: Platform.OS === 'ios' ? hp('2%') : hp('2%') }}>
                     <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} onPress={() => this.props.navigation.goBack()}>
                         <Icon
@@ -203,7 +203,7 @@ export default class RegisterCustomer extends Component {
                                             onSelect={(index, value) => this.onCustomerSegmentSelect(index, value)}
                                             selectedIndex={-1}
                                         >
-                                            <RadioButton value={"Cards"}><Text>Misc</Text></RadioButton>
+                                            <RadioButton value={"Cards"}><Text>Card Type</Text></RadioButton>
                                         </RadioGroup>
                                     </View>
                                 </View>

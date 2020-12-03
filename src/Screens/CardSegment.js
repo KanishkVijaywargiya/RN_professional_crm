@@ -525,7 +525,7 @@ class HomeScreen extends Component {
                                                         {/* card type */}
                                                         <View>
                                                             <Text style={[styles.heading]}>
-                                                                CardType:{' '}
+                                                                Card Type:{' '}
                                                                 <Text
                                                                     key={index}
                                                                     style={

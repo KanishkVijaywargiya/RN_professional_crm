@@ -9,7 +9,7 @@ import FormScreen from '../Screens/FormScreen.js';
 import NotificationScreen from '../Screens/NotificationScreen.js';
 import CardSegmentNotification from '../Screens/CardSegmentNotification.js';
 import AndroidForm from '../Screens/AndroidForm.js';
-import RegisterCustomer from '../Screens/RegisterCustomer.js';
+import CardRegister from '../Screens/CardRegister.js';
 import Misc from '../Screens/Misc.js';
 
 import BottomTabs from '../Navigator/BottomTab.js';
@@ -79,10 +79,10 @@ export default FirstStack = ({ navigation }) => (
     />
 
     <Stack.Screen
-      name="RegisterCustomer"
-      component={RegisterCustomer}
+      name="CardRegister"
+      component={CardRegister}
       options={{
-        title: 'RegisterCustomer',
+        title: 'CardRegister',
         headerShown: false,
       }}
     />

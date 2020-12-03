@@ -314,6 +314,8 @@ class HomeScreen extends Component {
 
   printHTML = async (item) => {
 
+    console.log("object", item);
+
     let Service = item.Service ? item.Service : ''
     let Service2 = item.Service2 ? item.Service2 : ''
     let Service3 = item.Service3 ? item.Service3 : ''
@@ -383,7 +385,6 @@ class HomeScreen extends Component {
       ' </tr>' +
       ' <tr>' +
       '</table>' +
-
       '<div style="display: flex; justify-content: center;align-items: center; flex-direction: row; height: 31px;">' +
       '<div style="flex: 0.726; "></div>' +
       '<div style="display: flex; flex: 0.274; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
@@ -395,7 +396,6 @@ class HomeScreen extends Component {
       '</div>' +
       '</div>' +
       '</div>' +
-
       '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
       '<div style="flex: 0.50; "></div>' +
       '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
@@ -407,7 +407,6 @@ class HomeScreen extends Component {
       '</div>' +
       '</div>' +
       '</div>' +
-
       '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
       '<div style="flex: 0.726; "></div>' +
       '<div style="display: flex; flex: 0.274; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
@@ -419,7 +418,6 @@ class HomeScreen extends Component {
       '</div>' +
       '</div>' +
       '</div>' +
-
       '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
       '<div style="flex: 0.50; "></div>' +
       '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
@@ -431,7 +429,6 @@ class HomeScreen extends Component {
       '</div>' +
       '</div>' +
       '</div>' +
-
       '<div style="display: flex; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
       '<div style="flex: 0.50; "></div>' +
       '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
@@ -439,14 +436,13 @@ class HomeScreen extends Component {
       '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Net Amt. Payable </h1>' +
       '</div>' +
       '<div style="display:flex; flex:1; background-color: #F2F4FF; justify-content: flex-end; ">' +
-      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ ' + totalPrice + ' </h1>' +
+      // '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Net Amt. Payable </h1>' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;"> + ' + totalPrice + ' </h1>' +
       '</div>' +
       '</div>' +
       '</div>' +
-
       '<br>' +
       '<br>' +
-
       '<div style="width:100%; justify-content: center; align-items: center;">' +
       '<h1 style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 15px; color: #121212; letter-spacing: 1px; font-weight: 100;">Thank you for your business!</h1>' +
       '</div>' +
@@ -730,7 +726,7 @@ class HomeScreen extends Component {
                                     </Text>
                                   </Text>
                                 </View>
-                                <View>
+                                {/* <View>
                                   <Text key={index} style={[styles.body]}>
                                     Vehicle Type:{' '}
                                     <Text
@@ -740,7 +736,7 @@ class HomeScreen extends Component {
                                       {item.VehicleType}
                                     </Text>
                                   </Text>
-                                </View>
+                                </View> */}
                                 <View>
                                   <Text style={[styles.heading]}>
                                     Vehicle:{' '}
@@ -754,7 +750,7 @@ class HomeScreen extends Component {
                                 </View>
                                 <View>
                                   <Text key={index} style={[styles.body]}>
-                                    VehicleNo:{' '}
+                                    Vehicle No.:{' '}
                                     <Text
                                       style={
                                         ([styles.content], { fontWeight: 'normal' })
@@ -903,7 +899,7 @@ class HomeScreen extends Component {
                                 {item.paymentMode !== '' ? (
                                   <View>
                                     <Text key={index} style={[styles.body]}>
-                                      PaymentMode:{' '}
+                                      Payment Mode:{' '}
                                       <Text
                                         style={
                                           ([styles.content],
@@ -914,6 +910,36 @@ class HomeScreen extends Component {
                                     </Text>
                                   </View>
                                 ) : null}
+
+                                {/* card type */}
+                                {item.CardType !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Card Type:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content],
+                                            { fontWeight: 'normal' })
+                                        }>
+                                        {item.CardType}
+                                      </Text>
+                                    </Text>
+                                  </View>
+                                ) : (
+                                    <View>
+                                      <Text key={index} style={[styles.body]}>
+                                        Card Type:{' '}
+                                        <Text
+                                          style={
+                                            ([styles.content],
+                                              { fontWeight: 'normal' })
+                                          }>
+                                          N.A.
+                                      </Text>
+                                      </Text>
+                                    </View>
+                                  )
+                                }
 
                               </View>
                               {index === this.state.currentIndex ? (
@@ -950,10 +976,10 @@ class HomeScreen extends Component {
 
             // <View style={{ flex: 1, zIndex: 1000, bottom: Platform.OS == 'ios' ? hp('2%') : hp('10%') }}>
             <ActionButton buttonColor="#8B78E6">
-              <ActionButton.Item buttonColor='#F3B431' title="Normal Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
+              <ActionButton.Item buttonColor='#F3B431' title="Gen. Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
                 <Icon name="md-create" size={32} style={styles.actionButtonIcon} />
               </ActionButton.Item>
-              <ActionButton.Item buttonColor='#3498db' title="Register Customer" onPress={() => this.props.navigation.navigate('RegisterCustomer')}>
+              <ActionButton.Item buttonColor='#3498db' title="Cards" onPress={() => this.props.navigation.navigate('CardRegister')}>
                 <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
               </ActionButton.Item>
               <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>

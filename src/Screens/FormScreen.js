@@ -41,6 +41,8 @@ class FormScreen extends Component {
             clientsPhone: '',
             clientGst: '',
             paymentMode: '',
+            miscType: false,
+            cardType: '',
             vehicleType: '',
             categoryType: '',
             serviceType: '',
@@ -76,6 +78,18 @@ class FormScreen extends Component {
     }
     onPressButton = () => {
         this.setState({ visibility: true })
+    }
+
+    onCustomerSegmentSelect = (index, value) => {
+        this.setState({
+            miscType: true,
+            cardType: ''
+        })
+    }
+    onCardSelect = (index, value) => {
+        this.setState({
+            cardType: value
+        })
     }
 
     onSelect = (index, value) => {
@@ -133,6 +147,8 @@ class FormScreen extends Component {
                     Phone: this.state.clientsPhone,
                     ClientGst: this.state.clientGst ? this.state.clientGst : '',
                     PaymentMode: this.state.paymentMode,
+                    MiscType: this.state.miscType ? this.state.miscType : false,
+                    CardType: this.state.cardType,
                     Service: this.state.serviceType,
                     Service2: this.state.serviceType2 ? this.state.serviceType2 : '',
                     Service3: this.state.serviceType3 ? this.state.serviceType3 : '',
@@ -377,6 +393,43 @@ class FormScreen extends Component {
                                             />
                                         </View>
                                     </View>
+                                </View>
+
+                                <View style={{ marginLeft: hp('2.7%'), marginRight: hp('0.2%'), marginTop: Platform.OS == 'ios' ? hp('4%') : hp('-3%') }}>
+                                    <Text style={{ ...styles.heading, color: '#2ecc72' }}>Select Customer Segment</Text>
+                                    <View style={[styles.radioButtonView]}>
+                                        <RadioGroup
+                                            color='#2ecc72'
+                                            thickness={2}
+                                            style={{ flexDirection: "row" }}
+                                            onSelect={(index, value) => this.onCustomerSegmentSelect(index, value)}
+                                            selectedIndex={-1}
+                                        >
+                                            <RadioButton value={"Cards"}><Text>Card Type</Text></RadioButton>
+                                        </RadioGroup>
+                                    </View>
+                                </View>
+
+                                <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
+                                    {this.state.miscType ?
+
+                                        <View>
+                                            <Text style={{ ...styles.heading, marginHorizontal: hp('2.7%'), color: '#2ecc72' }}>Select Category of Card</Text>
+                                            <RadioGroup
+                                                color='#2ecc72'
+                                                thickness={2}
+                                                onSelect={(index, value) => this.onCardSelect(index, value)}
+                                                style={{ marginHorizontal: hp('3%') }}
+                                            >
+                                                <RadioButton value={"Value Card ₹2000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹2000</Text></RadioButton>
+                                                <RadioButton value={"Value Card ₹5000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹5000</Text></RadioButton>
+                                                <RadioButton value={"Value Card ₹10000"}><Text style={{ fontWeight: 'bold' }}>Value Card ₹10000</Text></RadioButton>
+                                                <RadioButton value={"Previledge Card ₹650"}><Text style={{ fontWeight: 'bold' }}>Previledge Card ₹650</Text></RadioButton>
+                                            </RadioGroup>
+                                        </View>
+                                        :
+                                        null
+                                    }
                                 </View>
 
                                 {/* Vehicle type: Car or Bike or Misc (Cards) */}
