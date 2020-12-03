@@ -354,9 +354,6 @@ class FormScreen extends Component {
             return
         }
     }
-
-
-
     render() {
         let totalPrice = this.state.price1 + this.state.price2 + this.state.price3 + this.state.price4 + this.state.price5
         let price1 = this.state.price1
