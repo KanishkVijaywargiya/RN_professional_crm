@@ -137,19 +137,19 @@ export default class RegisterCustomer extends Component {
                                 {/* name */}
                                 <Item>
                                     <Icon name='person' size={26} color={color} />
-                                    <Input placeholder="Clients Name" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={(name) => this.setState({ name })} />
+                                    <Input placeholder="Customer Name" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={(name) => this.setState({ name })} />
                                 </Item>
 
                                 {/* email */}
                                 <Item>
                                     <Icon name='mail' size={26} color={color} />
-                                    <Input placeholder="Clients Email" style={{ ...styles.formfields }} autoCorrect={false} autoCapitalize={false} keyboardType='email-address' onChangeText={(email) => this.setState({ email })} />
+                                    <Input placeholder="Customer Email" style={{ ...styles.formfields }} autoCorrect={false} autoCapitalize={false} keyboardType='email-address' onChangeText={(email) => this.setState({ email })} />
                                 </Item>
 
                                 {/* mobile no */}
                                 <Item>
                                     <Icon name='ios-phone-portrait' size={26} color={color} />
-                                    <Input placeholder="Clients Phone" style={{ ...styles.formfields }} keyboardType='phone-pad' onChangeText={(mobile) => this.setState({ mobile })} />
+                                    <Input placeholder="Customer Mob." style={{ ...styles.formfields }} keyboardType='phone-pad' onChangeText={(mobile) => this.setState({ mobile })} />
                                 </Item>
 
                                 {/* payment dropdown */}
@@ -158,7 +158,7 @@ export default class RegisterCustomer extends Component {
                                         <View>
                                             <View style={{ zIndex: 500, elevation: 500 }}>
                                                 <DropDownPicker
-                                                    items={modeOfPayment}
+                                                    items={modeOfPayment2}
                                                     placeholder='Select the mode of payment'
                                                     containerStyle={[styles.dropdown, { zIndex: 300, elevation: 300, }]}
                                                     itemStyle={{
@@ -267,6 +267,49 @@ const styles = StyleSheet.create({
 })
 
 const modeOfPayment = [
+    {
+        id: 1,
+        label: 'Payment Mode',
+        value: 'Payment Mode'
+    },
+    {
+        id: 1,
+        label: 'Cash',
+        value: 'Cash'
+    },
+    {
+        id: 2,
+        label: 'Card',
+        value: 'Card'
+    },
+    {
+        id: 3,
+        label: 'Google Pay',
+        value: 'Google Pay'
+    },
+    {
+        id: 4,
+        label: 'Paytm',
+        value: 'Paytm'
+    },
+    {
+        id: 5,
+        label: 'Phone Pay',
+        value: 'Phone Pay'
+    },
+    {
+        id: 6,
+        label: 'Bhim App',
+        value: 'Bhim App'
+    },
+    {
+        id: 7,
+        label: 'Bank',
+        value: 'Bank'
+    },
+]
+
+const modeOfPayment2 = [
     {
         id: 1,
         label: 'Cash',

@@ -436,8 +436,7 @@ class HomeScreen extends Component {
       '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Net Amt. Payable </h1>' +
       '</div>' +
       '<div style="display:flex; flex:1; background-color: #F2F4FF; justify-content: flex-end; ">' +
-      // '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Net Amt. Payable </h1>' +
-      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;"> + ' + totalPrice + ' </h1>' +
+      // '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">' + totalPrice + '</h1>' +
       '</div>' +
       '</div>' +
       '</div>' +

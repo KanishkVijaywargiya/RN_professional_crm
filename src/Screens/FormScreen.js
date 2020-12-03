@@ -34,7 +34,7 @@ class FormScreen extends Component {
         this.state = {
             visibility: false,
             dateDisplay: '',
-            gstNo: 'AAIFC8800AFD001',
+            gstNo: '19AAAIFC8800A1ZR',
             clientsName: '',
             clientsAddress: '',
             clientsEmail: '',
@@ -63,6 +63,7 @@ class FormScreen extends Component {
             price3: '',
             price4: '',
             price5: '',
+            discount: '',
             categoryColor: '',
             showDropDown: [false, false, false, false, false, false, false, false, false, false],
             showButton: [true, false, false, false, false, false, false, false, false, false],
@@ -122,6 +123,14 @@ class FormScreen extends Component {
         this.categoryColorsList()
     }
 
+    // calculate discount in normal billing
+    calculateDiscount = () => {
+        var number = this.state.discount / 100
+
+        this.setState({
+            discount: number
+        })
+    }
     uploadData = async () => {
 
         if (this.state.clientsName !== '' &&
@@ -170,6 +179,7 @@ class FormScreen extends Component {
                     price3: this.state.price3,
                     price4: this.state.price4,
                     price5: this.state.price5,
+                    Discount: this.state.discount,
                     totalPrice: this.state.price1 + this.state.price2 + this.state.price3 + this.state.price4 + this.state.price5
                 })
             this.props.navigation.goBack();
@@ -352,23 +362,23 @@ class FormScreen extends Component {
 
                                 <Item>
                                     <Icon name='person' size={26} color={color} />
-                                    <Input placeholder="Clients Name" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientsName => this.setState({ clientsName: clientsName })} />
+                                    <Input placeholder="Customer Name" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientsName => this.setState({ clientsName: clientsName })} />
                                 </Item>
                                 <Item>
                                     <AddressIcon name='address' size={26} color={color} />
-                                    <Input placeholder="Clients Address" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientsAddress => this.setState({ clientsAddress: clientsAddress })} />
+                                    <Input placeholder="Customer Address" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientsAddress => this.setState({ clientsAddress: clientsAddress })} />
                                 </Item>
                                 <Item>
                                     <Icon name='mail' size={26} color={color} />
-                                    <Input placeholder="Clients Email" style={{ ...styles.formfields }} autoCorrect={false} autoCapitalize={false} keyboardType='email-address' onChangeText={clientsEmail => this.setState({ clientsEmail: clientsEmail })} />
+                                    <Input placeholder="Customer Email" style={{ ...styles.formfields }} autoCorrect={false} autoCapitalize={false} keyboardType='email-address' onChangeText={clientsEmail => this.setState({ clientsEmail: clientsEmail })} />
                                 </Item>
                                 <Item>
                                     <Icon name='ios-phone-portrait' size={26} color={color} />
-                                    <Input placeholder="Clients Phone" style={{ ...styles.formfields }} keyboardType='phone-pad' onChangeText={clientsPhone => this.setState({ clientsPhone: clientsPhone })} />
+                                    <Input placeholder="Customer Mob." style={{ ...styles.formfields }} keyboardType='phone-pad' onChangeText={clientsPhone => this.setState({ clientsPhone: clientsPhone })} />
                                 </Item>
                                 <Item>
                                     <Icon name='list' size={26} color={color} />
-                                    <Input placeholder="Clients Gst No." style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientGst => this.setState({ clientGst: clientGst })} />
+                                    <Input placeholder="Customer GST No." style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientGst => this.setState({ clientGst: clientGst })} />
                                 </Item>
 
                                 {/* payment dropdown */}
@@ -672,6 +682,7 @@ class FormScreen extends Component {
                                         null
                                     }
                                 </View>
+
                                 <View style={{ zIndex: 500, marginBottom: hp('1%') }}>
                                     {this.state.vehicleType == 'Bike' ?
 
@@ -684,7 +695,7 @@ class FormScreen extends Component {
                                                 style={{ marginHorizontal: hp('3%') }}
                                             >
                                                 <RadioButton value={"Regular"}><Text style={{ fontWeight: 'bold' }}>Regular</Text></RadioButton>
-                                                <RadioButton value={"Splender"}><Text style={{ fontWeight: 'bold' }}>Splender</Text></RadioButton>
+                                                <RadioButton value={"Splender"}><Text style={{ fontWeight: 'bold' }}>Spl</Text></RadioButton>
                                                 <RadioButton value={"Super Bike"}><Text style={{ fontWeight: 'bold' }}>Super Bike</Text></RadioButton>
                                             </RadioGroup>
 
@@ -914,6 +925,12 @@ class FormScreen extends Component {
                                     <Icon name='ios-logo-closed-captioning' size={26} color={color} />
                                     <Input placeholder="Vehicle Regn. No." style={{ ...styles.formfields }} onChangeText={clientsVehicleNumber => this.setState({ clientsVehicleNumber: clientsVehicleNumber })} />
                                 </Item>
+
+                                <Item>
+                                    <Icons name='inr' size={26} color={color} />
+                                    <Input placeholder="Discount" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={clientsAddress => this.setState({ discount: discount })} />
+                                </Item>
+
                                 <Item>
                                     <Icons name='inr' size={26} color={color} />
                                     <View style={{ margin: hp('1.5%') }}>
