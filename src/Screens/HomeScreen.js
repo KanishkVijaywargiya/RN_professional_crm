@@ -489,9 +489,12 @@ class HomeScreen extends Component {
 
   searchFilterFunction = (searchText) => {
     const newData = this.arrayholder.filter((item) => {
-      const itemData = `${item.Phone
-        } ${item.Email.toUpperCase()} ${item.Name.toUpperCase()} ${item.date
-        } ${item.VehicleNo.toUpperCase()} ${item.Service.toUpperCase()}`;
+      const itemData = `${item.Phone} 
+      ${item.Email.toUpperCase()} 
+      ${item.Name.toUpperCase()} 
+      ${item.date} 
+      ${item.VehicleNo.toUpperCase()} 
+      ${item.Service.toUpperCase()}`;
       const textData = searchText.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
