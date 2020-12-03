@@ -308,6 +308,21 @@ class FormScreen extends Component {
     }
 
     alertMsg = () => {
+        if (
+            this.state.dateDisplay == '' &&
+            this.state.clientsName == '' &&
+            this.state.clientsAddress == '' &&
+            this.state.clientsPhone == '' &&
+            this.state.paymentMode == '' &&
+            this.state.vehicleType == '' &&
+            this.state.categoryType == '' &&
+            this.state.serviceType == '' &&
+            this.state.clientsVehicleName == '' &&
+            this.state.clientsVehicleNumber == ''
+        ) {
+            alert('Please Fill all the Details');
+            return
+        }
         if (this.state.dateDisplay == '') {
             alert('Please Enter Date');
             return

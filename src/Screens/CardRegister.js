@@ -96,20 +96,31 @@ export default class RegisterCustomer extends Component {
     }
 
     alertMsg = () => {
+        if (
+            this.state.dateDisplay == '' &&
+            this.state.name == '' &&
+            this.state.mobile == '' &&
+            this.state.paymentMode == '' &&
+            this.state.miscType == '' &&
+            this.state.cardType == ''
+        ) {
+            alert('Please Fill all the Details');
+            return
+        }
         if (this.state.dateDisplay == '') {
             alert('Please Enter Date');
             return
-        } if (this.state.clientsName == '') {
+        } if (this.state.name == '') {
             alert('Please Enter Customer Name');
             return
-        } if (this.state.clientsPhone == '') {
+        } if (this.state.mobile == '') {
             alert('Please Enter Customer Mob. No.');
             return
         } if (this.state.paymentMode == '') {
             alert('Please Enter Payment Mode');
             return
         } if (this.state.miscType == '') {
-            alert('Please Choose Card Type');
+            alert('Please Choose Customer Segment');
             return
         } if (this.state.cardType == '') {
             alert('Please Choose Category of Card');
