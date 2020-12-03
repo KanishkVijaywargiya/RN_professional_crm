@@ -68,7 +68,6 @@ export default class RegisterCustomer extends Component {
 
     uploadData = async () => {
         if (this.state.name !== '' &&
-            this.state.email !== '' &&
             this.state.mobile !== '' &&
             this.state.paymentMode !== '' &&
             this.state.miscType !== '' &&
@@ -81,7 +80,7 @@ export default class RegisterCustomer extends Component {
                 .child(`${this.state.mobile}`)
                 .set({
                     Name: this.state.name,
-                    email: this.state.email,
+                    email: this.state.email ? this.state.email : '',
                     mobile: this.state.mobile,
                     MiscType: this.state.miscType ? this.state.miscType : false,
                     CardType: this.state.cardType,
@@ -91,9 +90,34 @@ export default class RegisterCustomer extends Component {
             this.props.navigation.goBack();
         }
         else {
-            alert('Please fill the details')
+            // alert('Please fill the details')
+            this.alertMsg()
         }
     }
+
+    alertMsg = () => {
+        if (this.state.dateDisplay == '') {
+            alert('Please Enter Date');
+            return
+        } if (this.state.clientsName == '') {
+            alert('Please Enter Customer Name');
+            return
+        } if (this.state.clientsPhone == '') {
+            alert('Please Enter Customer Mob. No.');
+            return
+        } if (this.state.paymentMode == '') {
+            alert('Please Enter Payment Mode');
+            return
+        } if (this.state.miscType == '') {
+            alert('Please Choose Card Type');
+            return
+        } if (this.state.cardType == '') {
+            alert('Please Choose Category of Card');
+            return
+        }
+    }
+
+
 
     render() {
         return (
