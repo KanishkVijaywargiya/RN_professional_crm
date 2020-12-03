@@ -185,7 +185,8 @@ class FormScreen extends Component {
             this.props.navigation.goBack();
         }
         else {
-            alert('Please fill the details')
+            // alert('Please fill the details')
+            this.alertMsg()
         }
     }
 
@@ -305,6 +306,41 @@ class FormScreen extends Component {
             return { showBikeDropDown: newDropDownItems, showBikeButton: newAddButtonItems }
         })
     }
+
+    alertMsg = () => {
+        if (this.state.dateDisplay == '') {
+            alert('Please Enter Date');
+            return
+        } if (this.state.clientsName == '') {
+            alert('Please Enter Customer Name');
+            return
+        } if (this.state.clientsAddress == '') {
+            alert('Please Enter Customer Address');
+            return
+        } if (this.state.clientsPhone == '') {
+            alert('Please Enter Customer Mob. No.');
+            return
+        } if (this.state.paymentMode == '') {
+            alert('Please Enter Payment Mode');
+            return
+        } if (this.state.vehicleType == '') {
+            alert('Please Choose Vehicle Type');
+            return
+        } if (this.state.categoryType == '') {
+            alert('Please Choose Category Type');
+            return
+        } if (this.state.serviceType == '') {
+            alert('Please Select Service Type');
+            return
+        } if (this.state.clientsVehicleName == '') {
+            alert('Please Enter Customer Vehicle Name');
+            return
+        } if (this.state.clientsVehicleNumber == '') {
+            alert('Please Enter Customer Vehicle Number');
+            return
+        }
+    }
+
 
     render() {
         let totalPrice = this.state.price1 + this.state.price2 + this.state.price3 + this.state.price4 + this.state.price5
