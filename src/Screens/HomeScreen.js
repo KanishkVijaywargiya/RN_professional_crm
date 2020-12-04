@@ -557,6 +557,15 @@ class HomeScreen extends Component {
           <Notifications />
 
           <Header title="Clients" color="#3498DB" />
+          <View style={{ position: 'absolute', top: Platform.OS === 'ios' ? hp('5%') : hp('2%'), left: Platform.OS === 'ios' ? hp('2%') : hp('2%') }}>
+            <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} onPress={() => this.props.navigation.goBack()}>
+              <Icon
+                name={'ios-arrow-back'}
+                color={'white'}
+                size={Platform.OS === 'ios' ? hp('3.5%') : hp('5%')}
+              />
+            </TouchableOpacity>
+          </View>
 
           <View
             style={{
@@ -981,12 +990,12 @@ class HomeScreen extends Component {
               <ActionButton.Item buttonColor='#F3B431' title="Gen. Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
                 <Icon name="md-create" size={32} style={styles.actionButtonIcon} />
               </ActionButton.Item>
-              <ActionButton.Item buttonColor='#3498db' title="Cards" onPress={() => this.props.navigation.navigate('CardRegister')}>
+              {/* <ActionButton.Item buttonColor='#3498db' title="Cards" onPress={() => this.props.navigation.navigate('CardRegister')}>
                 <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
               </ActionButton.Item>
               <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>
                 <EvilIcons name="credit-card" size={42} style={styles.actionButtonIcon} />
-              </ActionButton.Item>
+              </ActionButton.Item> */}
             </ActionButton>
             // </View>
           }

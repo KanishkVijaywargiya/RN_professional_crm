@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
+import Dashboard from '../Screens/Dashboard.js';
 import HomeScreen from '../Screens/HomeScreen.js';
 import CardSegment from '../Screens/CardSegment.js';
 import AnalyticsScreen from '../Screens/AnalyticsScreen.js';
@@ -18,10 +19,18 @@ const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 export default FirstStack = ({ navigation }) => (
-  <Stack.Navigator initialRouteName="HomeScreen">
+  <Stack.Navigator initialRouteName="Dashboard">
+    <Stack.Screen
+      name="Dashboard"
+      component={Dashboard}
+      options={{
+        title: 'Dashboard',
+        headerShown: false,
+      }}
+    />
     <Stack.Screen
       name="HomeScreen"
-      component={BottomTabs}
+      component={HomeScreen}
       options={{
         title: 'Home',
         headerShown: false,

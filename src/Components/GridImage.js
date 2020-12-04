@@ -4,7 +4,6 @@ import { View, Image, Text, TouchableOpacity } from 'react-native';
 const GridImage = ({ image, width, bgColor, text, border, para, pushTo }) => {
     return (
         <View style={{
-            backgroundColor: '#000',
             width: width,
             height: width,
             marginVertical: 5,
@@ -18,7 +17,7 @@ const GridImage = ({ image, width, bgColor, text, border, para, pushTo }) => {
             shadowOpacity: 0.3,
             shadowRadius: 2
         }}>
-            <Image source={image} style={{ height: 50, width: 50 }} />
+            <Image source={image} style={{ height: 100, width: 100 }} />
             <Text style={{ color: '#000', fontWeight: 'bold', marginTop: 5 }}> {text}</Text>
             <Text style={{ color: '#B8BECE', fontWeight: '400', marginTop: 5 }}> {para}</Text>
         </View>
