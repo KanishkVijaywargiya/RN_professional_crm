@@ -985,17 +985,28 @@ class HomeScreen extends Component {
             null
             :
 
+            // <TouchableOpacity onPress={() => { this.props.navigation.navigate('FormScreen') }}>
+            //   <View style={[styles.fab1]}>
+            //     <View>
+            //       <Icon
+            //         name={'md-create'}
+            //         size={32}
+            //       />
+            //     </View>
+            //   </View>
+            // </TouchableOpacity>
+
             // <View style={{ flex: 1, zIndex: 1000, bottom: Platform.OS == 'ios' ? hp('2%') : hp('10%') }}>
             <ActionButton buttonColor="#8B78E6">
               <ActionButton.Item buttonColor='#F3B431' title="Gen. Billing" onPress={() => Platform.OS == 'ios' ? this.props.navigation.navigate('FormScreen') : this.props.navigation.navigate('AndroidForm')}>
                 <Icon name="md-create" size={32} style={styles.actionButtonIcon} />
               </ActionButton.Item>
               {/* <ActionButton.Item buttonColor='#3498db' title="Cards" onPress={() => this.props.navigation.navigate('CardRegister')}>
-                <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
-              </ActionButton.Item>
-              <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>
-                <EvilIcons name="credit-card" size={42} style={styles.actionButtonIcon} />
-              </ActionButton.Item> */}
+                 <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
+               </ActionButton.Item>
+               <ActionButton.Item buttonColor='#1abc9c' title="Misc Billing" onPress={() => this.props.navigation.navigate('Misc')}>
+                 <EvilIcons name="credit-card" size={42} style={styles.actionButtonIcon} />
+               </ActionButton.Item> */}
             </ActionButton>
             // </View>
           }
@@ -1077,6 +1088,24 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  fab1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 55,
+    position: 'absolute',
+    bottom: hp('2%'),
+    right: hp('1.5%'),
+    height: 55,
+    backgroundColor: '#8B78E6',
+    borderRadius: hp('4.5%'),
+    shadowColor: '#8B78E6',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.6
   },
 
   fabText: {

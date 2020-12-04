@@ -571,6 +571,16 @@ class HomeScreen extends Component {
                     {this.state.rippleEffect ?
                         null
                         :
+                        // <TouchableOpacity onPress={() => { this.props.navigation.navigate('FormScreen') }}>
+                        //     <View style={[styles.fab1]}>
+                        //         <View>
+                        //             <MaterialCommunityIcons
+                        //                 name={'card-account-details'}
+                        //                 size={32}
+                        //             />
+                        //         </View>
+                        //     </View>
+                        // </TouchableOpacity>
                         <ActionButton buttonColor="#EA425C">
                             <ActionButton.Item buttonColor='#3498db' title="Cards" onPress={() => this.props.navigation.navigate('CardRegister')}>
                                 <MaterialCommunityIcons name="card-account-details" size={32} style={styles.actionButtonIcon} />
@@ -654,6 +664,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#8B78E6',
         borderRadius: hp('4.5%'),
         shadowColor: '#8B78E6',
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowRadius: 3,
+        shadowOpacity: 0.6
+    },
+    fab1: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 55,
+        position: 'absolute',
+        bottom: hp('2%'),
+        right: hp('1.5%'),
+        height: 55,
+        backgroundColor: '#EA425C',
+        borderRadius: hp('4.5%'),
+        shadowColor: '#EA425C',
         shadowOffset: {
             width: 0,
             height: 3
