@@ -42,6 +42,7 @@ class FormScreen extends Component {
             clientGst: '',
             paymentMode: '',
             miscType: false,
+            others: '',
             cardType: '',
             vehicleType: '',
             categoryType: '',
@@ -63,7 +64,8 @@ class FormScreen extends Component {
             price3: '',
             price4: '',
             price5: '',
-            discount: '',
+            discount: 0.0,
+            discountedPrice: 0.0,
             categoryColor: '',
             showDropDown: [false, false, false, false, false, false, false, false, false, false],
             showButton: [true, false, false, false, false, false, false, false, false, false],
@@ -84,12 +86,13 @@ class FormScreen extends Component {
     onCustomerSegmentSelect = (index, value) => {
         this.setState({
             miscType: true,
+            others: value,
             cardType: ''
         })
     }
     onCardSelect = (index, value) => {
         this.setState({
-            cardType: value
+            cardType: value,
         })
     }
 
@@ -123,16 +126,8 @@ class FormScreen extends Component {
         this.categoryColorsList()
     }
 
-    // calculate discount in normal billing
-    calculateDiscount = () => {
-        var number = this.state.discount / 100
 
-        this.setState({
-            discount: number
-        })
-    }
-
-    uploadData = async () => {
+    uploadData = async (discountedPrice) => {
 
         if (this.state.clientsName !== '' &&
             this.state.clientsAddress !== '' &&
@@ -181,6 +176,7 @@ class FormScreen extends Component {
                     price4: this.state.price4,
                     price5: this.state.price5,
                     Discount: this.state.discount,
+                    DiscountedPrice: discountedPrice,
                     totalPrice: this.state.price1 + this.state.price2 + this.state.price3 + this.state.price4 + this.state.price5
                 })
             this.props.navigation.goBack();
@@ -364,6 +360,10 @@ class FormScreen extends Component {
         let price3 = this.state.price3
         let price4 = this.state.price4
         let price5 = this.state.price5
+
+        const discountedPrice = Math.floor((totalPrice - ((this.state.discount / 100) * totalPrice)))
+
+
         return (
             <View style={{ backgroundColor: '#fff', flex: 1 }}>
                 <Header title='Form' color='#7CEC9F' />
@@ -467,6 +467,7 @@ class FormScreen extends Component {
                                             selectedIndex={-1}
                                         >
                                             <RadioButton value={"Cards"}><Text>Card Type</Text></RadioButton>
+                                            <RadioButton value={"Others"}><Text>Others</Text></RadioButton>
                                         </RadioGroup>
                                     </View>
                                 </View>
@@ -977,21 +978,38 @@ class FormScreen extends Component {
                                     <Input placeholder="Vehicle Regn. No." style={{ ...styles.formfields }} onChangeText={clientsVehicleNumber => this.setState({ clientsVehicleNumber: clientsVehicleNumber })} />
                                 </Item>
 
+                                {/* discount field */}
                                 <Item>
                                     <Icons name='inr' size={26} color={color} />
-                                    <Input placeholder="Discount" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={discount => this.setState({ discount: discount })} />
+                                    <Input placeholder="Discount" style={{ ...styles.formfields }} autoCorrect={false} keyboardType="number-pad" onChangeText={discount => this.setState({ discount: discount })} />
                                 </Item>
 
+                                {/* total price */}
                                 <Item>
                                     <Icons name='inr' size={26} color={color} />
                                     <View style={{ margin: hp('1.5%') }}>
                                         {this.state.serviceType ?
-                                            <Text style={{ ...styles.content }}>{totalPrice}</Text>
+                                            <Text style={{ ...styles.content }}> Total Price: {totalPrice}</Text>
                                             :
                                             <Text style={{ ...styles.heading, color: '#121212' }}>Total Price: </Text>
                                         }
                                     </View>
                                 </Item>
+
+                                {/* discount price */}
+                                {this.state.discount ?
+                                    <Item>
+                                        <Icons name='inr' size={26} color={color} />
+                                        <View style={{ margin: hp('1.5%') }}>
+                                            <Text style={{ ...styles.content }}>
+                                                Discount Price: {discountedPrice}
+                                            </Text>
+                                        </View>
+                                    </Item>
+                                    :
+                                    null
+                                }
+
                             </Form>
                         </View>
                     </ScrollView >
@@ -999,7 +1017,7 @@ class FormScreen extends Component {
 
                 <View style={{ marginBottom: hp('2%') }}></View>
                 {/* Upload Button ~ Uploads & takes back to dash board */}
-                <TouchableOpacity style={[styles.uploadButton]} onPress={() => this.uploadData()}>
+                <TouchableOpacity style={[styles.uploadButton]} onPress={() => this.uploadData(discountedPrice)}>
                     <Text style={{ color: '#fff', fontSize: Platform.OS === 'ios' ? 22 : 18, fontWeight: '600' }}>Upload Data</Text>
                     <Text style={{ color: '#DAE0E2', fontSize: 10, fontStyle: 'italic' }}>BlaceNova Inc.<Text style={{ color: '#DAE0E2', fontSize: 10, lineHeight: Platform.OS === 'ios' ? 50 : 10, fontStyle: 'italic' }}>TM</Text></Text>
                 </TouchableOpacity >

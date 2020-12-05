@@ -679,7 +679,7 @@ class HomeScreen extends Component {
                                           ([styles.content],
                                             { fontWeight: 'normal' })
                                         }>
-                                        {item.totalPrice} /-
+                                        {item.DiscountedPrice} /-
                                     </Text>
                                     </Text>
                                   </View>
