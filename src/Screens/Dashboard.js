@@ -8,6 +8,8 @@ import {
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+import Entypo from 'react-native-vector-icons/Entypo';
+
 const { width } = Dimensions.get('window');
 
 export default class Dashboard extends Component {
@@ -71,32 +73,32 @@ const styles = StyleSheet.create({
 const dummyData = [
     {
         id: 1,
-        title: 'Clients',
-        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/mXuA19mr/Numbers.png?v=dca618ea2bc8e0ced64f59423671c8b9',
+        title: 'Customer Details',
+        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/eDuwjGlo/Artboard%20%E2%80%93%2023.png?v=8b79143664b919e8c955894ca6f6e8ea',
         screenName: "HomeScreen"
     },
     {
         id: 2,
-        title: 'CardSegment',
-        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/jkuKLzKp/aligator.jpg?v=0c4dde03de5851f4d2aefce26f693268',
+        title: 'Card Buyers',
+        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/P8um5L6l/Artboard%20%E2%80%93%2024.png?v=28a7b15e7bbd45dd7aa72b09f744a0e0',
         screenName: "CardSegment"
     },
     {
         id: 3,
         title: 'Types of services',
-        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/xQuDnPvB/colors.png?v=5ef6e6a612802ed603753898c254ceab',
+        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/KouldpAw/Artboard%20%E2%80%93%2021.png?v=499ac7752d5cdbc81059ccb8c27ad73f',
         screenName: "NotificationScreen"
     },
     {
         id: 4,
         title: 'Types of cards',
-        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/p9uP8R5O/behaviour.png?v=08fa26148dd63b42ae886186dc436a15',
+        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/mXu5pwJj/Artboard%20%E2%80%93%2022.png?v=ce1aa2925c4f4bc2ffb750cbe0a632fa',
         screenName: "CardSegmentNotification"
     },
     {
         id: 5,
         title: 'Analytics',
-        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/7Ku0Ddw8/potato.png?v=1ded55b67b6eabbde0bb5ba72a98639e',
+        url: 'https://p73.f4.n0.cdn.getcloudapp.com/items/v1u4bZLm/Artboard%20%E2%80%93%2025.png?v=42b797ab4bf43ceaea607cf2c05e7746',
         screenName: "AnalyticsScreen"
     },
 ];

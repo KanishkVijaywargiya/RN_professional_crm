@@ -220,28 +220,6 @@ class Login extends Component {
                 </View>
               </TouchableOpacity>
             </View>
-            {Platform.OS === 'android' ? (
-              <View
-                style={{
-                  alignItems: 'center',
-                  paddingLeft: 20,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  bottom: 2,
-                  marginTop: hp('1%'),
-                }}>
-                <Text style={{ color: '#121212', fontSize: 16 }}>
-                  Don't have an account?{' '}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('SignUp')}>
-                  <Text
-                    style={{ color: '#3498DB', fontSize: 16, fontWeight: '700' }}>
-                    Sign Up
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            ) : null}
           </SafeAreaView>
         </KeyboardAwareScrollView>
         <Success isActive={this.state.isSuccessful} />
