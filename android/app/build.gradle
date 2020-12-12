@@ -130,7 +130,7 @@ android {
 
     defaultConfig {
         multiDexEnabled true
-        applicationId "com.crm"
+        applicationId "com.blacenova.cns"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

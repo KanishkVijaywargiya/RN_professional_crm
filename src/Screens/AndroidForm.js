@@ -954,7 +954,7 @@ class FormScreen extends Component {
 
                                 {/* discount field */}
                                 <Item>
-                                    <Icons name='inr' size={26} color={color} />
+                                    <BikeIcon name='percent' size={26} color={color} />
                                     <Input placeholder="Discount" style={{ ...styles.formfields }} autoCorrect={false} keyboardType="number-pad" onChangeText={discount => this.setState({ discount: discount })} />
                                 </Item>
 

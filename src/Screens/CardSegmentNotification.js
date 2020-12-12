@@ -100,7 +100,7 @@ class NotificationScreen extends Component {
                         marginRight: hp('1%'),
                     }}>
                     <TextInput
-                        placeholder="Search by Service Name"
+                        placeholder="Search by Cards Name"
                         placeholderTextColor="#BFDFED"
                         onChangeText={(text) => this.searchFilterFunction(text)}
                         style={{

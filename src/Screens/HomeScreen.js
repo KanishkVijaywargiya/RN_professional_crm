@@ -328,6 +328,11 @@ class HomeScreen extends Component {
     let price4 = item.price4 ? item.price4 : ''
     let price5 = item.price5 ? item.price5 : ''
 
+    let totalPrice = item.totalPrice ? item.totalPrice : ''
+    let discount = item.Discount ? item.Discount : item.Discount
+    let discountedPrice = item.DiscountedPrice ? item.DiscountedPrice : item.DiscountedPrice
+    let lessAmt = Math.round((discount / 100) * totalPrice)
+
     let InvoiceNo = item.InvoiceNo ? item.InvoiceNo : ''
     let MemberId = item.MemberId ? item.MemberId : ''
 
@@ -392,7 +397,7 @@ class HomeScreen extends Component {
       '<h1 style=" font-size: 14px; font-weight: bolder; color: #121212;">Subtotal </h1>' +
       '</div>' +
       '<div style="display:flex; flex:1; border-top: 3px solid #121212; background-color: azure; justify-content: flex-end; ">' +
-      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 10000.00 </h1>' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ ' + totalPrice + '</h1>' +
       '</div>' +
       '</div>' +
       '</div>' +
@@ -400,10 +405,10 @@ class HomeScreen extends Component {
       '<div style="flex: 0.50; "></div>' +
       '<div style="display: flex; flex: 0.50; flex-direction: row; align-items: center;justify-content: center; height: 31px;">' +
       '<div style="display: flex; justify-content: flex-start; flex:1;">' +
-      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Less: Discount @10.00% </h1>' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Less: Discount @' + discount + '.00% </h1>' +
       '</div>' +
       '<div style="display:flex; flex:0.67; background-color: #F2F4FF; justify-content: flex-end; ">' +
-      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ 0.00 </h1>' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹ ' + lessAmt + ' </h1>' +
       '</div>' +
       '</div>' +
       '</div>' +
@@ -436,7 +441,7 @@ class HomeScreen extends Component {
       '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">Net Amt. Payable </h1>' +
       '</div>' +
       '<div style="display:flex; flex:1; background-color: #F2F4FF; justify-content: flex-end; ">' +
-      // '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">' + totalPrice + '</h1>' +
+      '<h1 style="font-size: 14px; font-weight: bolder; color: #121212;">₹' + discountedPrice + '</h1>' +
       '</div>' +
       '</div>' +
       '</div>' +
@@ -448,7 +453,7 @@ class HomeScreen extends Component {
       '<div style="width:100%; justify-content: center; align-items: center;">' +
       '<h1 style="line-height:5px; font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 10px; color: #959697;">120A, Maniktalla Main Road, Loha patti,Near Kakurgachi P.O, Kolkata - 700 054 </h1>' +
       '<h1 style="line-height:5px; font-family: Arial, Helvetica, sans-serif; text-align: center; font-size: 10px; color: #959697;">Tel : 033-6565 0505/0606 | E-Mail :cleannshine.kol@gmail.com </h1>' +
-      ' </div>' +
+      '</div>' +
       '</div>';
 
     await RNPrint.print({ html: htmlContent })
