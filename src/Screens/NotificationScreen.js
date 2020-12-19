@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import {
   View,
@@ -15,8 +15,10 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+import ActionButton from 'react-native-action-button';
+
 import Icon from 'react-native-vector-icons/Ionicons';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 let screenWidth = Dimensions.get('window').width;
 var cardWith = screenWidth - 40;
@@ -75,7 +77,7 @@ class NotificationScreen extends Component {
             marginLeft: -22,
             zIndex: 100,
           }}>
-          <CloseButton style={{elevation: 20}}>
+          <CloseButton style={{ elevation: 20 }}>
             <Icon name="ios-close" size={44} color="#546bfb" />
           </CloseButton>
         </TouchableOpacity>
@@ -91,7 +93,7 @@ class NotificationScreen extends Component {
             shadowColor: 'rgba(191, 223, 237, 1)',
             shadowOpacity: 1,
             shadowRadius: 2,
-            shadowOffset: {width: 2, height: 5},
+            shadowOffset: { width: 2, height: 5 },
             alignItems: 'center',
             height: 50,
             borderRadius: 25,
@@ -114,7 +116,7 @@ class NotificationScreen extends Component {
             }}
           />
           <Icon
-            style={{marginRight: hp('2%')}}
+            style={{ marginRight: hp('2%') }}
             name={'ios-search'}
             color={'#121212'}
             size={Platform.OS === 'ios' ? hp('3.5%') : hp('3.5%')}
@@ -123,14 +125,14 @@ class NotificationScreen extends Component {
 
         <SafeAreaView>
           <ScrollView
-            style={{marginTop: Platform.OS === 'ios' ? hp('10%') : hp('15%')}}
+            style={{ marginTop: Platform.OS === 'ios' ? hp('10%') : hp('15%') }}
             showsVerticalScrollIndicator={false}>
             <Wrapper>
               <Subtitle>Types of services we provide:</Subtitle>
               {this.state.serviceList.map((item, index) => (
                 <ItemContainer key={index}>
                   <Header>
-                    <Logo source={{uri: item.logo}} resizeMode="contain" />
+                    <Logo source={{ uri: item.logo }} resizeMode="contain" />
                     <Title>{item.title}</Title>
                   </Header>
                   <TitleText>Cars</TitleText>
@@ -147,7 +149,7 @@ class NotificationScreen extends Component {
                 bottom: hp('2%'),
               }}>
               <Text
-                style={{color: '#121212', fontSize: 10, fontStyle: 'italic'}}>
+                style={{ color: '#121212', fontSize: 10, fontStyle: 'italic' }}>
                 BlaceNova Inc.
                 <Text
                   style={{
@@ -162,6 +164,13 @@ class NotificationScreen extends Component {
             </View>
           </ScrollView>
         </SafeAreaView>
+
+        <ActionButton buttonColor="#8B78E6">
+          <ActionButton.Item buttonColor='#F3B431' title="Add new service" onPress={() => this.props.navigation.navigate('AddNewService')}>
+            <Icon name="md-create" size={32} />
+          </ActionButton.Item>
+        </ActionButton>
+
       </Container>
     );
   }

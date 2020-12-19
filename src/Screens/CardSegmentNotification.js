@@ -287,9 +287,9 @@ const items = [
     {
         logo:
             'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-        title: 'Previledge Card ₹650',
+        title: 'Privilege Card ₹650',
         text: 'Everytime payment with 15% flat discount',
-        Validity: '8 Months',
+        Validity: '1 year from the date of purchase',
     },
 ];
 
