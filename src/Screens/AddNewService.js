@@ -33,8 +33,9 @@ export default class AddNewService extends Component {
 
     uploadData = async () => {
 
-        if (this.state.serviceName !== '' &&
-            this.state.serviceName !== '') {
+        if (this.state.categoryType !== '' &&
+            this.state.serviceName !== '' &&
+            this.state.servicePrice !== '') {
             const user = await firebase
                 .database()
                 .ref(`${this.state.categoryType}/`)
@@ -52,10 +53,14 @@ export default class AddNewService extends Component {
 
     alertMsg = () => {
         if (
+            this.state.categoryType == '' &&
             this.state.serviceName == '' &&
             this.state.servicePrice == ''
         ) {
             alert('Please Fill all the Details');
+            return
+        } if (this.state.categoryType == '') {
+            alert('Please Choose Category Type');
             return
         } if (this.state.serviceName == '') {
             alert('Please Enter Service Name');
