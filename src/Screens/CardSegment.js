@@ -15,7 +15,7 @@ import {
 
 import Header from '../Components/Header.js';
 import Notifications from '../Components/Notifications.js';
-import RippleEffect from '../Components/RippleEffect.js';
+import RippleEffect2 from '../Components/RippleEffect2.js';
 
 import * as firebase from 'firebase';
 import 'firebase/auth';
@@ -105,12 +105,13 @@ class HomeScreen extends Component {
 
                 if (val !== null) {
                     let clientsList = Object.values(val);
+                    let data = clientsList.sort((a, b) => a.date < b.date ? 1 : -1)
                     this.setState({
-                        clientDatalist: clientsList,
+                        clientDatalist: data,
                         loaderForData: false,
                         rippleEffect: false,
                     });
-                    this.arrayholder = clientsList;
+                    this.arrayholder = data;
                 } else {
                     this.setState({
                         clientDatalist: [],
@@ -315,7 +316,7 @@ class HomeScreen extends Component {
         if (this.state.rippleEffect) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <RippleEffect />
+                    <RippleEffect2 />
                 </View>
             );
         }
@@ -455,119 +456,123 @@ class HomeScreen extends Component {
                         />
                     </View>
 
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <Transitioning.View
-                            ref={ref}
-                            style={styles.container}
-                            transition={transition}>
-                            {this.state.clientDatalist.map((item, index) => {
-                                return (
-                                    <View>
-                                        <View style={[styles.card]}>
+                    {this.state.clientDatalist.length == 0 ? (
+                        this.listEmptyView()
+                    ) : (
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                <Transitioning.View
+                                    ref={ref}
+                                    style={styles.container}
+                                    transition={transition}>
+                                    {this.state.clientDatalist.map((item, index) => {
+                                        return (
                                             <View>
-                                                <View style={{ flexDirection: 'row' }}>
+                                                <View style={[styles.card]}>
                                                     <View>
-                                                        {this.customerSegmentType(item.CardType)}
-                                                    </View>
+                                                        <View style={{ flexDirection: 'row' }}>
+                                                            <View>
+                                                                {this.customerSegmentType(item.CardType)}
+                                                            </View>
 
-                                                    <View
-                                                        style={{
-                                                            flex: 1,
-                                                            flexDirection: 'column',
-                                                            paddingLeft: 5,
-                                                        }}>
+                                                            <View
+                                                                style={{
+                                                                    flex: 1,
+                                                                    flexDirection: 'column',
+                                                                    paddingLeft: 5,
+                                                                }}>
 
-                                                        <View style={{ flexDirection: 'row', flex: 1 }}>
-                                                            <View style={{ flex: 1 }}>
-                                                                <Text style={[styles.heading]}>
-                                                                    Date:{' '}
-                                                                    <Text
-                                                                        style={[styles.content, { color: 'red' }]}>
-                                                                        {item.date}
+                                                                <View style={{ flexDirection: 'row', flex: 1 }}>
+                                                                    <View style={{ flex: 1 }}>
+                                                                        <Text style={[styles.heading]}>
+                                                                            Date:{' '}
+                                                                            <Text
+                                                                                style={[styles.content, { color: 'red' }]}>
+                                                                                {item.date}
+                                                                            </Text>
+                                                                        </Text>
+                                                                    </View>
+                                                                </View>
+
+                                                                {/* name */}
+                                                                <View>
+                                                                    <Text style={[styles.heading]}>
+                                                                        Name:{' '}
+                                                                        <Text
+                                                                            key={index}
+                                                                            style={
+                                                                                ([styles.content], { fontWeight: 'normal' })
+                                                                            }>
+                                                                            {item.Name}
+                                                                        </Text>
                                                                     </Text>
-                                                                </Text>
+                                                                </View>
+
+                                                                {/* email */}
+                                                                <View>
+                                                                    <Text style={[styles.heading]}>
+                                                                        Email:{' '}
+                                                                        <Text
+                                                                            key={index}
+                                                                            style={
+                                                                                ([styles.content], { fontWeight: 'normal' })
+                                                                            }>
+                                                                            {item.email}
+                                                                        </Text>
+                                                                    </Text>
+                                                                </View>
+
+                                                                {/* phone */}
+                                                                <View>
+                                                                    <Text style={[styles.heading]}>
+                                                                        Phone:{' '}
+                                                                        <Text
+                                                                            key={index}
+                                                                            style={
+                                                                                ([styles.content], { fontWeight: 'normal' })
+                                                                            }>
+                                                                            {item.mobile}
+                                                                        </Text>
+                                                                    </Text>
+                                                                </View>
+
+                                                                {/* card type */}
+                                                                <View>
+                                                                    <Text style={[styles.heading]}>
+                                                                        Card Type:{' '}
+                                                                        <Text
+                                                                            key={index}
+                                                                            style={
+                                                                                ([styles.content], { fontWeight: 'normal' })
+                                                                            }>
+                                                                            {item.CardType}
+                                                                        </Text>
+                                                                    </Text>
+                                                                </View>
                                                             </View>
                                                         </View>
-
-                                                        {/* name */}
-                                                        <View>
-                                                            <Text style={[styles.heading]}>
-                                                                Name:{' '}
-                                                                <Text
-                                                                    key={index}
-                                                                    style={
-                                                                        ([styles.content], { fontWeight: 'normal' })
-                                                                    }>
-                                                                    {item.Name}
-                                                                </Text>
-                                                            </Text>
-                                                        </View>
-
-                                                        {/* email */}
-                                                        <View>
-                                                            <Text style={[styles.heading]}>
-                                                                Email:{' '}
-                                                                <Text
-                                                                    key={index}
-                                                                    style={
-                                                                        ([styles.content], { fontWeight: 'normal' })
-                                                                    }>
-                                                                    {item.email}
-                                                                </Text>
-                                                            </Text>
-                                                        </View>
-
-                                                        {/* phone */}
-                                                        <View>
-                                                            <Text style={[styles.heading]}>
-                                                                Phone:{' '}
-                                                                <Text
-                                                                    key={index}
-                                                                    style={
-                                                                        ([styles.content], { fontWeight: 'normal' })
-                                                                    }>
-                                                                    {item.mobile}
-                                                                </Text>
-                                                            </Text>
-                                                        </View>
-
-                                                        {/* card type */}
-                                                        <View>
-                                                            <Text style={[styles.heading]}>
-                                                                Card Type:{' '}
-                                                                <Text
-                                                                    key={index}
-                                                                    style={
-                                                                        ([styles.content], { fontWeight: 'normal' })
-                                                                    }>
-                                                                    {item.CardType}
-                                                                </Text>
-                                                            </Text>
-                                                        </View>
+                                                        {index === this.state.currentIndex ? null : (
+                                                            <View style={{ ...styles.hrLine }} />
+                                                        )}
                                                     </View>
                                                 </View>
-                                                {index === this.state.currentIndex ? null : (
-                                                    <View style={{ ...styles.hrLine }} />
-                                                )}
+
+                                                <TouchableOpacity
+                                                    onPress={() => alert('Card Segment Client Summary')}
+                                                    style={{
+                                                        position: 'absolute',
+                                                        right: Platform.OS === 'ios' ? hp('2%') : hp('2%'),
+                                                        top: Platform.OS === 'ios' ? hp('5%') : hp('7%'),
+                                                    }}>
+                                                    <Icon name="share-social" size={26} color="#3498DB" />
+                                                </TouchableOpacity>
+
                                             </View>
-                                        </View>
-
-                                        <TouchableOpacity
-                                            onPress={() => alert('Card Segment Client Summary')}
-                                            style={{
-                                                position: 'absolute',
-                                                right: Platform.OS === 'ios' ? hp('2%') : hp('2%'),
-                                                top: Platform.OS === 'ios' ? hp('5%') : hp('7%'),
-                                            }}>
-                                            <Icon name="share-social" size={26} color="#3498DB" />
-                                        </TouchableOpacity>
-
-                                    </View>
-                                );
-                            })}
-                        </Transitioning.View>
-                    </ScrollView>
-
+                                        );
+                                    })}
+                                </Transitioning.View>
+                            </ScrollView>
+                        )
+                    }
                     {this.state.rippleEffect ?
                         null
                         :
