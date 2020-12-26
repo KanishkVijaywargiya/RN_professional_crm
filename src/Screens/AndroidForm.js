@@ -123,8 +123,8 @@ class FormScreen extends Component {
         this.categoryColorsList()
     }
 
-    uploadData = async (discountedPrice) => {
-
+    uploadData = async (discountedPrice, highlightedNumber) => {
+        // alert(highlightedNumber)
         if (this.state.clientsName !== '' &&
             this.state.clientsAddress !== '' &&
             this.state.clientsPhone !== '' &&
@@ -136,10 +136,11 @@ class FormScreen extends Component {
             this.state.clientsVehicleNumber !== '' &&
             this.state.dateDisplay !== '' &&
             this.state.categoryColor !== '') {
+
             const user = await firebase
                 .database()
                 .ref('Client/')
-                .child(`${this.state.clientsPhone}`)
+                .child(`${this.state.clientsPhone}-${highlightedNumber}`)
                 .set({
                     GstNo: this.state.gstNo,
                     Email: this.state.clientsEmail ? this.state.clientsEmail : '',
@@ -356,6 +357,10 @@ class FormScreen extends Component {
         let price5 = this.state.price5
 
         const discountedPrice = Math.floor((totalPrice - ((this.state.discount / 100) * totalPrice)))
+
+        let min = 1.0000;
+        let max = 999999.9999;
+        const highlightedNumber = Math.round(Math.random() * (max - min) + min);
 
         return (
             <View style={{ backgroundColor: '#fff', flex: 1 }}>
@@ -991,7 +996,9 @@ class FormScreen extends Component {
 
                 <View style={{ marginBottom: hp('2%') }}></View>
                 {/* Upload Button ~ Uploads & takes back to dash board */}
-                <TouchableOpacity style={[styles.uploadButton]} onPress={() => this.uploadData(discountedPrice)}>
+                <TouchableOpacity style={[styles.uploadButton]}
+                    onPress={() => this.uploadData(discountedPrice, highlightedNumber)}
+                >
                     <Text style={{ color: '#fff', fontSize: Platform.OS === 'ios' ? 22 : 18, fontWeight: '600' }}>Upload Data</Text>
                     <Text style={{ color: '#DAE0E2', fontSize: 10, fontStyle: 'italic' }}>BlaceNova Inc.<Text style={{ color: '#DAE0E2', fontSize: 10, lineHeight: Platform.OS === 'ios' ? 50 : 10, fontStyle: 'italic' }}>TM</Text></Text>
                 </TouchableOpacity >
