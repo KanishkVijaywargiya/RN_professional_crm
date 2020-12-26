@@ -41,6 +41,7 @@ export default class RegisterCustomer extends Component {
             cardType: '',
             paymentMode: '',
             dateDisplay: '',
+            visibility: false
         }
     }
 
@@ -128,7 +129,11 @@ export default class RegisterCustomer extends Component {
         }
     }
 
-
+    // bhawbhowReminder = () => {
+    //     const initialdate = this.state.dateDisplay
+    //     const futureMonth = moment(initialdate).add(8, 'MM')
+    //     alert(futureMonth)
+    // }
 
     render() {
         return (
@@ -279,6 +284,14 @@ export default class RegisterCustomer extends Component {
 }
 
 const styles = StyleSheet.create({
+    content: {
+        fontSize: Platform.OS === 'ios' ? hp('2%') : hp('2.5%'),
+        marginLeft: hp('0.5%'),
+        marginRight: hp('0.2%'),
+        color: '#2ecc72',
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
     heading: {
         fontSize: Platform.OS === 'ios' ? hp('2%') : hp('2.5%'),
         color: '#121212',
