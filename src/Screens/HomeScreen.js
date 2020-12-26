@@ -469,12 +469,13 @@ class HomeScreen extends Component {
 
         if (val !== null) {
           let clientsList = Object.values(val);
+          let data = clientsList.sort((a, b) => a.date < b.date ? 1 : -1)
           this.setState({
-            clientDatalist: clientsList,
+            clientDatalist: data,
             loaderForData: false,
             rippleEffect: false,
           });
-          this.arrayholder = clientsList;
+          this.arrayholder = data;
         } else {
           this.setState({
             clientDatalist: [],
@@ -731,17 +732,33 @@ class HomeScreen extends Component {
                           {index === this.state.currentIndex && (
                             <View style={styles.subCategoriesList}>
                               <View style={{ marginTop: 10, marginBottom: 10 }}>
-                                <View>
-                                  <Text key={index} style={[styles.body]}>
-                                    Email:{' '}
-                                    <Text
-                                      style={
-                                        ([styles.content], { fontWeight: 'normal' })
-                                      }>
-                                      {item.Email}
+                                {item.Email !== '' ? (
+                                  <View>
+                                    <Text key={index} style={[styles.body]}>
+                                      Email:{' '}
+                                      <Text
+                                        style={
+                                          ([styles.content], { fontWeight: 'normal' })
+                                        }>
+                                        {item.Email}
+                                      </Text>
                                     </Text>
-                                  </Text>
-                                </View>
+                                  </View>
+                                ) : (
+                                    <View>
+                                      <Text key={index} style={[styles.body]}>
+                                        Email:{' '}
+                                        <Text
+                                          style={
+                                            ([styles.content], { fontWeight: 'normal' })
+                                          }>
+                                          N.A.
+                                        </Text>
+                                      </Text>
+                                    </View>
+                                  )
+                                }
+
                                 {/* <View>
                                   <Text key={index} style={[styles.body]}>
                                     Vehicle Type:{' '}
