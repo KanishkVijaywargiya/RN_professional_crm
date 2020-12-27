@@ -25,24 +25,28 @@ export default class AddNewCards extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            categoryType: '',
-            serviceName: '',
-            servicePrice: ''
+            title: '',
+            price: '',
+            validity: '',
+            description: ''
         }
     }
 
     uploadData = async () => {
 
-        if (this.state.categoryType !== '' &&
-            this.state.serviceName !== '' &&
-            this.state.servicePrice !== '') {
+        if (this.state.title !== '' &&
+            this.state.price !== '' &&
+            this.state.validity !== '' &&
+            this.state.description !== '') {
             const user = await firebase
                 .database()
-                .ref(`${this.state.categoryType}/`)
-                .child(`${this.state.serviceName}`)
+                .ref(`CardHolders/`)
+                .child(`${this.state.title}-${this.state.price}`)
                 .set({
-                    Service: this.state.serviceName,
-                    Price: this.state.servicePrice,
+                    Title: this.state.title,
+                    Price: this.state.price,
+                    Validity: this.state.validity,
+                    Description: this.state.description
                 })
             this.props.navigation.goBack();
         }
@@ -53,20 +57,24 @@ export default class AddNewCards extends Component {
 
     alertMsg = () => {
         if (
-            this.state.categoryType == '' &&
-            this.state.serviceName == '' &&
-            this.state.servicePrice == ''
+            this.state.title == '' &&
+            this.state.price == '' &&
+            this.state.validity == '' &&
+            this.state.description == ''
         ) {
             alert('Please Fill all the Details');
             return
-        } if (this.state.categoryType == '') {
-            alert('Please Choose Category Type');
+        } if (this.state.title == '') {
+            alert('Please Enter Title');
             return
-        } if (this.state.serviceName == '') {
-            alert('Please Enter Service Name');
+        } if (this.state.price == '') {
+            alert('Please Enter Price');
             return
-        } if (this.state.servicePrice == '') {
-            alert('Please Enter Service Price');
+        } if (this.state.validity == '') {
+            alert('Please Enter Validity');
+            return
+        } if (this.state.description == '') {
+            alert('Please Enter Description');
             return
         }
     }
@@ -74,7 +82,7 @@ export default class AddNewCards extends Component {
     render() {
         return (
             <View style={{ backgroundColor: '#fff', flex: 1 }}>
-                <Header title='Add new services' color='#7CEC9F' />
+                <Header title='Add new cards' color='#7CEC9F' />
                 <View style={{ position: 'absolute', top: Platform.OS === 'ios' ? hp('5%') : hp('2%'), left: Platform.OS === 'ios' ? hp('2%') : hp('2%') }}>
                     <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} onPress={() => this.props.navigation.goBack()}>
                         <Icon
@@ -89,30 +97,28 @@ export default class AddNewCards extends Component {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={{ zIndex: 1000 }}>
                             <Form>
-                                {/* dropdown */}
-                                <View style={{ marginTop: 10, zIndex: 1000, elevation: 1000 }}>
-                                    <View>
-                                        <View style={{ zIndex: 300, elevation: 300 }}>
-                                            <Picker
-                                                selectedValue={this.state.categoryType ? this.state.categoryType : 'Select the Category of Vehicle'}
-                                                style={{ height: Platform.OS == 'ios' ? 100 : 40, marginBottom: 20 }}
-                                                onValueChange={item => this.setState({
-                                                    categoryType: item
-                                                })}>
-                                                {categoryOfVehicle.map((item, key) => (
-                                                    <Picker.Item label={item.label} value={item.value} key={key} />)
-                                                )}
-                                            </Picker>
-                                        </View>
-                                    </View>
-                                </View>
+                                {/* title */}
                                 <Item>
                                     <Icon name='list' size={26} color={color} />
-                                    <Input placeholder="Service Name" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={serviceName => this.setState({ serviceName: serviceName })} />
+                                    <Input placeholder="Title" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={title => this.setState({ title: title })} />
                                 </Item>
+
+                                {/* price */}
                                 <Item>
                                     <Icons name='inr' size={26} color={color} />
-                                    <Input placeholder="Service Price" style={{ ...styles.formfields }} autoCorrect={false} keyboardType="number-pad" onChangeText={servicePrice => this.setState({ servicePrice: servicePrice })} />
+                                    <Input placeholder="Price" style={{ ...styles.formfields }} keyboardType="number-pad" autoCorrect={false} onChangeText={price => this.setState({ price: price })} />
+                                </Item>
+
+                                {/* validity */}
+                                <Item>
+                                    <Icon name='alarm-outline' size={26} color={color} />
+                                    <Input placeholder="Validity" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={validity => this.setState({ validity: validity })} />
+                                </Item>
+
+                                {/* description */}
+                                <Item>
+                                    <Icon name='list' size={26} color={color} />
+                                    <Input placeholder="Description" style={{ ...styles.formfields }} autoCorrect={false} onChangeText={description => this.setState({ description: description })} />
                                 </Item>
                             </Form>
                         </View>
@@ -152,46 +158,3 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 }
     },
 })
-
-const categoryOfVehicle = [
-    {
-        id: 1,
-        label: 'Category of vehicle',
-        value: 'Category of vehicle'
-    },
-    {
-        id: 1,
-        label: 'Hatch Back',
-        value: 'Hatch Back'
-    },
-    {
-        id: 2,
-        label: 'Sedan - C-SUV',
-        value: 'Sedan - C-SUV'
-    },
-    {
-        id: 3,
-        label: 'SUV-MUV',
-        value: 'SUV-MUV'
-    },
-    {
-        id: 4,
-        label: 'Luxury',
-        value: 'Luxury'
-    },
-    {
-        id: 5,
-        label: 'Regular',
-        value: 'Regular'
-    },
-    {
-        id: 6,
-        label: 'Splender',
-        value: 'Splender'
-    },
-    {
-        id: 7,
-        label: 'Super Bike',
-        value: 'Super Bike'
-    },
-]

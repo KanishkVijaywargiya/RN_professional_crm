@@ -117,7 +117,7 @@ class Login extends Component {
               }}>
               <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Welcome</Text>
               <Text style={{ fontSize: 12, fontWeight: '500', color: '#121212' }}>
-                Log in to your existed account of Clean & Shine CRM
+                Log in to your existing account of CLEAN N SHINE CRM
               </Text>
             </View>
             <View
