@@ -1,55 +1,121 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import {
+    Text,
+    Image,
+    StyleSheet,
     View,
-    TextInput,
     ScrollView,
-    SafeAreaView,
     TouchableOpacity,
-    Dimensions,
-    Platform,
 } from 'react-native';
+
+import Header from '../Components/Header.js';
+import RippleEffect2 from '../Components/RippleEffect2.js';
+import TypesOfServices from '../Components/TypesOfServices.js';
+
 
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+import ActionButton from 'react-native-action-button';
+
 import Icon from 'react-native-vector-icons/Ionicons';
-import { connect } from 'react-redux';
+import * as firebase from 'firebase';
+import TypesOfCards from '../Components/TypesOfCards.js';
 
-let screenWidth = Dimensions.get('window').width;
-var cardWith = screenWidth - 40;
-if (screenWidth > 500) {
-    cardWith = 460;
-}
+class CardSegmentNotification extends Component {
 
-// function mapStateToProps(state) {
-//   return {action: state.action};
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     closeNotif: () =>
-//       dispatch({
-//         type: 'CLOSE_NOTIF',
-//       }),
-//   };
-// }
-
-class NotificationScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            serviceList: [],
+            cardCustomerDataList: [],
+            currentIndex: null,
+            loaderForData: true,
+            rippleEffect: true,
+            isPermitted: false,
         };
         this.arrayholder = [];
     }
+
     componentDidMount = () => {
-        this.setState({
-            serviceList: items,
-        });
-        this.arrayholder = items;
+        this.cardHolders()
+    };
+
+    // card holder data list
+    cardHolders = async () => {
+        var listref = await firebase
+            .database()
+            .ref('CardHolders/')
+            .on('value', (dataSnapshot) => {
+                let val = dataSnapshot.val();
+                console.log('VALUE::', val);
+
+                if (val !== null) {
+                    let cardsCustomerList = Object.values(val);
+                    this.setState({
+                        cardCustomerDataList: cardsCustomerList,
+                        loaderForData: false,
+                        rippleEffect: false,
+                    });
+                    this.arrayholder = cardsCustomerList;
+                } else {
+                    this.setState({
+                        cardCustomerDataList: [],
+                        loaderForData: false,
+                        rippleEffect: false,
+                    });
+                }
+                console.log('CardCustomerDataList::', this.state.cardCustomerDataList);
+            });
+        setTimeout(() => {
+            this.setState({
+                loaderForData: false,
+                rippleEffect: false,
+            });
+        }, 5000);
+    };
+
+    listEmptyView = () => {
+        if (this.state.rippleEffect) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <RippleEffect2 />
+                </View>
+            );
+        }
+        return (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Image
+                    style={{
+                        width: Platform.OS === 'ios' ? hp('45%') : hp('45%'),
+                        height: hp('35%'),
+                    }}
+                    source={require('../Assets/netImg/netImg.png')}
+                />
+                <Text
+                    style={{
+                        color: '#723F9D',
+                        fontSize: 30,
+                        fontWeight: 'bold',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                    Aww...Don't Be Panic
+                </Text>
+                <Text
+                    style={{
+                        color: '#C66070',
+                        fontSize: Platform.OS === 'ios' ? 18 : 14,
+                        fontWeight: 'bold',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        textAlign: 'center',
+                    }}>
+                    Data is not availaible Right now {'\n'}
+                </Text>
+            </View>
+        );
     };
 
     searchFilterFunction = (searchText) => {
@@ -65,231 +131,72 @@ class NotificationScreen extends Component {
 
     render() {
         return (
-            <Container>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.goBack()}
-                    style={{
-                        position: 'absolute',
-                        top: Platform.OS === 'ios' ? 40 : 10,
-                        left: '50%',
-                        marginLeft: -22,
-                        zIndex: 100,
-                    }}>
-                    <CloseButton style={{ elevation: 20 }}>
-                        <Icon name="ios-close" size={44} color="#546bfb" />
-                    </CloseButton>
-                </TouchableOpacity>
+
+            <View style={{ backgroundColor: '#fff', flex: 1 }}>
+
+                <Header title="Types of Cards" color="#E74292" />
+                <View style={{ position: 'absolute', top: Platform.OS === 'ios' ? hp('5%') : hp('2%'), left: Platform.OS === 'ios' ? hp('2%') : hp('2%') }}>
+                    <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} onPress={() => this.props.navigation.goBack()}>
+                        <Icon
+                            name={'ios-arrow-back'}
+                            color={'white'}
+                            size={Platform.OS === 'ios' ? hp('3.5%') : hp('5%')}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                {this.state.cardCustomerDataList.length == 0 ? (
+                    this.listEmptyView()
+                ) : (
+                        <ScrollView style={[styles.container]}>
+                            {this.state.cardCustomerDataList.map((item, index) => (
+                                <TypesOfCards Title={item.Title} Price={item.Price} Validity={item.Validity} Description={item.Description} />
+                            ))}
+
+                            <View style={{ height: hp('15%') }} />
+                        </ScrollView>
+                    )
+                }
+
+                {this.state.rippleEffect ?
+                    null
+                    :
+                    <ActionButton buttonColor="#EA425C">
+                        <ActionButton.Item buttonColor='#E74292' title="Add new cards" onPress={() => this.props.navigation.navigate('AddNewCards')}>
+                            <Icon name="md-create" size={32} />
+                        </ActionButton.Item>
+                    </ActionButton>
+                }
 
                 <View
                     style={{
-                        position: 'absolute',
-                        zIndex: 100,
-                        width: Platform.OS === 'ios' ? hp('44%') : hp('54%'),
-                        flexDirection: 'row',
-                        backgroundColor: 'white',
-                        elevation: 10,
-                        shadowColor: 'rgba(191, 223, 237, 1)',
-                        shadowOpacity: 1,
-                        shadowRadius: 2,
-                        shadowOffset: { width: 2, height: 5 },
+                        justifyContent: 'center',
                         alignItems: 'center',
-                        height: 50,
-                        borderRadius: 25,
-                        marginTop: hp('12%'),
-                        marginLeft: hp('1%'),
-                        marginRight: hp('1%'),
+                        backgroundColor: 'transparent',
+                        bottom: Platform.OS === 'ios' ? hp('2%') : hp('0.2%'),
                     }}>
-                    <TextInput
-                        placeholder="Search by Cards Name"
-                        placeholderTextColor="#BFDFED"
-                        onChangeText={(text) => this.searchFilterFunction(text)}
+                    <Text
                         style={{
-                            flex: 1,
-                            fontSize: 20,
+                            color: '#DAE0E2',
+                            fontSize: 10,
+                            fontStyle: 'italic',
                             fontWeight: 'bold',
-                            marginLeft: hp('2%'),
-                            height: 45,
-                            color: '#121212',
-                            alignItems: 'center',
-                        }}
-                    />
-                    <Icon
-                        style={{ marginRight: hp('2%') }}
-                        name={'ios-search'}
-                        color={'#121212'}
-                        size={Platform.OS === 'ios' ? hp('3.5%') : hp('3.5%')}
-                    />
+                        }}>
+                        BlaceNova Inc.
+                        <Text style={{ fontSize: 10, lineHeight: 10 }}>TM</Text>
+                    </Text>
                 </View>
 
-                <SafeAreaView>
-                    <ScrollView
-                        style={{ marginTop: Platform.OS === 'ios' ? hp('10%') : hp('15%') }}
-                        showsVerticalScrollIndicator={false}>
-                        <Wrapper>
-                            <Subtitle>Types of card segment we provide:</Subtitle>
-                            {this.state.serviceList.map((item, index) => (
-                                <ItemContainer key={index}>
-                                    <Header>
-                                        <Logo source={{ uri: item.logo }} resizeMode="contain" />
-                                        <Title>{item.title}</Title>
-                                    </Header>
-                                    <Text>{item.text}</Text>
-                                    <Text>{item.Validity}</Text>
-                                </ItemContainer>
-                            ))}
-                        </Wrapper>
-                        <View
-                            style={{
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                bottom: hp('2%'),
-                            }}>
-                            <Text
-                                style={{ color: '#121212', fontSize: 10, fontStyle: 'italic' }}>
-                                BlaceNova Inc.
-                                <Text
-                                    style={{
-                                        color: '#121212',
-                                        fontSize: 10,
-                                        lineHeight: 50,
-                                        fontStyle: 'italic',
-                                    }}>
-                                    TM
-                                </Text>
-                            </Text>
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
-            </Container>
+            </View>
         );
     }
 }
 
-export default NotificationScreen;
+export default CardSegmentNotification;
 
-const Container = styled.View`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  background: #f0f3f5;
-`;
-
-const CloseButton = styled.View`
-  width: 44px;
-  height: 44px;
-  border-radius: 22px;
-  background: white;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
-
-const Wrapper = styled.View`
-  align-self: center;
-  width: ${cardWith};
-  padding-top: 50px;
-  padding-bottom: 30px;
-`;
-
-const Subtitle = styled.Text`
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #b8bece;
-`;
-
-const ItemContainer = styled.View`
-  width: 100%;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-  margin-top: 20px;
-`;
-
-const Header = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const Logo = styled.Image`
-  width: 24px;
-  height: 24px;
-`;
-
-const DateContainer = styled.View`
-  background: #4775f2;
-  border-radius: 10px;
-  flex-direction: row;
-  align-items: center;
-  padding: 0 8px;
-  height: 20px;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-`;
-
-const Date = styled.Text`
-  color: white;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-`;
-
-const Title = styled.Text`
-  font-size: 20px;
-  color: #3c4560;
-  font-weight: bold;
-  margin-left: 8px;
-`;
-
-const Text = styled.Text`
-  font-size: 17px;
-  color: #3c4560;
-  margin-top: 20px;
-  line-height: 24px;
-`;
-
-const TitleText = styled.Text`
-  font-size: 17px;
-  color: #3c4560;
-  margin-top: 20px;
-  line-height: 24px;
-  font-weight: bold;
-`;
-
-const items = [
-    {
-        logo:
-            'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-        title: 'Value Card ₹2000',
-        text: 'With 40% extra, One time pay (prepaid)',
-        Validity: '8 Months',
+const styles = StyleSheet.create({
+    container: {
+        top: Platform.OS === 'ios' ? hp('5%') : hp('2%'),
+        left: Platform.OS === 'ios' ? hp('2%') : hp('2%')
     },
-    {
-        logo:
-            'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-        title: 'Value Card ₹5000',
-        text: 'With 30% extra, One time pay (prepaid)',
-        Validity: '4 Months',
-    },
-    {
-        logo:
-            'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-        title: 'Value Card ₹10000',
-        text: 'With 40% extra, One time pay (prepaid)',
-        Validity: '8 Months',
-    },
-    {
-        logo:
-            'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-        title: 'Privilege Card ₹650',
-        text: 'Everytime payment with 15% flat discount',
-        Validity: '1 year from the date of purchase',
-    },
-];
-
+});
