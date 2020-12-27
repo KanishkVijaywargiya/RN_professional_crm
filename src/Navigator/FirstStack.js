@@ -9,6 +9,7 @@ import AnalyticsScreen from '../Screens/AnalyticsScreen.js';
 import FormScreen from '../Screens/FormScreen.js';
 import NotificationScreen from '../Screens/NotificationScreen.js';
 import AddNewService from '../Screens/AddNewService.js';
+import AddNewCards from '../Screens/AddNewCards.js';
 import CardSegmentNotification from '../Screens/CardSegmentNotification.js';
 import AndroidForm from '../Screens/AndroidForm.js';
 import CardRegister from '../Screens/CardRegister.js';
@@ -75,6 +76,14 @@ export default FirstStack = ({ navigation }) => (
       name="CardSegmentNotification"
       component={CardSegmentNotification}
       options={{
+        headerShown: false,
+      }}
+    />
+    <Stack.Screen
+      name="AddNewCards"
+      component={AddNewCards}
+      options={{
+        // title: 'Form',
         headerShown: false,
       }}
     />

@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import {
+  Text,
+  Image,
+  StyleSheet,
   View,
-  TextInput,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
-  Dimensions,
-  Platform,
 } from 'react-native';
+
+import Header from '../Components/Header.js';
+import RippleEffect2 from '../Components/RippleEffect2.js';
+import TypesOfServices from '../Components/TypesOfServices.js';
+
 
 import {
   widthPercentageToDP as wp,
@@ -18,40 +21,274 @@ import {
 import ActionButton from 'react-native-action-button';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import { connect } from 'react-redux';
-
-let screenWidth = Dimensions.get('window').width;
-var cardWith = screenWidth - 40;
-if (screenWidth > 500) {
-  cardWith = 460;
-}
-
-// function mapStateToProps(state) {
-//   return {action: state.action};
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     closeNotif: () =>
-//       dispatch({
-//         type: 'CLOSE_NOTIF',
-//       }),
-//   };
-// }
+import * as firebase from 'firebase';
 
 class NotificationScreen extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      serviceList: [],
+      hatchBackServiceDatalist: [],
+      sedanServiceDatalist: [],
+      suvServiceDatalist: [],
+      luxuryServiceDatalist: [],
+      regularServiceDatalist: [],
+      splenderServiceDatalist: [],
+      superBikeServiceDatalist: [],
+      currentIndex: null,
+      loaderForData: true,
+      rippleEffect: true,
+      isPermitted: false,
     };
     this.arrayholder = [];
   }
+
   componentDidMount = () => {
-    this.setState({
-      serviceList: items,
-    });
-    this.arrayholder = items;
+    this.hatchBackServiceList()
+    this.sedanCSuvServiceList()
+    this.suvMuvServiceList()
+    this.luxuryServiceList()
+    this.regularServiceList()
+    this.splenderServiceList()
+    this.superBikeServiceList()
+  };
+
+  // service list for hatch back car
+  hatchBackServiceList = async () => {
+    var listref = await firebase
+      .database()
+      .ref('Hatch Back/')
+      .on('value', (dataSnapshot) => {
+        let val = dataSnapshot.val();
+        console.log('VALUE::', val);
+
+        if (val !== null) {
+          let hatchBackServicesList = Object.values(val);
+          this.setState({
+            hatchBackServiceDatalist: hatchBackServicesList,
+            loaderForData: false,
+            rippleEffect: false,
+          });
+          this.arrayholder = hatchBackServicesList;
+        } else {
+          this.setState({
+            hatchBackServiceDatalist: [],
+            loaderForData: false,
+            rippleEffect: false,
+          });
+        }
+        console.log('hatchBackServiceDatalist::', this.state.hatchBackServiceDatalist);
+      });
+    setTimeout(() => {
+      this.setState({
+        loaderForData: false,
+        rippleEffect: false,
+      });
+    }, 5000);
+  };
+
+  // sedan cSuv car service list
+  sedanCSuvServiceList = async () => {
+    var listref = await firebase
+      .database()
+      .ref('Sedan - C-SUV/')
+      .on('value', (dataSnapshot) => {
+        let val = dataSnapshot.val();
+        console.log('VALUE::', val);
+
+        if (val !== null) {
+          let sedanServicesList = Object.values(val);
+          this.setState({
+            sedanServiceDatalist: sedanServicesList,
+            loaderForData: false,
+            rippleEffect: false,
+          });
+          this.arrayholder = sedanServicesList;
+        } else {
+          this.setState({
+            sedanServiceDatalist: [],
+            loaderForData: false,
+            rippleEffect: false,
+          });
+        }
+        console.log('SedanServiceDatalist::', this.state.sedanServiceDatalist);
+      });
+    setTimeout(() => {
+      this.setState({
+        loaderForData: false,
+        rippleEffect: false,
+      });
+    }, 5000);
+  };
+
+  // suv muv car service list
+  suvMuvServiceList = async () => {
+    var listref = await firebase
+      .database()
+      .ref('SUV-MUV/')
+      .on('value', (dataSnapshot) => {
+        let val = dataSnapshot.val();
+        console.log('VALUE::', val);
+
+        if (val !== null) {
+          let suvServicesList = Object.values(val);
+          this.setState({
+            suvServiceDatalist: suvServicesList,
+            loaderForData: false,
+            rippleEffect: false,
+          });
+          this.arrayholder = suvServicesList;
+        } else {
+          this.setState({
+            suvServiceDatalist: [],
+            loaderForData: false,
+            rippleEffect: false,
+          });
+        }
+        console.log('SuvServiceDatalist::', this.state.suvServiceDatalist);
+      });
+    setTimeout(() => {
+      this.setState({
+        loaderForData: false,
+        rippleEffect: false,
+      });
+    }, 5000);
+  };
+
+  // luxury car service list
+  luxuryServiceList = async () => {
+    var listref = await firebase
+      .database()
+      .ref('Luxury/')
+      .on('value', (dataSnapshot) => {
+        let val = dataSnapshot.val();
+        console.log('VALUE::', val);
+
+        if (val !== null) {
+          let luxuryServicesList = Object.values(val);
+          this.setState({
+            luxuryServiceDatalist: luxuryServicesList,
+            loaderForData: false,
+            rippleEffect: false,
+          });
+          this.arrayholder = luxuryServicesList;
+        } else {
+          this.setState({
+            luxuryServiceDatalist: [],
+            loaderForData: false,
+            rippleEffect: false,
+          });
+        }
+        console.log('LuxuryServiceDatalist::', this.state.luxuryServiceDatalist);
+      });
+    setTimeout(() => {
+      this.setState({
+        loaderForData: false,
+        rippleEffect: false,
+      });
+    }, 5000);
+  };
+
+  // regular bike service list
+  regularServiceList = async () => {
+    var listref = await firebase
+      .database()
+      .ref('Regular/')
+      .on('value', (dataSnapshot) => {
+        let val = dataSnapshot.val();
+        console.log('VALUE::', val);
+
+        if (val !== null) {
+          let regularServicesList = Object.values(val);
+          this.setState({
+            regularServiceDatalist: regularServicesList,
+            loaderForData: false,
+            rippleEffect: false,
+          });
+          this.arrayholder = regularServicesList;
+        } else {
+          this.setState({
+            regularServiceDatalist: [],
+            loaderForData: false,
+            rippleEffect: false,
+          });
+        }
+        console.log('RegularServiceDatalist::', this.state.regularServiceDatalist);
+      });
+    setTimeout(() => {
+      this.setState({
+        loaderForData: false,
+        rippleEffect: false,
+      });
+    }, 5000);
+  };
+
+  // splender bike service list
+  splenderServiceList = async () => {
+    var listref = await firebase
+      .database()
+      .ref('Splender/')
+      .on('value', (dataSnapshot) => {
+        let val = dataSnapshot.val();
+        console.log('VALUE::', val);
+
+        if (val !== null) {
+          let splenderServicesList = Object.values(val);
+          this.setState({
+            splenderServiceDatalist: splenderServicesList,
+            loaderForData: false,
+            rippleEffect: false,
+          });
+          this.arrayholder = splenderServicesList;
+        } else {
+          this.setState({
+            splenderServiceDatalist: [],
+            loaderForData: false,
+            rippleEffect: false,
+          });
+        }
+        console.log('SplenderServiceDatalist::', this.state.splenderServiceDatalist);
+      });
+    setTimeout(() => {
+      this.setState({
+        loaderForData: false,
+        rippleEffect: false,
+      });
+    }, 5000);
+  };
+
+  // super bike service list
+  superBikeServiceList = async () => {
+    var listref = await firebase
+      .database()
+      .ref('Super Bike/')
+      .on('value', (dataSnapshot) => {
+        let val = dataSnapshot.val();
+        console.log('VALUE::', val);
+
+        if (val !== null) {
+          let superBikeServicesList = Object.values(val);
+          this.setState({
+            superBikeServiceDatalist: superBikeServicesList,
+            loaderForData: false,
+            rippleEffect: false,
+          });
+          this.arrayholder = superBikeServicesList;
+        } else {
+          this.setState({
+            superBikeServiceDatalist: [],
+            loaderForData: false,
+            rippleEffect: false,
+          });
+        }
+        console.log('SuperBikeServiceDatalist::', this.state.superBikeServiceDatalist);
+      });
+    setTimeout(() => {
+      this.setState({
+        loaderForData: false,
+        rippleEffect: false,
+      });
+    }, 5000);
   };
 
   searchFilterFunction = (searchText) => {
@@ -65,411 +302,246 @@ class NotificationScreen extends Component {
     });
   };
 
+  listEmptyView = () => {
+    if (this.state.rippleEffect) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <RippleEffect2 />
+        </View>
+      );
+    }
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Image
+          style={{
+            width: Platform.OS === 'ios' ? hp('45%') : hp('45%'),
+            height: hp('35%'),
+          }}
+          source={require('../Assets/netImg/netImg.png')}
+        />
+        <Text
+          style={{
+            color: '#723F9D',
+            fontSize: 30,
+            fontWeight: 'bold',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          Aww...Don't Be Panic
+        </Text>
+        <Text
+          style={{
+            color: '#C66070',
+            fontSize: Platform.OS === 'ios' ? 18 : 14,
+            fontWeight: 'bold',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+          }}>
+          Data is not availaible Right now {'\n'}
+        </Text>
+      </View>
+    );
+  };
+
   render() {
     return (
-      <Container>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.goBack()}
-          style={{
-            position: 'absolute',
-            top: Platform.OS === 'ios' ? 40 : 10,
-            left: '50%',
-            marginLeft: -22,
-            zIndex: 100,
-          }}>
-          <CloseButton style={{ elevation: 20 }}>
-            <Icon name="ios-close" size={44} color="#546bfb" />
-          </CloseButton>
-        </TouchableOpacity>
+      <View style={{ backgroundColor: '#fff', flex: 1 }}>
+
+        <Header title="Types of Services" color="#E74292" />
+        <View style={{ position: 'absolute', top: Platform.OS === 'ios' ? hp('5%') : hp('2%'), left: Platform.OS === 'ios' ? hp('2%') : hp('2%') }}>
+          <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} onPress={() => this.props.navigation.goBack()}>
+            <Icon
+              name={'ios-arrow-back'}
+              color={'white'}
+              size={Platform.OS === 'ios' ? hp('3.5%') : hp('5%')}
+            />
+          </TouchableOpacity>
+        </View>
+
+        {this.state.hatchBackServiceDatalist.length == 0 ? (
+          this.listEmptyView()
+        ) : (
+
+            <ScrollView style={[styles.container]}>
+
+              {/* hatch back */}
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.ballMark]}></View>
+                <Text style={[styles.Title]}>Hatch Back</Text>
+              </View>
+
+              {this.state.hatchBackServiceDatalist.map((item, index) => (
+                <TypesOfServices serviceName={item.Service} servicePrice={item.Price} />
+              ))}
+              <View style={{ ...styles.hrLine }} />
+
+              {/* sedan - c -suv */}
+              <View style={{ marginTop: hp('1.5%'), flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.ballMark2]}></View>
+                <Text style={[styles.Title]}>Sedan-C-SUV</Text>
+              </View>
+
+              {this.state.sedanServiceDatalist.map((item, index) => (
+                <TypesOfServices serviceName={item.Service} servicePrice={item.Price} />
+              ))}
+              <View style={{ ...styles.hrLine }} />
+
+              {/* Suv Muv */}
+              <View style={{ marginTop: hp('1.5%'), flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.ballMark3]}></View>
+                <Text style={[styles.Title]}>SUV-MUV</Text>
+              </View>
+
+              {this.state.suvServiceDatalist.map((item, index) => (
+                <TypesOfServices serviceName={item.Service} servicePrice={item.Price} />
+              ))}
+              <View style={{ ...styles.hrLine }} />
+
+              {/* luxury */}
+              <View style={{ marginTop: hp('1.5%'), flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.ballMark4]}></View>
+                <Text style={[styles.Title]}>Luxury</Text>
+              </View>
+
+              {this.state.luxuryServiceDatalist.map((item, index) => (
+                <TypesOfServices serviceName={item.Service} servicePrice={item.Price} />
+              ))}
+              <View style={{ ...styles.hrLine }} />
+
+              {/* regular */}
+              <View style={{ marginTop: hp('1.5%'), flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.ballMark5]}></View>
+                <Text style={[styles.Title]}>Regular</Text>
+              </View>
+
+              {this.state.regularServiceDatalist.map((item, index) => (
+                <TypesOfServices serviceName={item.Service} servicePrice={item.Price} />
+              ))}
+              <View style={{ ...styles.hrLine }} />
+
+              {/* splender */}
+              <View style={{ marginTop: hp('1.5%'), flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.ballMark6]}></View>
+                <Text style={[styles.Title]}>Special</Text>
+              </View>
+
+              {this.state.splenderServiceDatalist.map((item, index) => (
+                <TypesOfServices serviceName={item.Service} servicePrice={item.Price} />
+              ))}
+              <View style={{ ...styles.hrLine }} />
+
+              {/* super bike */}
+              <View style={{ marginTop: hp('1.5%'), flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.ballMark7]}></View>
+                <Text style={[styles.Title]}>Super Bike</Text>
+              </View>
+
+              {this.state.superBikeServiceDatalist.map((item, index) => (
+                <TypesOfServices serviceName={item.Service} servicePrice={item.Price} />
+              ))}
+              <View style={{ ...styles.hrLine }} />
+
+              <View style={{ height: hp('15%') }} />
+            </ScrollView>
+          )
+        }
+
+        {this.state.rippleEffect ?
+          null
+          :
+          <ActionButton buttonColor="#EA425C">
+            <ActionButton.Item buttonColor='#E74292' title="Add new service" onPress={() => this.props.navigation.navigate('AddNewService')}>
+              <Icon name="md-create" size={32} />
+            </ActionButton.Item>
+          </ActionButton>
+        }
 
         <View
           style={{
-            position: 'absolute',
-            zIndex: 100,
-            width: Platform.OS === 'ios' ? hp('44%') : hp('54%'),
-            flexDirection: 'row',
-            backgroundColor: 'white',
-            elevation: 10,
-            shadowColor: 'rgba(191, 223, 237, 1)',
-            shadowOpacity: 1,
-            shadowRadius: 2,
-            shadowOffset: { width: 2, height: 5 },
+            justifyContent: 'center',
             alignItems: 'center',
-            height: 50,
-            borderRadius: 25,
-            marginTop: hp('12%'),
-            marginLeft: hp('1%'),
-            marginRight: hp('1%'),
+            backgroundColor: 'transparent',
+            bottom: Platform.OS === 'ios' ? hp('2%') : hp('0.2%'),
           }}>
-          <TextInput
-            placeholder="Search by Service Name"
-            placeholderTextColor="#BFDFED"
-            onChangeText={(text) => this.searchFilterFunction(text)}
+          <Text
             style={{
-              flex: 1,
-              fontSize: 20,
+              color: '#DAE0E2',
+              fontSize: 10,
+              fontStyle: 'italic',
               fontWeight: 'bold',
-              marginLeft: hp('2%'),
-              height: 45,
-              color: '#121212',
-              alignItems: 'center',
-            }}
-          />
-          <Icon
-            style={{ marginRight: hp('2%') }}
-            name={'ios-search'}
-            color={'#121212'}
-            size={Platform.OS === 'ios' ? hp('3.5%') : hp('3.5%')}
-          />
+            }}>
+            BlaceNova Inc.
+              <Text style={{ fontSize: 10, lineHeight: 10 }}>TM</Text>
+          </Text>
         </View>
 
-        <SafeAreaView>
-          <ScrollView
-            style={{ marginTop: Platform.OS === 'ios' ? hp('10%') : hp('15%') }}
-            showsVerticalScrollIndicator={false}>
-            <Wrapper>
-              <Subtitle>Types of services we provide:</Subtitle>
-              {this.state.serviceList.map((item, index) => (
-                <ItemContainer key={index}>
-                  <Header>
-                    <Logo source={{ uri: item.logo }} resizeMode="contain" />
-                    <Title>{item.title}</Title>
-                  </Header>
-                  <TitleText>Cars</TitleText>
-                  <Text>{item.text}</Text>
-                  <TitleText>Bikes</TitleText>
-                  <Text>{item.bikeText}</Text>
-                </ItemContainer>
-              ))}
-            </Wrapper>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                bottom: hp('2%'),
-              }}>
-              <Text
-                style={{ color: '#121212', fontSize: 10, fontStyle: 'italic' }}>
-                BlaceNova Inc.
-                <Text
-                  style={{
-                    color: '#121212',
-                    fontSize: 10,
-                    lineHeight: 50,
-                    fontStyle: 'italic',
-                  }}>
-                  TM
-                </Text>
-              </Text>
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-
-        <ActionButton buttonColor="#8B78E6">
-          <ActionButton.Item buttonColor='#F3B431' title="Add new service" onPress={() => this.props.navigation.navigate('AddNewService')}>
-            <Icon name="md-create" size={32} />
-          </ActionButton.Item>
-        </ActionButton>
-
-      </Container>
+      </View>
     );
   }
 }
 
 export default NotificationScreen;
 
-const Container = styled.View`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  background: #f0f3f5;
-`;
-
-const CloseButton = styled.View`
-  width: 44px;
-  height: 44px;
-  border-radius: 22px;
-  background: white;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-`;
-
-const Wrapper = styled.View`
-  align-self: center;
-  width: ${cardWith};
-  padding-top: 50px;
-  padding-bottom: 30px;
-`;
-
-const Subtitle = styled.Text`
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #b8bece;
-`;
-
-const ItemContainer = styled.View`
-  width: 100%;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-  margin-top: 20px;
-`;
-
-const Header = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const Logo = styled.Image`
-  width: 24px;
-  height: 24px;
-`;
-
-const DateContainer = styled.View`
-  background: #4775f2;
-  border-radius: 10px;
-  flex-direction: row;
-  align-items: center;
-  padding: 0 8px;
-  height: 20px;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-`;
-
-const Date = styled.Text`
-  color: white;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-`;
-
-const Title = styled.Text`
-  font-size: 20px;
-  color: #3c4560;
-  font-weight: bold;
-  margin-left: 8px;
-`;
-
-const Text = styled.Text`
-  font-size: 17px;
-  color: #3c4560;
-  margin-top: 20px;
-  line-height: 24px;
-`;
-
-const TitleText = styled.Text`
-  font-size: 17px;
-  color: #3c4560;
-  margin-top: 20px;
-  line-height: 24px;
-  font-weight: bold;
-`;
-
-const items = [
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Basic Wash Package',
-    text:
-      'Hatch Back:- ₹395/-\nSedan/C SUV:- ₹450/-\nSUV/MUV:- ₹500/-\nLuxury:- ₹500/-',
-    bikeText: 'N.A.',
-    date: '23 Jan',
+const styles = StyleSheet.create({
+  container: {
+    top: Platform.OS === 'ios' ? hp('5%') : hp('2%'),
+    left: Platform.OS === 'ios' ? hp('2%') : hp('2%')
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Regular Wash Package',
-    text:
-      'Hatch Back:- ₹625/-\nSedan/C SUV:- ₹675/-\nSUV/MUV:- ₹795/-\nLuxury:- ₹795/-',
-    bikeText: 'N.A.',
-    date: '27 Nov',
+  hrLine: {
+    marginTop: hp('2%'),
+    height: hp('0.1%'),
+    borderRadius: 10,
+    backgroundColor: '#3C40C6',
+    marginLeft: hp('1%'),
+    marginRight: hp('3%'),
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Super Wash Package',
-    text:
-      'Hatch Back:- ₹1025/-\nSedan/C SUV:- ₹1125/-\nSUV/MUV:- ₹1300/-\nLuxury:- ₹1400/-',
-    bikeText: 'N.A.',
-    date: '26 SEP',
+  ballMark: {
+    backgroundColor: '#67E6DC',
+    height: 20,
+    width: 20,
+    borderRadius: 10
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Premium Wash With Rexine/ Leather Seat',
-    text:
-      'Hatch Back:- ₹1800/-\nSedan/C SUV:- ₹2025/-\nSUV/MUV:- ₹2495/-\nLuxury:- ₹2825/-',
-    bikeText: 'N.A.',
-    date: '4 SEP',
+  ballMark2: {
+    backgroundColor: '#E83350',
+    height: 20,
+    width: 20,
+    borderRadius: 10
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Premium Wash With Fabric Seat',
-    text:
-      'Hatch Back:- ₹2150/-\nSedan/C SUV:- ₹2495/-\nSUV/MUV:- ₹3050/-\nLuxury:- ₹3400/-',
-    bikeText: 'N.A.',
-    date: '26 SEP',
+  ballMark3: {
+    backgroundColor: '#2ecc72',
+    height: 20,
+    width: 20,
+    borderRadius: 10
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Foam Wash',
-    text:
-      'Hatch Back:- ₹85/-\nSedan/C SUV:- ₹85/-\nSUV/MUV:- ₹110/-\nLuxury:- ₹110/-',
-    bikeText: 'Regular:- ₹225/-\nSplender:- ₹275/-\nSuper Bike:- ₹325',
-    date: '23 Jan',
+  ballMark4: {
+    backgroundColor: '#FFF222',
+    height: 20,
+    width: 20,
+    borderRadius: 10
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Roof Cleaning',
-    text:
-      'Hatch Back:- ₹450/-\nSedan/C SUV:- ₹575/-\nSUV/MUV:- ₹675/-\nLuxury:- ₹795/-',
-    bikeText: 'N.A.',
-    date: '23 Jan',
+  ballMark5: {
+    backgroundColor: '#3498DB',
+    height: 20,
+    width: 20,
+    borderRadius: 10
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Seat Cleaning (Rexine/ Leather)',
-    text:
-      'Hatch Back:- ₹450/-\nSedan/C SUV:- ₹575/-\nSUV/MUV:- ₹795/-\nLuxury:- ₹795/-',
-    bikeText: 'N.A.',
-    date: '23 Jan',
+  ballMark6: {
+    backgroundColor: '#333945',
+    height: 20,
+    width: 20,
+    borderRadius: 10
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Seat Cleaning (Fabric)',
-    text:
-      'Hatch Back:- ₹900/-\nSedan/C SUV:- ₹900/-\nSUV/MUV:- ₹1475/-\nLuxury:- ₹1695/-',
-    bikeText: 'N.A.',
-    date: '23 Jan',
+  ballMark7: {
+    backgroundColor: '#BB2CD9',
+    height: 20,
+    width: 20,
+    borderRadius: 10
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Seat Leather/ Fabric Conditioning',
-    text:
-      'Hatch Back:- ₹450/-\nSedan/C SUV:- ₹575/-\nSUV/MUV:- ₹795/-\nLuxury:- ₹795/-',
-    bikeText: 'Regular:- ₹110/-\nSplender:- ₹110/-\nSuper Bike:- ₹110',
-    date: '23 Jan',
+  Title: {
+    fontSize: hp('3.5%'),
+    fontWeight: 'bold',
+    color: '#b8bece',
+    padding: hp('1%')
   },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Interior Roof & Upholstery Cleaning (Paicrytal)',
-    text:
-      'Hatch Back:- ₹1250/-\nSedan/C SUV:- ₹1425/-\nSUV/MUV:- ₹1800/-\nLuxury:- ₹2275/-',
-    bikeText: 'N.A.',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Teflon Polish (Insta Finish + Pai Crystal)',
-    text:
-      'Hatch Back:- ₹2495/-\nSedan/C SUV:- ₹2995/-\nSUV/MUV:- ₹3995/-\nLuxury:- ₹4995/-',
-    bikeText: 'Regular:- ₹450/-\nSplender:- ₹450/-\nSuper Bike:- ₹500',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Nano Paint Guard Coating',
-    text:
-      'Hatch Back:- ₹13,995/-\nSedan/C SUV:- ₹15,995/-\nSUV/MUV:- ₹17,995/-\nLuxury:- ₹19,995/-',
-    bikeText: 'Regular:- ₹2995/-\nSplender:- ₹3995/-\nSuper Bike:- ₹4995',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Instant Shine (Nanoskin/ Petra, USA)',
-    text:
-      'Hatch Back:- ₹275/-\nSedan/C SUV:- ₹325/-\nSUV/MUV:- ₹450/-\nLuxury:- ₹500/-',
-    bikeText: 'Regular:- ₹80/-\nSplender:- ₹100/-\nSuper Bike:- ₹120',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Under Body Antirust Protection',
-    text:
-      'Hatch Back:- ₹1975/-\nSedan/C SUV:- ₹2275/-\nSUV/MUV:- ₹2550/-\nLuxury:- ₹2825/-',
-    bikeText: 'Regular:- ₹200/-\nSplender:- ₹200/-\nSuper Bike:- ₹200',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Silencer Heat Resistant Coating',
-    text:
-      'Hatch Back:- ₹450/-\nSedan/C SUV:- ₹500/-\nSUV/MUV:- ₹675/-\nLuxury:- ₹675/-',
-    bikeText: 'Regular:- ₹150/-\nSplender:- ₹150/-\nSuper Bike:- ₹150',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Air-Conditioner Dis-Infection',
-    text:
-      'Hatch Back:- ₹450/-\nSedan/C SUV:- ₹500/-\nSUV/MUV:- ₹675/-\nLuxury:- ₹675/-',
-    bikeText: 'N.A.',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Alloy/Wheel Degreasing & Cleaning',
-    text:
-      'Hatch Back:- ₹350/-\nSedan/C SUV:- ₹450/-\nSUV/MUV:- ₹575/-\nLuxury:- ₹675/-',
-    bikeText: 'Regular:- ₹110/-\nSplender:- ₹110/-\nSuper Bike:- ₹110',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Nitrogen Air Inflation in 4 Tyres',
-    text:
-      'Hatch Back:- ₹110/-\nSedan/C SUV:- ₹110/-\nSUV/MUV:- ₹110/-\nLuxury:- ₹110/-',
-    bikeText: 'Regular:- ₹50/-\nSplender:- ₹50/-\nSuper Bike:- ₹50',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Engine Washing, Degreasing & Cleaning (Petra)',
-    text:
-      'Hatch Back:- ₹450/-\nSedan/C SUV:- ₹450/-\nSUV/MUV:- ₹575/-\nLuxury:- ₹675/-',
-    bikeText: 'Regular:- ₹150/-\nSplender:- ₹150/-\nSuper Bike:- ₹150',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'Wind Shield/ Glass Treatment (Nanoskin/ H2O)',
-    text:
-      'Hatch Back:- ₹450/-\nSedan/C SUV:- ₹575/-\nSUV/MUV:- ₹675/-\nLuxury:- ₹795/-',
-    bikeText: 'N.A.',
-    date: '23 Jan',
-  },
-  {
-    logo:
-      'https://p73.f4.n0.cdn.getcloudapp.com/items/wbu7xK6X/logo-vue.png?v=2f6cbfbd65c9698f25db8b6a2d8d7700',
-    title: 'All Glass Water Spot/ Stain Removal (Nanoskin)',
-    text:
-      'Hatch Back:- 900/-\nSedan/C SUV:- ₹1350/-\nSUV/MUV:- ₹1695/-\nLuxury:- ₹2275/-',
-    bikeText: 'N.A.',
-    date: '23 Jan',
-  },
-];
+});
