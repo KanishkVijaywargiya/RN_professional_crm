@@ -508,18 +508,33 @@ class HomeScreen extends Component {
                                                                 </View>
 
                                                                 {/* email */}
-                                                                <View>
-                                                                    <Text style={[styles.heading]}>
-                                                                        Email:{' '}
-                                                                        <Text
-                                                                            key={index}
-                                                                            style={
-                                                                                ([styles.content], { fontWeight: 'normal' })
-                                                                            }>
-                                                                            {item.email}
+                                                                {item.email !== '' ? (
+                                                                    <View>
+                                                                        <Text style={[styles.heading]}>
+                                                                            Email:{' '}
+                                                                            <Text
+                                                                                key={index}
+                                                                                style={
+                                                                                    ([styles.content], { fontWeight: 'normal' })
+                                                                                }>
+                                                                                {item.email}
+                                                                            </Text>
                                                                         </Text>
-                                                                    </Text>
-                                                                </View>
+                                                                    </View>
+                                                                ) : (
+                                                                        <View>
+                                                                            <Text key={index} style={[styles.body]}>
+                                                                                Email:{' '}
+                                                                                <Text
+                                                                                    style={
+                                                                                        ([styles.content], { fontWeight: 'normal' })
+                                                                                    }>
+                                                                                    N.A.
+                                                                                </Text>
+                                                                            </Text>
+                                                                        </View>
+                                                                    )
+                                                                }
 
                                                                 {/* phone */}
                                                                 <View>

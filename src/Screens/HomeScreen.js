@@ -316,6 +316,8 @@ class HomeScreen extends Component {
 
     console.log("object", item);
 
+    let Email = item.Email ? item.Email : 'N.A.'
+
     let Service = item.Service ? item.Service : ''
     let Service2 = item.Service2 ? item.Service2 : ''
     let Service3 = item.Service3 ? item.Service3 : ''
@@ -344,7 +346,7 @@ class HomeScreen extends Component {
       '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Name: <span style="font-weight: 400;">' + item.Name + '</span></h1>' +
       '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Address: <span style="font-weight: 400;">' + item.Address + '</span> </h1>' +
       '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Mobile: <span style="font-weight: 400;">' + item.Phone + '</span></h1>' +
-      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Email: <span style="font-weight: 400;">' + item.Email + '</span></h1>' +
+      '<h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Email: <span style="font-weight: 400;">' + Email + '</span></h1>' +
       ' <h1 style="font-size: 16px; font-weight: bolder; color: #121212;">Cust. GST No.: <span style="font-weight: 400;">' + item.ClientGst + '</span></h1>' +
       '</div>' +
       ' <div style="width: 380px;">' +
