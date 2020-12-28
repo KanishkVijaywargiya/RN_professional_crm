@@ -1002,6 +1002,8 @@ class HomeScreen extends Component {
                     );
                   })}
                 </Transitioning.View>
+
+                <View style={{ height: hp('15%') }} />
               </ScrollView>
             )}
 
