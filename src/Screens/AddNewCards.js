@@ -32,7 +32,7 @@ export default class AddNewCards extends Component {
         }
     }
 
-    uploadData = async () => {
+    uploadData = async (highlightedNumber) => {
 
         if (this.state.title !== '' &&
             this.state.price !== '' &&
@@ -41,7 +41,7 @@ export default class AddNewCards extends Component {
             const user = await firebase
                 .database()
                 .ref(`CardHolders/`)
-                .child(`${this.state.title}-${this.state.price}`)
+                .child(`${this.state.title}-${highlightedNumber}-${this.state.price}`)
                 .set({
                     Title: this.state.title,
                     Price: this.state.price,
@@ -80,6 +80,10 @@ export default class AddNewCards extends Component {
     }
 
     render() {
+        let min = 1.0000;
+        let max = 999999.9999;
+        const highlightedNumber = Math.round(Math.random() * (max - min) + min);
+
         return (
             <View style={{ backgroundColor: '#fff', flex: 1 }}>
                 <Header title='Add new cards' color='#7CEC9F' />
@@ -127,7 +131,7 @@ export default class AddNewCards extends Component {
 
                 <View style={{ marginBottom: hp('2%') }}></View>
                 {/* Upload Button ~ Uploads & takes back to dash board */}
-                <TouchableOpacity style={[styles.uploadButton]} onPress={() => this.uploadData()}>
+                <TouchableOpacity style={[styles.uploadButton]} onPress={() => this.uploadData(highlightedNumber)}>
                     <Text style={{ color: '#fff', fontSize: Platform.OS === 'ios' ? 22 : 18, fontWeight: '600' }}>Upload Data</Text>
                     <Text style={{ color: '#DAE0E2', fontSize: 10, fontStyle: 'italic' }}>BlaceNova Inc.<Text style={{ color: '#DAE0E2', fontSize: 10, lineHeight: Platform.OS === 'ios' ? 50 : 10, fontStyle: 'italic' }}>TM</Text></Text>
                 </TouchableOpacity >
