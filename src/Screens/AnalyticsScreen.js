@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Platform, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View, Image, Platform, TouchableOpacity } from 'react-native';
 
 import {
     widthPercentageToDP as wp,
@@ -14,7 +14,7 @@ import Header from '../Components/Header.js';
 export default class AnalyticsScreen extends Component {
     render() {
         return (
-            <View style={{ backgroundColor: '#fff', flex: 1 }}>
+            <View style={{ backgroundColor: '#FFBB00', flex: 1 }}>
                 <Header title='Analytics' color='#45CE30' />
                 <View style={{ position: 'absolute', top: Platform.OS === 'ios' ? hp('5%') : hp('2%'), left: Platform.OS === 'ios' ? hp('2%') : hp('2%') }}>
                     <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }} onPress={() => this.props.navigation.goBack()}>
@@ -25,7 +25,10 @@ export default class AnalyticsScreen extends Component {
                         />
                     </TouchableOpacity>
                 </View>
-                <View style={{ justifyContent: 'center', alignItems: 'center', top: hp('78%') }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                    <Image style={{ marginTop: Platform.OS == 'ios' ? hp('5%') : hp('2%') }} source={require('../Assets/comingSoon/comingSoon.png')} />
+                </View>
+                <View style={{ justifyContent: 'center', alignItems: 'center', left: 0, right: 0, position: 'absolute', bottom: hp('10%') }}>
                     <Text style={{ color: '#DAE0E2', fontSize: 10, fontStyle: 'italic', fontWeight: 'bold' }}>BlaceNova Inc.<Text style={{ fontSize: 10, lineHeight: 50 }}>TM</Text></Text>
                 </View>
             </View>
