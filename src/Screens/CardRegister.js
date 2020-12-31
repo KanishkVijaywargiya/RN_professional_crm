@@ -189,7 +189,7 @@ export default class RegisterCustomer extends Component {
                                 {/* mobile no */}
                                 <Item>
                                     <Icon name='ios-phone-portrait' size={26} color={color} />
-                                    <Input placeholder="Customer Mob." style={{ ...styles.formfields }} keyboardType='phone-pad' onChangeText={(mobile) => this.setState({ mobile })} />
+                                    <Input placeholder="Customer Mob." style={{ ...styles.formfields }} maxLength={10} keyboardType='phone-pad' onChangeText={(mobile) => this.setState({ mobile })} />
                                 </Item>
 
                                 {/* payment dropdown */}

@@ -423,7 +423,7 @@ class FormScreen extends Component {
                                 </Item>
                                 <Item>
                                     <Icon name='ios-phone-portrait' size={26} color={color} />
-                                    <Input placeholder="Customer Mob." style={{ ...styles.formfields }} keyboardType='phone-pad' onChangeText={clientsPhone => this.setState({ clientsPhone: clientsPhone })} />
+                                    <Input placeholder="Customer Mob." style={{ ...styles.formfields }} maxLength={10} keyboardType='phone-pad' onChangeText={clientsPhone => this.setState({ clientsPhone: clientsPhone })} />
                                 </Item>
                                 <Item>
                                     <Icon name='list' size={26} color={color} />

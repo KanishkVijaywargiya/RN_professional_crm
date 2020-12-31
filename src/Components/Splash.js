@@ -8,8 +8,8 @@ const Splash = props => (
         {/* <Text style={{ fontWeight: 'bold', marginTop: 80, fontSize: Platform.OS === 'ios' ? hp('4.5%') : hp('4.5%') }}>Clean N Shine</Text> */}
         {/* <Text style={{ fontWeight: 'bold', fontSize: Platform.OS === 'ios' ? hp('4.5%') : hp('4.5%') }}>CRM</Text> */}
         <Image style={{ marginTop: Platform.OS == 'ios' ? hp('5%') : hp('2%') }} source={require('../Assets/LoginLogo/login.png')} />
-        <Text style={{ marginTop: Platform.OS == 'ios' ? hp('-7%') : hp('-10%'), fontWeight: 'bold', fontSize: Platform.OS === 'ios' ? hp('4.5%') : hp('4.5%'), color: '#0267AA', fontStyle: 'italic' }}>C R M</Text>
-        <View style={{ flex: 0.9, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ marginTop: Platform.OS == 'ios' ? hp('-7%') : hp('-5%'), fontWeight: 'bold', fontSize: Platform.OS === 'ios' ? hp('4.5%') : hp('4.5%'), color: '#0267AA', fontStyle: 'italic' }}>C R M</Text>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <LottieView style={{ width: hp('35%'), height: hp('35%'), }} source={require('../Assets/LottieJson/splash.json')} autoPlay loop />
         </View>
         <View>
